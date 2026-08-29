@@ -46,6 +46,35 @@ void main() {
     await binding.takeScreenshot(name);
   }
 
+  /// The text field belonging to [label].
+  ///
+  /// By label, never by index: a ListView unbuilds rows that scroll out of
+  /// view, so `find.byType(TextField).at(4)` means different fields at
+  /// different scroll positions and on different sized phones.
+  Finder fieldFor(String label) => find.descendant(
+        of: find
+            .ancestor(of: find.text(label), matching: find.byType(Column))
+            .first,
+        matching: find.byType(TextField),
+      );
+
+  /// Brings [target] into the viewport before touching it.
+  ///
+  /// A ListView only builds what is on screen, so `find.text` cannot see a row
+  /// below the fold — and how far down the fold sits depends on the device and
+  /// on whether the keyboard is up. Without this, a test that passes on a
+  /// 6.3" phone fails on a 6.9" one.
+  Future<void> reveal(WidgetTester tester, Finder target) async {
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      target,
+      160,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.pumpAndSettle();
+  }
+
   testWidgets('home, input, advanced, results', (tester) async {
     await launch(tester);
 
@@ -69,12 +98,13 @@ void main() {
     await settleAndShoot(tester, '02-input');
 
     // Open the advanced options and fill in fee and tax.
+    await reveal(tester, find.text('Advanced'));
     await tester.tap(find.text('Advanced'));
     await tester.pumpAndSettle();
-    final advancedFields = find.byType(TextField);
-    await tester.enterText(advancedFields.at(4), '0.75');
+    await reveal(tester, find.text('Capital gains tax'));
+    await tester.enterText(fieldFor('Annual management fee'), '0.75');
     await tester.pumpAndSettle();
-    await tester.enterText(advancedFields.at(5), '25');
+    await tester.enterText(fieldFor('Capital gains tax'), '25');
     await tester.pumpAndSettle();
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle();
