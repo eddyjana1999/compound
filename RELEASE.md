@@ -202,3 +202,61 @@ listing that reads as financial advice rather than an estimate.
 - **App icon is still Flutter's default** — give me a 1024×1024 PNG and I will generate every size
 - Real AdMob unit ids
 - Privacy policy at a public URL
+
+---
+
+# In-app purchase: remove ads
+
+A single non-consumable, `com.compoundapp.compound.remove_ads`, priced at tier $2.99.
+
+The app never hardcodes that price. It asks the store and shows whatever string comes back, so a
+German user sees euros and Apple can re-tier without a release. If the store has no answer — no
+network, product not approved yet — the upsell card renders nothing rather than offering a price
+the app invented.
+
+## What you must create before it works
+
+**App Store Connect** → your app → Monetization → In-App Purchases → **+**
+- Type: **Non-Consumable**
+- Reference name: `Remove Ads`
+- Product ID: `com.compoundapp.compound.remove_ads` (must match exactly)
+- Price: Tier 3 ($2.99 in the US; every other currency is set by Apple's matrix)
+- Add a localised display name and description for **every** language the app ships — a missing
+  one blocks review
+- Upload a screenshot of the purchase in the app for review
+
+**You must also complete Agreements, Tax and Banking** in App Store Connect. Until the Paid
+Applications agreement is active, `queryProductDetails` returns nothing and the card stays hidden.
+This trips up almost everyone the first time.
+
+**Play Console** → Monetize → Products → In-app products → Create
+- Same product ID, price $2.99, activate it
+- Products only resolve for a build uploaded to a track (internal testing is enough) and signed
+  with the upload key — not for a local debug build
+
+## Testing it
+
+- iOS: create a **Sandbox tester** in App Store Connect → Users and Access, then sign into it on
+  the device under Settings → Developer. Sandbox purchases are free and repeatable.
+- Android: add your account to the **License testers** list in the Play Console.
+- Neither works on a plain simulator or emulator, which is why the card is invisible there.
+
+## How it behaves in the app
+
+- Entitlement is stored locally at `compound.adsRemoved`. The store stays the source of truth and
+  Restore re-reads it, but the app opens ad-free offline and without waiting on the network.
+- **Restore purchases** lives in the settings sheet. Apple rejects a non-consumable that cannot be
+  restored, so do not remove it.
+- One provider is the whole gate: when the entitlement is set, `adServiceProvider` hands out a
+  `NoOpAdService` and every ad surface in the app goes quiet at once. No screen checks for itself,
+  so no screen can forget.
+- A cancelled purchase says nothing to the user. Backing out is a choice, not an error.
+- Ask to Buy returns `pending`, which deliberately does not grant the entitlement — it arrives
+  later through the purchase stream once a parent approves.
+
+## Not done, and worth knowing
+
+Receipts are not verified against Apple's or Google's servers. For a one-off unlock on a free
+calculator that is the normal trade-off — server-side validation needs a backend this app does not
+have. A determined user on a jailbroken device can bypass it. If that ever matters more than the
+simplicity, the place to add it is `StorePurchaseService`.

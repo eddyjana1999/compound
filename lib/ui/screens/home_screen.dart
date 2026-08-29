@@ -8,6 +8,7 @@ import '../state/providers.dart';
 import '../widgets/ad_slot.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_card.dart';
+import '../widgets/remove_ads_card.dart';
 import 'input_screen.dart';
 import 'results_screen.dart';
 import 'settings_sheet.dart';
@@ -41,6 +42,7 @@ class HomeScreen extends ConsumerWidget {
                     : _HistoryList(entries: entries),
               ),
             ),
+            const RemoveAdsCard(),
             _NewCalculationBar(),
           ],
         ),

@@ -46,5 +46,12 @@
   "light": "Hell",
   "dark": "Dunkel",
   "currency": "Währung",
-  "adPrivacy": "Anzeigen-Datenschutz"
+  "adPrivacy": "Anzeigen-Datenschutz",
+  "removeAds": "Werbung entfernen",
+  "removeAdsBody": "Einmal zahlen. Die Werbung ist dauerhaft weg.",
+  "restorePurchases": "Käufe wiederherstellen",
+  "purchaseThanks": "Danke. Die Werbung ist weg.",
+  "purchaseFailed": "Der Kauf konnte nicht abgeschlossen werden.",
+  "nothingToRestore": "Kein früherer Kauf für dieses Konto gefunden.",
+  "adsRemovedTitle": "Werbung entfernt"
 }

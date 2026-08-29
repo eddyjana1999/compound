@@ -163,4 +163,27 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get adPrivacy => 'Privacidad de anuncios';
+
+  @override
+  String get removeAds => 'Quitar anuncios';
+
+  @override
+  String get removeAdsBody =>
+      'Un solo pago. Los anuncios desaparecen para siempre.';
+
+  @override
+  String get restorePurchases => 'Restaurar compras';
+
+  @override
+  String get purchaseThanks => 'Gracias. Los anuncios han desaparecido.';
+
+  @override
+  String get purchaseFailed => 'No se ha podido completar la compra.';
+
+  @override
+  String get nothingToRestore =>
+      'No se ha encontrado ninguna compra anterior en esta cuenta.';
+
+  @override
+  String get adsRemovedTitle => 'Anuncios eliminados';
 }

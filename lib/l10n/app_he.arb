@@ -46,5 +46,12 @@
   "light": "בהיר",
   "dark": "כהה",
   "currency": "מטבע",
-  "adPrivacy": "פרטיות מודעות"
+  "adPrivacy": "פרטיות מודעות",
+  "removeAds": "הסרת פרסומות",
+  "removeAdsBody": "תשלום אחד, והפרסומות נעלמות לתמיד.",
+  "restorePurchases": "שחזור רכישות",
+  "purchaseThanks": "תודה. הפרסומות נעלמו.",
+  "purchaseFailed": "לא ניתן היה להשלים את הרכישה.",
+  "nothingToRestore": "לא נמצאה רכישה קודמת בחשבון הזה.",
+  "adsRemovedTitle": "הפרסומות הוסרו"
 }

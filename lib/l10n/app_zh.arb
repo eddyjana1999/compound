@@ -46,5 +46,12 @@
   "light": "浅色",
   "dark": "深色",
   "currency": "货币",
-  "adPrivacy": "广告隐私设置"
+  "adPrivacy": "广告隐私设置",
+  "removeAds": "去除广告",
+  "removeAdsBody": "一次付费，永久去除广告。",
+  "restorePurchases": "恢复购买",
+  "purchaseThanks": "谢谢，广告已去除。",
+  "purchaseFailed": "购买未能完成。",
+  "nothingToRestore": "未找到该账号的历史购买记录。",
+  "adsRemovedTitle": "已去除广告"
 }

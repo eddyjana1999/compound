@@ -46,5 +46,12 @@
   "light": "فاتح",
   "dark": "داكن",
   "currency": "العملة",
-  "adPrivacy": "خصوصية الإعلانات"
+  "adPrivacy": "خصوصية الإعلانات",
+  "removeAds": "إزالة الإعلانات",
+  "removeAdsBody": "دفعة واحدة، وتختفي الإعلانات نهائيًا.",
+  "restorePurchases": "استعادة المشتريات",
+  "purchaseThanks": "شكرًا لك. لقد اختفت الإعلانات.",
+  "purchaseFailed": "تعذّر إتمام عملية الشراء.",
+  "nothingToRestore": "لم يُعثر على عملية شراء سابقة على هذا الحساب.",
+  "adsRemovedTitle": "تمت إزالة الإعلانات"
 }

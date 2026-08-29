@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/app_localizations.dart';
 import '../state/providers.dart';
 import '../theme/app_theme.dart';
+import '../widgets/remove_ads_card.dart';
 
 /// Language and appearance, as a sheet rather than a screen — they are two
 /// settings, not a section of the app.
@@ -52,6 +53,11 @@ class _SettingsSheet extends ConsumerWidget {
           children: [
             Text(l10n.settings, style: context.texts.headlineMedium),
             const SizedBox(height: 24),
+            // Apple requires a restore path for a non-consumable; an app that
+            // can sell this but cannot restore it is rejected.
+            _RestoreRow(
+              purchased: ref.watch(adsRemovedProvider),
+            ),
             Text(l10n.appearance, style: context.texts.labelMedium),
             const SizedBox(height: 10),
             SegmentedButton<ThemeMode>(
@@ -147,6 +153,70 @@ class _LanguageTile extends StatelessWidget {
           ? Icon(Icons.check_rounded, color: context.palette.growth)
           : null,
       onTap: onTap,
+    );
+  }
+}
+
+class _RestoreRow extends ConsumerStatefulWidget {
+  const _RestoreRow({required this.purchased});
+
+  final bool purchased;
+
+  @override
+  ConsumerState<_RestoreRow> createState() => _RestoreRowState();
+}
+
+class _RestoreRowState extends ConsumerState<_RestoreRow> {
+  bool _busy = false;
+
+  Future<void> _restore() async {
+    setState(() => _busy = true);
+    final outcome = await ref.read(purchaseServiceProvider).restore();
+    if (!mounted) return;
+    setState(() => _busy = false);
+    showPurchaseOutcome(context, outcome);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    if (widget.purchased) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 26),
+        child: Row(
+          children: [
+            Icon(Icons.check_circle_rounded,
+                size: 20, color: context.palette.growth),
+            const SizedBox(width: 10),
+            Text(
+              l10n.adsRemovedTitle,
+              style: context.texts.titleMedium
+                  ?.copyWith(color: context.palette.growth),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 26),
+      child: OutlinedButton.icon(
+        onPressed: _busy ? null : _restore,
+        icon: _busy
+            ? const SizedBox(
+                width: 16,
+                height: 16,
+                child: CircularProgressIndicator(strokeWidth: 2))
+            : const Icon(Icons.restore_rounded, size: 18),
+        label: Text(l10n.restorePurchases),
+        style: OutlinedButton.styleFrom(
+          minimumSize: const Size.fromHeight(46),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      ),
     );
   }
 }

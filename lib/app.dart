@@ -20,6 +20,10 @@ class _CompoundAppState extends ConsumerState<CompoundApp> {
     // Fire and forget: the first frame must not wait on the ad SDK, and every
     // ad surface already renders as nothing until it has something to show.
     ref.read(adServiceProvider).initialize();
+    // Must start before any buy button can be pressed: a purchase that
+    // completes while nothing is listening is one the user paid for and did
+    // not receive. It also replays anything left unfinished from last time.
+    ref.read(purchaseServiceProvider).initialize();
   }
 
   @override

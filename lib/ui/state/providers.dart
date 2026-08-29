@@ -9,6 +9,8 @@ import '../../data/calculation_repository.dart';
 import '../../data/prefs_calculation_repository.dart';
 import '../../data/saved_calculation.dart';
 import '../../domain/growth_engine.dart';
+import '../../iap/purchase_service.dart';
+import '../../iap/store_purchase_service.dart';
 
 /// Overridden in `main` once preferences have loaded, so nothing downstream
 /// has to deal with an unopened store.
@@ -108,6 +110,11 @@ final settingsProvider =
 /// The live ad network. Overridden with [NoOpAdService] in tests, which is
 /// what keeps widget tests free of platform channels.
 final adServiceProvider = Provider<AdService>((ref) {
+  // The entire gate for the paid tier. Every ad surface asks this provider
+  // for its service, so a user who has paid gets a no-op everywhere at once —
+  // no screen can forget to check, because no screen does the checking.
+  if (ref.watch(adsRemovedProvider)) return const NoOpAdService();
+
   final service = GoogleAdService();
   ref.onDispose(service.dispose);
   return service;
@@ -166,3 +173,40 @@ class PreferredCurrency extends Notifier<String?> {
 
 final preferredCurrencyProvider =
     NotifierProvider<PreferredCurrency, String?>(PreferredCurrency.new);
+
+/// Whether this user has paid to remove the ads.
+///
+/// Persisted locally. That is the right trade-off for a one-off unlock on a
+/// calculator: the store is still the source of truth and Restore re-reads it,
+/// but the app opens ad-free offline and without waiting on a network call.
+class AdsRemoved extends Notifier<bool> {
+  static const String _key = 'compound.adsRemoved';
+
+  @override
+  bool build() => ref.watch(sharedPreferencesProvider).getBool(_key) ?? false;
+
+  Future<void> grant() async {
+    if (state) return;
+    state = true;
+    await ref.read(sharedPreferencesProvider).setBool(_key, true);
+  }
+}
+
+final adsRemovedProvider = NotifierProvider<AdsRemoved, bool>(AdsRemoved.new);
+
+final purchaseServiceProvider = Provider<PurchaseService>((ref) {
+  final service = StorePurchaseService(
+    // Fires for a fresh purchase, a restore, and for a deferred purchase that
+    // clears while the app is open — all three mean the same thing here.
+    onEntitled: () => ref.read(adsRemovedProvider.notifier).grant(),
+  );
+  ref.onDispose(service.dispose);
+  return service;
+});
+
+/// The price to show, straight from the store. Null hides the upsell entirely
+/// rather than showing a price the app made up.
+final removeAdsOfferProvider = FutureProvider<RemoveAdsOffer?>((ref) async {
+  if (ref.watch(adsRemovedProvider)) return null;
+  return ref.watch(purchaseServiceProvider).offer();
+});

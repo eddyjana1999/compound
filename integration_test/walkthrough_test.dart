@@ -108,7 +108,12 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('עברית'));
     await tester.pumpAndSettle();
-    await tester.tapAt(const Offset(200, 60));
+
+    // Close the sheet through its own Navigator rather than by tapping a
+    // guessed point above it. The sheet's height changes whenever a row is
+    // added to settings, and a coordinate that used to land on the scrim
+    // silently starts landing inside the sheet.
+    Navigator.of(tester.element(find.text('עברית'))).pop();
     await tester.pumpAndSettle();
 
     expect(find.text('החישובים שלך'), findsOneWidget);

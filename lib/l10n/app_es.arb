@@ -46,5 +46,12 @@
   "light": "Claro",
   "dark": "Oscuro",
   "currency": "Moneda",
-  "adPrivacy": "Privacidad de anuncios"
+  "adPrivacy": "Privacidad de anuncios",
+  "removeAds": "Quitar anuncios",
+  "removeAdsBody": "Un solo pago. Los anuncios desaparecen para siempre.",
+  "restorePurchases": "Restaurar compras",
+  "purchaseThanks": "Gracias. Los anuncios han desaparecido.",
+  "purchaseFailed": "No se ha podido completar la compra.",
+  "nothingToRestore": "No se ha encontrado ninguna compra anterior en esta cuenta.",
+  "adsRemovedTitle": "Anuncios eliminados"
 }

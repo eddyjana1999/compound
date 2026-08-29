@@ -164,4 +164,25 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get adPrivacy => 'פרטיות מודעות';
+
+  @override
+  String get removeAds => 'הסרת פרסומות';
+
+  @override
+  String get removeAdsBody => 'תשלום אחד, והפרסומות נעלמות לתמיד.';
+
+  @override
+  String get restorePurchases => 'שחזור רכישות';
+
+  @override
+  String get purchaseThanks => 'תודה. הפרסומות נעלמו.';
+
+  @override
+  String get purchaseFailed => 'לא ניתן היה להשלים את הרכישה.';
+
+  @override
+  String get nothingToRestore => 'לא נמצאה רכישה קודמת בחשבון הזה.';
+
+  @override
+  String get adsRemovedTitle => 'הפרסומות הוסרו';
 }

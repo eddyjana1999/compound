@@ -163,4 +163,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get adPrivacy => 'Ad privacy';
+
+  @override
+  String get removeAds => 'Remove ads';
+
+  @override
+  String get removeAdsBody => 'One payment. The ads are gone for good.';
+
+  @override
+  String get restorePurchases => 'Restore purchases';
+
+  @override
+  String get purchaseThanks => 'Thank you. The ads are gone.';
+
+  @override
+  String get purchaseFailed => 'The purchase could not be completed.';
+
+  @override
+  String get nothingToRestore => 'No previous purchase found on this account.';
+
+  @override
+  String get adsRemovedTitle => 'Ads removed';
 }

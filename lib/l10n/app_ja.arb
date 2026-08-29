@@ -46,5 +46,12 @@
   "light": "ライト",
   "dark": "ダーク",
   "currency": "通貨",
-  "adPrivacy": "広告のプライバシー"
+  "adPrivacy": "広告のプライバシー",
+  "removeAds": "広告を非表示",
+  "removeAdsBody": "一度のお支払いで、広告が永久に表示されなくなります。",
+  "restorePurchases": "購入を復元",
+  "purchaseThanks": "ありがとうございます。広告は表示されません。",
+  "purchaseFailed": "購入を完了できませんでした。",
+  "nothingToRestore": "このアカウントに以前の購入は見つかりませんでした。",
+  "adsRemovedTitle": "広告は非表示です"
 }

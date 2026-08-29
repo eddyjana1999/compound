@@ -391,6 +391,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ad privacy'**
   String get adPrivacy;
+
+  /// No description provided for @removeAds.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove ads'**
+  String get removeAds;
+
+  /// No description provided for @removeAdsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One payment. The ads are gone for good.'**
+  String get removeAdsBody;
+
+  /// No description provided for @restorePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get restorePurchases;
+
+  /// No description provided for @purchaseThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you. The ads are gone.'**
+  String get purchaseThanks;
+
+  /// No description provided for @purchaseFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The purchase could not be completed.'**
+  String get purchaseFailed;
+
+  /// No description provided for @nothingToRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'No previous purchase found on this account.'**
+  String get nothingToRestore;
+
+  /// No description provided for @adsRemovedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ads removed'**
+  String get adsRemovedTitle;
 }
 
 class _AppLocalizationsDelegate

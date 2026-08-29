@@ -49,5 +49,12 @@
   "light": "Light",
   "dark": "Dark",
   "currency": "Currency",
-  "adPrivacy": "Ad privacy"
+  "adPrivacy": "Ad privacy",
+  "removeAds": "Remove ads",
+  "removeAdsBody": "One payment. The ads are gone for good.",
+  "restorePurchases": "Restore purchases",
+  "purchaseThanks": "Thank you. The ads are gone.",
+  "purchaseFailed": "The purchase could not be completed.",
+  "nothingToRestore": "No previous purchase found on this account.",
+  "adsRemovedTitle": "Ads removed"
 }

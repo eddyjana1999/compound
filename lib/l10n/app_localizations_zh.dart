@@ -159,4 +159,25 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get adPrivacy => '广告隐私设置';
+
+  @override
+  String get removeAds => '去除广告';
+
+  @override
+  String get removeAdsBody => '一次付费，永久去除广告。';
+
+  @override
+  String get restorePurchases => '恢复购买';
+
+  @override
+  String get purchaseThanks => '谢谢，广告已去除。';
+
+  @override
+  String get purchaseFailed => '购买未能完成。';
+
+  @override
+  String get nothingToRestore => '未找到该账号的历史购买记录。';
+
+  @override
+  String get adsRemovedTitle => '已去除广告';
 }

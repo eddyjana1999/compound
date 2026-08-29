@@ -159,4 +159,25 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get adPrivacy => '広告のプライバシー';
+
+  @override
+  String get removeAds => '広告を非表示';
+
+  @override
+  String get removeAdsBody => '一度のお支払いで、広告が永久に表示されなくなります。';
+
+  @override
+  String get restorePurchases => '購入を復元';
+
+  @override
+  String get purchaseThanks => 'ありがとうございます。広告は表示されません。';
+
+  @override
+  String get purchaseFailed => '購入を完了できませんでした。';
+
+  @override
+  String get nothingToRestore => 'このアカウントに以前の購入は見つかりませんでした。';
+
+  @override
+  String get adsRemovedTitle => '広告は非表示です';
 }
