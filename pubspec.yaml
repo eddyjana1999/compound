@@ -1,0 +1,31 @@
+name: compound
+description: A universal compound interest calculator.
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  # Pinned by flutter_localizations — do not bump to ^0.20.3, version solving fails.
+  intl: 0.20.2
+  flutter_riverpod: ^3.0.3
+  fl_chart: ^1.1.1
+  shared_preferences: ^2.5.3
+  google_mobile_ads: ^9.1.0
+  app_tracking_transparency: ^2.0.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  generate: true

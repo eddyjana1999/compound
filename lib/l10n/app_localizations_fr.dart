@@ -1,0 +1,166 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for French (`fr`).
+class AppLocalizationsFr extends AppLocalizations {
+  AppLocalizationsFr([String locale = 'fr']) : super(locale);
+
+  @override
+  String get appTitle => 'Compound';
+
+  @override
+  String get historyTitle => 'Vos calculs';
+
+  @override
+  String get newCalculation => 'Nouveau calcul';
+
+  @override
+  String get emptyTitle => 'Rien pour l\'instant';
+
+  @override
+  String get emptyBody =>
+      'Lancez votre première projection et voyez ce que produisent les intérêts composés.';
+
+  @override
+  String get startingAmount => 'Montant initial';
+
+  @override
+  String get monthlyContribution => 'Versement mensuel';
+
+  @override
+  String get annualReturn => 'Rendement annuel';
+
+  @override
+  String get timeHorizon => 'Horizon de placement';
+
+  @override
+  String yearsValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ans',
+      one: '1 an',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get advanced => 'Avancé';
+
+  @override
+  String get advancedSubtitle => 'Frais et fiscalité';
+
+  @override
+  String get managementFee => 'Frais de gestion annuels';
+
+  @override
+  String get capitalGainsTax => 'Impôt sur les plus-values';
+
+  @override
+  String get optional => 'Facultatif';
+
+  @override
+  String get calculate => 'Calculer';
+
+  @override
+  String get results => 'Résultats';
+
+  @override
+  String youWouldHave(String years) {
+    return 'Après $years, vous auriez';
+  }
+
+  @override
+  String get totalDeposited => 'Total versé';
+
+  @override
+  String get interestEarned => 'Intérêts générés';
+
+  @override
+  String get feesPaid => 'Frais payés';
+
+  @override
+  String get taxPaid => 'Impôts payés';
+
+  @override
+  String get netProfit => 'Gain net';
+
+  @override
+  String get growthOverTime => 'Évolution dans le temps';
+
+  @override
+  String get legendBalance => 'Solde';
+
+  @override
+  String get legendDeposited => 'Versé';
+
+  @override
+  String get save => 'Enregistrer';
+
+  @override
+  String get savedToHistory => 'Enregistré dans vos calculs';
+
+  @override
+  String get delete => 'Supprimer';
+
+  @override
+  String get deleted => 'Supprimé';
+
+  @override
+  String get undo => 'Annuler';
+
+  @override
+  String get clearAll => 'Tout effacer';
+
+  @override
+  String get clearAllTitle => 'Effacer tous les calculs ?';
+
+  @override
+  String get clearAllBody =>
+      'Tous les calculs enregistrés seront supprimés. Action irréversible.';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get disclaimer =>
+      'Estimations basées sur un rendement constant. Ceci n\'est pas un conseil en investissement.';
+
+  @override
+  String get checkYourNumbers => 'Vérifiez vos données';
+
+  @override
+  String yearShort(int count) {
+    return 'A$count';
+  }
+
+  @override
+  String get perYear => 'par an';
+
+  @override
+  String get settings => 'Réglages';
+
+  @override
+  String get language => 'Langue';
+
+  @override
+  String get appearance => 'Apparence';
+
+  @override
+  String get systemDefault => 'Système';
+
+  @override
+  String get light => 'Clair';
+
+  @override
+  String get dark => 'Sombre';
+
+  @override
+  String get currency => 'Devise';
+
+  @override
+  String get adPrivacy => 'Confidentialité des annonces';
+}
