@@ -131,3 +131,74 @@ Still the default blank Flutter storyboard. Not a rejection, but it is the first
 6. TestFlight / Play internal testing on real hardware
 7. Store listings and the two privacy forms
 8. Submit
+
+---
+
+# App Store: the actual upload
+
+Steps 1–3 are one-time setup. After that, shipping an update is step 4 onward.
+
+## 1. Enrol in the Apple Developer Program
+https://developer.apple.com/programs — $99/year. Individual enrolment is usually approved in a
+day or two; a company needs a D-U-N-S number and takes longer. Nothing below works until this is
+done, so start it first.
+
+## 2. Signing, in Xcode
+```bash
+open ios/Runner.xcworkspace
+```
+Select the **Runner** target → **Signing & Capabilities** → tick *Automatically manage signing*
+and pick your Team. Xcode registers the bundle id `com.compoundapp.compound` and creates the
+provisioning profile. This is the only step that must happen in the Xcode GUI.
+
+## 3. Create the app record
+https://appstoreconnect.apple.com → My Apps → **+** → New App.
+- Platform: iOS
+- Bundle ID: pick `com.compoundapp.compound` from the list (it appears after step 2)
+- SKU: anything unique, e.g. `compound-001`
+- Name: must be unique across the whole App Store. "Compound" is likely taken — have a fallback
+  ready, e.g. "Compound — Investment Calculator".
+
+## 4. Build the archive
+```bash
+flutter build ipa --release \
+  --dart-define=USE_REAL_AD_UNITS=true \
+  --dart-define=AD_BANNER_IOS=ca-app-pub-XXXX/YYYY \
+  --dart-define=AD_INTERSTITIAL_IOS=ca-app-pub-XXXX/ZZZZ
+```
+Output lands in `build/ios/ipa/`. Omit the dart-defines and you ship working test ads that earn
+nothing — safe, just pointless.
+
+## 5. Upload
+Either open `build/ios/archive/Runner.xcarchive` in Xcode → **Distribute App** → App Store Connect,
+or drag the `.ipa` into Apple's **Transporter** app (free on the Mac App Store). Transporter is
+simpler and gives clearer errors.
+
+Processing on Apple's side takes 15–60 minutes. You get an email when the build is ready.
+
+## 6. TestFlight first
+Install the build on your own iPhone through TestFlight before submitting. This is where you find
+out whether the ATT prompt, the consent form and a real (non-test) ad fill behave the way they did
+on the simulator. They often do not.
+
+## 7. Fill in the review paperwork
+In App Store Connect, on the version:
+- **App Privacy** → Identifiers → Device ID → used for Third-Party Advertising, **Tracking: Yes**.
+  This must match what `PrivacyInfo.xcprivacy` declares, or the build is rejected.
+- **Screenshots**: 6.7" and 6.5" iPhone required. `screenshots/` has real ones at 6.3"; regenerate
+  at the required sizes.
+- Description, keywords, support URL, **privacy policy URL** (mandatory).
+- **Export compliance**: HTTPS only → "exempt".
+- Age rating questionnaire.
+
+## 8. Submit
+Review is typically 24–48 hours. Common rejections for an app like this: missing privacy policy,
+App Privacy labels that disagree with the privacy manifest, and wording anywhere in the app or
+listing that reads as financial advice rather than an estimate.
+
+## Still blocking, as of 2026-08-29
+- Apple Developer account — yours
+- Signing team in Xcode — yours
+- **App icon is still Flutter's default** — give me a 1024×1024 PNG and I will generate every size
+- Real AdMob unit ids
+- Privacy policy at a public URL
