@@ -25,7 +25,26 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   integration_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.14.4
 
 flutter:
   uses-material-design: true
   generate: true
+
+# Regenerate with: dart run flutter_launcher_icons
+#
+# The source art is cropped full-bleed on purpose. It arrived with its own
+# rounded corners and gold frame; both platforms apply their own mask, so a
+# pre-rounded image gets rounded twice and leaks its background into the
+# corners. Apple's guidelines say the same: supply a full square, no alpha.
+flutter_launcher_icons:
+  image_path: "assets/icon/icon.png"
+  ios: true
+  remove_alpha_ios: true
+  android: true
+  # Android crops adaptive icons to a circle, a squircle or a teardrop
+  # depending on the launcher. The foreground is inset so the Earth and the
+  # Moon survive the tightest of those masks.
+  adaptive_icon_background: "#0B1026"
+  adaptive_icon_foreground: "assets/icon/icon_foreground.png"
+  min_sdk_android: 21
