@@ -139,3 +139,18 @@ through the consent form by hand.
 here can tap the simulator. Fix with:
 
     sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+## Session end, 2026-08-30
+
+Working tree clean, 8 commits, nothing on a remote yet. `flutter analyze` clean, 136 unit tests and
+5 end-to-end tests passing.
+
+Read `RELEASE.md` for what is left before either store, and `TRANSLATIONS.md` for the queued
+translation pass — both are self-contained.
+
+Two things that will bite whoever picks this up:
+
+- The end-to-end tests need `--dart-define=SKIP_PRIVACY_PROMPTS=true`, or the consent and tracking
+  dialogs sit on top of the app and swallow every tap.
+- A rebuilt app icon can look like it has a dark border on the simulator. That is the springboard's
+  icon cache, not the file. Uninstall, stop SpringBoard, reinstall.
