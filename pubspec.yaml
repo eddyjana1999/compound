@@ -46,6 +46,6 @@ flutter_launcher_icons:
   # Android crops adaptive icons to a circle, a squircle or a teardrop
   # depending on the launcher. The foreground is inset so the Earth and the
   # Moon survive the tightest of those masks.
-  adaptive_icon_background: "#0B1026"
+  adaptive_icon_background: "#10B981"
   adaptive_icon_foreground: "assets/icon/icon_foreground.png"
   min_sdk_android: 21
