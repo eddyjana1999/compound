@@ -37,7 +37,7 @@ class StorePurchaseService implements PurchaseService {
 
   Future<void> _onPurchases(List<PurchaseDetails> purchases) async {
     for (final purchase in purchases) {
-      if (purchase.productID != IapConfig.removeAdsProductId) continue;
+      if (purchase.productID != IapConfig.proProductId) continue;
 
       switch (purchase.status) {
         case PurchaseStatus.purchased:
@@ -72,16 +72,16 @@ class StorePurchaseService implements PurchaseService {
   }
 
   @override
-  Future<RemoveAdsOffer?> offer() async {
+  Future<ProOffer?> offer() async {
     try {
       if (!await _iap.isAvailable()) return null;
 
       final response =
-          await _iap.queryProductDetails({IapConfig.removeAdsProductId});
+          await _iap.queryProductDetails({IapConfig.proProductId});
       if (response.productDetails.isEmpty) return null;
 
       final product = response.productDetails.first;
-      return RemoveAdsOffer(id: product.id, price: product.price);
+      return ProOffer(id: product.id, price: product.price);
     } on Object {
       return null;
     }
@@ -93,7 +93,7 @@ class StorePurchaseService implements PurchaseService {
       if (!await _iap.isAvailable()) return PurchaseOutcome.unavailable;
 
       final response =
-          await _iap.queryProductDetails({IapConfig.removeAdsProductId});
+          await _iap.queryProductDetails({IapConfig.proProductId});
       if (response.productDetails.isEmpty) return PurchaseOutcome.unavailable;
 
       final completer = Completer<PurchaseOutcome>();

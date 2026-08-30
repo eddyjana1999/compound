@@ -20,7 +20,13 @@ class SavedCalculation {
   final DateTime createdAt;
   final CalculationInput input;
 
-  static const int _schemaVersion = 1;
+  /// Bumped to 2 when inflation and contribution growth were added.
+  ///
+  /// Version 1 rows are still read — the two new fields simply default to
+  /// zero, which is exactly what those calculations meant. Refusing them
+  /// would wipe the history of anyone updating the app.
+  static const int _schemaVersion = 2;
+  static const Set<int> _readableVersions = {1, 2};
 
   Map<String, Object?> toJson() => {
         'v': _schemaVersion,
@@ -34,6 +40,8 @@ class SavedCalculation {
         'years': input.years,
         'annualManagementFee': input.annualManagementFee,
         'capitalGainsTaxRate': input.capitalGainsTaxRate,
+        'annualInflation': input.annualInflation,
+        'annualContributionGrowth': input.annualContributionGrowth,
         'rateConversion': input.rateConversion.name,
       };
 
@@ -44,7 +52,7 @@ class SavedCalculation {
   /// the app from opening.
   static SavedCalculation? tryFromJson(Map<String, Object?> json) {
     try {
-      if (json['v'] != _schemaVersion) return null;
+      if (!_readableVersions.contains(json['v'])) return null;
 
       final id = json['id'];
       final createdAt = json['createdAt'];
@@ -70,6 +78,9 @@ class SavedCalculation {
         years: json['years'] as int,
         annualManagementFee: json['annualManagementFee'] as int,
         capitalGainsTaxRate: json['capitalGainsTaxRate'] as int,
+        annualInflation: json['annualInflation'] as int? ?? 0,
+        annualContributionGrowth:
+            json['annualContributionGrowth'] as int? ?? 0,
         rateConversion: conversion,
       );
 

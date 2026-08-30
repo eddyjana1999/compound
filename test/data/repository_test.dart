@@ -74,6 +74,29 @@ void main() {
       expect(SavedCalculation.tryFromJson(json), isNull);
     });
 
+    test('a version 1 row still loads, with the new fields at zero', () {
+      // What someone who updates the app has sitting in storage. Refusing it
+      // would silently wipe their history.
+      final v1 = anEntry('old').toJson()
+        ..['v'] = 1
+        ..remove('annualInflation')
+        ..remove('annualContributionGrowth');
+      final restored = SavedCalculation.tryFromJson(v1);
+      expect(restored, isNotNull);
+      expect(restored!.input.annualInflation, 0);
+      expect(restored.input.annualContributionGrowth, 0);
+      expect(restored.input.years, 20);
+    });
+
+    test('the new fields survive a round trip', () {
+      final entry = anEntry('pro',
+          input: anInput().copyWith(
+              annualInflation: 250, annualContributionGrowth: 300));
+      final restored = SavedCalculation.tryDecode(entry.encode())!;
+      expect(restored.input.annualInflation, 250);
+      expect(restored.input.annualContributionGrowth, 300);
+    });
+
     test('an entry the engine would reject is not restored', () {
       final json = anEntry('x').toJson()..['years'] = 0;
       expect(SavedCalculation.tryFromJson(json), isNull);

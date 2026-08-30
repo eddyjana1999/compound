@@ -5,13 +5,13 @@
 /// free of platform channels.
 library;
 
-/// What removing ads costs, exactly as the store reports it.
+/// What Pro costs, exactly as the store reports it.
 ///
 /// The price is a string from the store, never a number this app formats.
 /// A hardcoded "$2.99" is wrong in every country that does not use dollars,
 /// is wrong again when Apple re-tiers prices, and is grounds for rejection.
-class RemoveAdsOffer {
-  const RemoveAdsOffer({required this.id, required this.price});
+class ProOffer {
+  const ProOffer({required this.id, required this.price});
 
   final String id;
 
@@ -54,7 +54,7 @@ abstract class PurchaseService {
   /// The offer, or null when the store is unreachable or the product has not
   /// been set up yet. Callers hide the upsell rather than showing a price
   /// they had to invent.
-  Future<RemoveAdsOffer?> offer();
+  Future<ProOffer?> offer();
 
   Future<PurchaseOutcome> buy();
 
@@ -73,7 +73,7 @@ class NoOpPurchaseService implements PurchaseService {
   Future<void> initialize() async {}
 
   @override
-  Future<RemoveAdsOffer?> offer() async => null;
+  Future<ProOffer?> offer() async => null;
 
   @override
   Future<PurchaseOutcome> buy() async => PurchaseOutcome.unavailable;
@@ -90,6 +90,9 @@ class IapConfig {
 
   /// Must match the product id created in App Store Connect and in the Play
   /// Console. The two stores are configured separately but the id is shared.
-  static const String removeAdsProductId =
-      'com.compoundapp.compound.remove_ads';
+  ///
+  /// One non-consumable, not a subscription. A calculator that runs entirely
+  /// on the device has no ongoing service to justify a recurring charge, and
+  /// Apple asks that question under guideline 3.1.2.
+  static const String proProductId = 'com.compoundapp.compound.pro';
 }

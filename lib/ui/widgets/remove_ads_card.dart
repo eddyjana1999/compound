@@ -32,9 +32,9 @@ class _RemoveAdsCardState extends ConsumerState<RemoveAdsCard> {
 
   @override
   Widget build(BuildContext context) {
-    if (ref.watch(adsRemovedProvider)) return const SizedBox.shrink();
+    if (ref.watch(isProProvider)) return const SizedBox.shrink();
 
-    final offer = ref.watch(removeAdsOfferProvider).value;
+    final offer = ref.watch(proOfferProvider).value;
     if (offer == null) return const SizedBox.shrink();
 
     final l10n = AppLocalizations.of(context);

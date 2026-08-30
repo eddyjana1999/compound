@@ -42,6 +42,13 @@ class GrowthEngine {
     MinorUnits totalDeposited = input.initialAmount;
     MinorUnits cumulativeFees = 0;
 
+    // Grows once a year rather than every month, because that is how a raise
+    // actually arrives. Carried as a running integer and compounded on the
+    // year boundary, so it rounds the same way the balance does.
+    MinorUnits contribution = input.monthlyContribution;
+    final contributionGrowth =
+        basisPointsToRate(input.annualContributionGrowth);
+
     final series = <GrowthPoint>[
       GrowthPoint(
         month: 0,
@@ -52,8 +59,13 @@ class GrowthEngine {
     ];
 
     for (var month = 1; month <= input.months; month++) {
-      balance += input.monthlyContribution;
-      totalDeposited += input.monthlyContribution;
+      // At the start of each year after the first, the deposit steps up.
+      if (contributionGrowth > 0 && month > 1 && (month - 1) % 12 == 0) {
+        contribution += applyRate(contribution, contributionGrowth);
+      }
+
+      balance += contribution;
+      totalDeposited += contribution;
 
       balance += applyRate(balance, monthlyReturn);
 

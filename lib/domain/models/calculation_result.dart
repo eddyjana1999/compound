@@ -1,4 +1,7 @@
+import 'dart:math' as math;
+
 import '../money.dart';
+import '../rate.dart';
 import 'calculation_input.dart';
 
 /// The state of the portfolio at the end of one month.
@@ -90,6 +93,39 @@ class CalculationResult {
 
   /// True when costs were modelled at all.
   bool get hasCosts => totalCosts > 0;
+
+  /// The net figure restated in today's money.
+  ///
+  /// Inflation does not change the projection — the balance really will be
+  /// [netFinalValue] — it changes what that balance is worth. A million in
+  /// thirty years is the only number most people can picture wrongly, and
+  /// this is the correction.
+  MinorUnits get netFinalValueInTodaysMoney {
+    if (!input.hasInflation) return netFinalValue;
+    final factor = math.pow(
+      1 + basisPointsToRate(input.annualInflation),
+      input.years,
+    );
+    return (netFinalValue / factor).round();
+  }
+
+  /// How much of the final figure inflation quietly removes.
+  MinorUnits get purchasingPowerLost =>
+      netFinalValue - netFinalValueInTodaysMoney;
+
+  /// The last monthly contribution, after any yearly growth. Equal to the
+  /// first when growth is off.
+  MinorUnits get finalMonthlyContribution {
+    if (!input.hasContributionGrowth) return input.monthlyContribution;
+    var contribution = input.monthlyContribution;
+    for (var year = 1; year < input.years; year++) {
+      contribution += applyRate(
+        contribution,
+        basisPointsToRate(input.annualContributionGrowth),
+      );
+    }
+    return contribution;
+  }
 
   /// At most [maxPoints] points spread evenly across the whole horizon, always
   /// including the first and the last.

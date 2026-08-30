@@ -16,6 +16,8 @@ class CalculationInput {
     required this.years,
     this.annualManagementFee = 0,
     this.capitalGainsTaxRate = 0,
+    this.annualInflation = 0,
+    this.annualContributionGrowth = 0,
     this.rateConversion = RateConversion.geometric,
   });
 
@@ -39,6 +41,15 @@ class CalculationInput {
   /// Optional capital gains tax rate, applied once to the final profit.
   final BasisPoints capitalGainsTaxRate;
 
+  /// Optional expected inflation. Does not change the projection — it is used
+  /// to restate the final figure in today's money, which is the only number
+  /// a person can actually judge against what things cost now.
+  final BasisPoints annualInflation;
+
+  /// Optional yearly increase to the monthly contribution, for someone whose
+  /// salary rises. 300 means the deposit grows 3% every year.
+  final BasisPoints annualContributionGrowth;
+
   final RateConversion rateConversion;
 
   int get months => years * 12;
@@ -46,6 +57,10 @@ class CalculationInput {
   bool get hasFee => annualManagementFee > 0;
 
   bool get hasTax => capitalGainsTaxRate > 0;
+
+  bool get hasInflation => annualInflation > 0;
+
+  bool get hasContributionGrowth => annualContributionGrowth > 0;
 
   /// Why this input cannot be calculated, or null if it can.
   ///
@@ -68,6 +83,13 @@ class CalculationInput {
         capitalGainsTaxRate > basisPointsPerUnit) {
       return InputProblem.taxOutOfRange;
     }
+    if (annualInflation < 0 || annualInflation >= basisPointsPerUnit) {
+      return InputProblem.inflationOutOfRange;
+    }
+    if (annualContributionGrowth < 0 ||
+        annualContributionGrowth > basisPointsPerUnit) {
+      return InputProblem.contributionGrowthOutOfRange;
+    }
     if (initialAmount == 0 && monthlyContribution == 0) {
       return InputProblem.nothingInvested;
     }
@@ -84,6 +106,8 @@ class CalculationInput {
     int? years,
     BasisPoints? annualManagementFee,
     BasisPoints? capitalGainsTaxRate,
+    BasisPoints? annualInflation,
+    BasisPoints? annualContributionGrowth,
     RateConversion? rateConversion,
   }) {
     return CalculationInput(
@@ -94,6 +118,9 @@ class CalculationInput {
       years: years ?? this.years,
       annualManagementFee: annualManagementFee ?? this.annualManagementFee,
       capitalGainsTaxRate: capitalGainsTaxRate ?? this.capitalGainsTaxRate,
+      annualInflation: annualInflation ?? this.annualInflation,
+      annualContributionGrowth:
+          annualContributionGrowth ?? this.annualContributionGrowth,
       rateConversion: rateConversion ?? this.rateConversion,
     );
   }
@@ -108,6 +135,8 @@ class CalculationInput {
       other.years == years &&
       other.annualManagementFee == annualManagementFee &&
       other.capitalGainsTaxRate == capitalGainsTaxRate &&
+      other.annualInflation == annualInflation &&
+      other.annualContributionGrowth == annualContributionGrowth &&
       other.rateConversion == rateConversion;
 
   @override
@@ -119,6 +148,8 @@ class CalculationInput {
         years,
         annualManagementFee,
         capitalGainsTaxRate,
+        annualInflation,
+        annualContributionGrowth,
         rateConversion,
       );
 }
@@ -132,5 +163,7 @@ enum InputProblem {
   returnAtOrBelowTotalLoss,
   feeOutOfRange,
   taxOutOfRange,
+  inflationOutOfRange,
+  contributionGrowthOutOfRange,
   nothingInvested,
 }

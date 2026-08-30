@@ -10,7 +10,7 @@ void main() {
 
   Future<ProviderContainer> container({bool adsRemoved = false}) async {
     SharedPreferences.setMockInitialValues(
-      adsRemoved ? {'compound.adsRemoved': true} : {},
+      adsRemoved ? {'compound.pro': true} : {},
     );
     final prefs = await SharedPreferences.getInstance();
     return ProviderContainer(
@@ -22,14 +22,14 @@ void main() {
     test('a free user gets a real ad service', () async {
       final c = await container();
       addTearDown(c.dispose);
-      expect(c.read(adsRemovedProvider), isFalse);
+      expect(c.read(isProProvider), isFalse);
       expect(c.read(adServiceProvider), isNot(isA<NoOpAdService>()));
     });
 
     test('a paid user gets no ad service at all', () async {
       final c = await container(adsRemoved: true);
       addTearDown(c.dispose);
-      expect(c.read(adsRemovedProvider), isTrue);
+      expect(c.read(isProProvider), isTrue);
       expect(c.read(adServiceProvider), isA<NoOpAdService>());
     });
 
@@ -39,46 +39,46 @@ void main() {
       addTearDown(c.dispose);
       expect(c.read(adServiceProvider), isNot(isA<NoOpAdService>()));
 
-      await c.read(adsRemovedProvider.notifier).grant();
+      await c.read(isProProvider.notifier).grant();
 
-      expect(c.read(adsRemovedProvider), isTrue);
+      expect(c.read(isProProvider), isTrue);
       expect(c.read(adServiceProvider), isA<NoOpAdService>());
     });
 
     test('the entitlement survives a restart', () async {
       final c = await container();
       addTearDown(c.dispose);
-      await c.read(adsRemovedProvider.notifier).grant();
+      await c.read(isProProvider.notifier).grant();
 
       final prefs = await SharedPreferences.getInstance();
-      expect(prefs.getBool('compound.adsRemoved'), isTrue);
+      expect(prefs.getBool('compound.pro'), isTrue);
 
       final restarted = ProviderContainer(
         overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
       );
       addTearDown(restarted.dispose);
-      expect(restarted.read(adsRemovedProvider), isTrue);
+      expect(restarted.read(isProProvider), isTrue);
     });
 
     test('granting twice is harmless', () async {
       final c = await container();
       addTearDown(c.dispose);
-      await c.read(adsRemovedProvider.notifier).grant();
-      await c.read(adsRemovedProvider.notifier).grant();
-      expect(c.read(adsRemovedProvider), isTrue);
+      await c.read(isProProvider.notifier).grant();
+      await c.read(isProProvider.notifier).grant();
+      expect(c.read(isProProvider), isTrue);
     });
 
     test('a paid user is never offered the upsell', () async {
       final c = await container(adsRemoved: true);
       addTearDown(c.dispose);
-      expect(await c.read(removeAdsOfferProvider.future), isNull);
+      expect(await c.read(proOfferProvider.future), isNull);
     });
   });
 
   group('the product', () {
     test('has one id, shared by both stores', () {
-      expect(IapConfig.removeAdsProductId,
-          'com.compoundapp.compound.remove_ads');
+      expect(IapConfig.proProductId,
+          'com.compoundapp.compound.pro');
     });
   });
 

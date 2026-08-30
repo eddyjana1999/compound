@@ -56,7 +56,7 @@ class _SettingsSheet extends ConsumerWidget {
             // Apple requires a restore path for a non-consumable; an app that
             // can sell this but cannot restore it is rejected.
             _RestoreRow(
-              purchased: ref.watch(adsRemovedProvider),
+              purchased: ref.watch(isProProvider),
             ),
             Text(l10n.appearance, style: context.texts.labelMedium),
             const SizedBox(height: 10),
