@@ -20,20 +20,26 @@ void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   const engine = GrowthEngine();
 
-  Future<void> pumpCard(WidgetTester tester, Locale locale, GlobalKey key) async {
+  Future<void> pumpCard(
+    WidgetTester tester,
+    Locale locale,
+    GlobalKey key,
+  ) async {
     final currency = CurrencySpec(
       code: locale.languageCode == 'he' ? 'ILS' : 'USD',
       decimalDigits: 2,
     );
-    final result = engine.calculate(CalculationInput(
-      currency: currency,
-      initialAmount: 2500000,
-      monthlyContribution: 150000,
-      annualReturn: 800,
-      years: 30,
-      annualManagementFee: 75,
-      capitalGainsTaxRate: 2500,
-    ));
+    final result = engine.calculate(
+      CalculationInput(
+        currency: currency,
+        initialAmount: 2500000,
+        monthlyContribution: 150000,
+        annualReturn: 800,
+        years: 30,
+        annualManagementFee: 75,
+        capitalGainsTaxRate: 2500,
+      ),
+    );
 
     await tester.pumpWidget(
       MaterialApp(
@@ -42,13 +48,12 @@ void main() {
         debugShowCheckedModeBanner: false,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        // Same unbounded height the real overlay gives it.
+        // The same unbounded constraints the real overlay gives it.
         home: Stack(
           children: [
-            OverflowBox(
-              minHeight: 0,
-              maxHeight: double.infinity,
-              alignment: AlignmentDirectional.topStart,
+            Positioned(
+              left: 0,
+              top: 0,
               child: RepaintBoundary(
                 key: key,
                 child: ShareCard(
@@ -63,14 +68,17 @@ void main() {
     );
     await tester.pumpAndSettle(const Duration(seconds: 2));
     await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 900)));
+      () => Future<void>.delayed(const Duration(milliseconds: 900)),
+    );
     await tester.pumpAndSettle();
   }
 
   /// Returns the captured size, so a card taller than the screen can be
   /// proved to have been captured whole rather than clipped at the viewport.
   Future<(int width, int height, int bytes)> capture(
-      WidgetTester tester, GlobalKey key) async {
+    WidgetTester tester,
+    GlobalKey key,
+  ) async {
     final object = key.currentContext!.findRenderObject()!;
     expect(object, isA<RenderRepaintBoundary>());
     final boundary = object as RenderRepaintBoundary;
@@ -85,17 +93,23 @@ void main() {
     });
 
     // The whole card, not just the part that happened to be on screen.
-    expect(captured!.$2, closeTo(logicalHeight * 3, 3),
-        reason: 'the image is shorter than the card — it was clipped');
+    expect(
+      captured!.$2,
+      closeTo(logicalHeight * 3, 3),
+      reason: 'the image is shorter than the card — it was clipped',
+    );
     // ignore: avoid_print
-    print('CAPTURED ${captured.$1}x${captured.$2} '
-        '(card is ${boundary.size.width}x$logicalHeight logical), '
-        '${(captured.$3 / 1024).round()} KB');
+    print(
+      'CAPTURED ${captured.$1}x${captured.$2} '
+      '(card is ${boundary.size.width}x$logicalHeight logical), '
+      '${(captured.$3 / 1024).round()} KB',
+    );
     return captured;
   }
 
-  testWidgets('the card renders and can be captured in English',
-      (tester) async {
+  testWidgets('the card renders and can be captured in English', (
+    tester,
+  ) async {
     final key = GlobalKey();
     await pumpCard(tester, const Locale('en'), key);
 

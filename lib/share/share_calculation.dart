@@ -31,7 +31,7 @@ class ShareCalculation {
     required Rect? origin,
   }) async {
     final l10n = AppLocalizations.of(context);
-    final bytes = await _render(context, result);
+    final bytes = await renderImage(context, result);
     if (bytes == null) throw StateError('render produced no image');
 
     final directory = await getTemporaryDirectory();
@@ -49,12 +49,19 @@ class ShareCalculation {
     );
   }
 
-  /// Paints the card off to the side of the screen and photographs it.
+  /// Paints the card for two frames and photographs it.
   ///
-  /// It has to be in the tree and painted — an Offstage widget is laid out
-  /// but never painted, so capturing one returns nothing. Pushing it far to
-  /// the left keeps it out of sight while it is still a real, painted widget.
-  Future<Uint8List?> _render(
+  /// The card has to be genuinely painted. An Offstage widget is laid out but
+  /// never painted, and one pushed off the side of the screen is skipped by
+  /// the overlay — either way its layer has no valid transform and `toImage`
+  /// fails with "Matrix4 entries must be finite".
+  ///
+  /// So it is drawn where it would be seen, at an opacity low enough that
+  /// nobody does. Zero would skip painting again; this does not. Because a
+  /// RepaintBoundary paints its whole subtree into its own layer, the part
+  /// of the card below the fold is captured too.
+  @visibleForTesting
+  Future<Uint8List?> renderImage(
     BuildContext context,
     CalculationResult result,
   ) async {
@@ -64,22 +71,24 @@ class ShareCalculation {
 
     final entry = OverlayEntry(
       builder: (_) => Positioned(
-        left: -ShareCard.width * 3,
+        // A Positioned with only left and top hands the child unbounded
+        // constraints, which is exactly what a card taller than the screen
+        // needs. Wrapping it in an OverflowBox to "allow" that made the box
+        // try to be infinitely large, the layout failed, nothing painted,
+        // and toImage came back with a non-finite transform.
+        left: 0,
         top: 0,
-        child: Directionality(
-          textDirection: Directionality.of(context),
-          // The overlay is only as tall as the screen and this card is
-          // taller than a phone. Let it take the height it actually needs,
-          // or it gets squeezed into the viewport and overflows.
-          child: OverflowBox(
-            minHeight: 0,
-            maxHeight: double.infinity,
-            alignment: AlignmentDirectional.topStart,
-            child: RepaintBoundary(
-              key: boundaryKey,
-              child: ShareCard(
-                result: result,
-                format: MoneyFormat(localeName, result.currency),
+        child: IgnorePointer(
+          child: Opacity(
+            opacity: 0.004,
+            child: Directionality(
+              textDirection: Directionality.of(context),
+              child: RepaintBoundary(
+                key: boundaryKey,
+                child: ShareCard(
+                  result: result,
+                  format: MoneyFormat(localeName, result.currency),
+                ),
               ),
             ),
           ),
@@ -91,8 +100,13 @@ class ShareCalculation {
     try {
       // Two frames: one to lay the card out, one to be sure it has painted
       // before the pixels are read back.
-      await WidgetsBinding.instance.endOfFrame;
-      await WidgetsBinding.instance.endOfFrame;
+      //
+      // Each wait schedules its own frame first. `endOfFrame` waits for the
+      // *next* frame, and if nothing else has changed there may not be one —
+      // which hangs rather than fails, and is why the button reported that
+      // the image could not be created.
+      await _nextFrame();
+      await _nextFrame();
 
       final object = boundaryKey.currentContext?.findRenderObject();
       if (object is! RenderRepaintBoundary) return null;
@@ -104,6 +118,11 @@ class ShareCalculation {
     } finally {
       entry.remove();
     }
+  }
+
+  static Future<void> _nextFrame() async {
+    WidgetsBinding.instance.scheduleFrame();
+    await WidgetsBinding.instance.endOfFrame;
   }
 
   /// Sorts by date and cannot collide.
