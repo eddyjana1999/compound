@@ -64,7 +64,9 @@ class GrowthChart extends StatelessWidget {
         ),
         const SizedBox(height: 22),
         SizedBox(
-          height: 220,
+          // Grows with the reader's text size, or the scaled axis labels
+          // collide inside a box that stayed the same height.
+          height: 220 * MediaQuery.textScalerOf(context).scale(1).clamp(1.0, 1.6),
           child: LineChart(
             LineChartData(
               minX: 0,

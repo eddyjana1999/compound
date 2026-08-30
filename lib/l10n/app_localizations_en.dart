@@ -260,4 +260,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get inTodaysMoney => 'In today\'s money';
+
+  @override
+  String get depositedShort => 'Paid in';
+
+  @override
+  String get growthShort => 'Growth';
+
+  @override
+  String get errNegativeAmount => 'Amounts cannot be negative.';
+
+  @override
+  String get errHorizonTooShort => 'Choose at least one year.';
+
+  @override
+  String get errHorizonTooLong => 'Choose 100 years or fewer.';
+
+  @override
+  String get errReturnTooLow => 'The return has to be above −100%.';
+
+  @override
+  String get errFeeRange => 'The fee has to be between 0% and 100%.';
+
+  @override
+  String get errTaxRange => 'The tax rate has to be between 0% and 100%.';
+
+  @override
+  String get errInflationRange => 'Inflation has to be between 0% and 100%.';
+
+  @override
+  String get errGrowthRange =>
+      'The yearly increase has to be between 0% and 100%.';
+
+  @override
+  String get errNothingInvested =>
+      'Enter a starting amount or a monthly contribution.';
 }

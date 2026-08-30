@@ -77,5 +77,16 @@
   "contributionGrowthLabel": "Jährliche Erhöhung der Sparrate",
   "beforeCosts": "Vor Gebühren und Steuern",
   "youKeepShare": "Dir bleiben {percent}",
-  "inTodaysMoney": "In heutigem Geld"
+  "inTodaysMoney": "In heutigem Geld",
+  "depositedShort": "Eingezahlt",
+  "growthShort": "Ertrag",
+  "errNegativeAmount": "Beträge können nicht negativ sein.",
+  "errHorizonTooShort": "Wähle mindestens ein Jahr.",
+  "errHorizonTooLong": "Wähle höchstens 100 Jahre.",
+  "errReturnTooLow": "Die Rendite muss über −100 % liegen.",
+  "errFeeRange": "Die Gebühr muss zwischen 0 % und 100 % liegen.",
+  "errTaxRange": "Der Steuersatz muss zwischen 0 % und 100 % liegen.",
+  "errInflationRange": "Die Inflation muss zwischen 0 % und 100 % liegen.",
+  "errGrowthRange": "Die jährliche Erhöhung muss zwischen 0 % und 100 % liegen.",
+  "errNothingInvested": "Gib einen Startbetrag oder eine monatliche Sparrate ein."
 }

@@ -133,7 +133,10 @@ class _Hero extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     return Container(
-      height: 150,
+      // Sized by its padding, not pinned: the badge text inside scales with
+      // the reader's settings and a fixed height would clip it.
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 26),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         gradient: LinearGradient(

@@ -77,5 +77,16 @@
   "contributionGrowthLabel": "積立額の年間増加率",
   "beforeCosts": "手数料と税金を引く前",
   "youKeepShare": "手元に残るのは {percent}",
-  "inTodaysMoney": "現在の価値で"
+  "inTodaysMoney": "現在の価値で",
+  "depositedShort": "元本",
+  "growthShort": "収益",
+  "errNegativeAmount": "金額にマイナスは入力できません。",
+  "errHorizonTooShort": "1 年以上を指定してください。",
+  "errHorizonTooLong": "100 年以内を指定してください。",
+  "errReturnTooLow": "利回りは −100% より大きい必要があります。",
+  "errFeeRange": "手数料は 0%〜100% の範囲で入力してください。",
+  "errTaxRange": "税率は 0%〜100% の範囲で入力してください。",
+  "errInflationRange": "インフレ率は 0%〜100% の範囲で入力してください。",
+  "errGrowthRange": "年間増加率は 0%〜100% の範囲で入力してください。",
+  "errNothingInvested": "初期投資額か毎月の積立額を入力してください。"
 }

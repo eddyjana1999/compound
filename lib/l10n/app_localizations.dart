@@ -577,6 +577,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'In today\'s money'**
   String get inTodaysMoney;
+
+  /// No description provided for @depositedShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid in'**
+  String get depositedShort;
+
+  /// No description provided for @growthShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth'**
+  String get growthShort;
+
+  /// No description provided for @errNegativeAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amounts cannot be negative.'**
+  String get errNegativeAmount;
+
+  /// No description provided for @errHorizonTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose at least one year.'**
+  String get errHorizonTooShort;
+
+  /// No description provided for @errHorizonTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose 100 years or fewer.'**
+  String get errHorizonTooLong;
+
+  /// No description provided for @errReturnTooLow.
+  ///
+  /// In en, this message translates to:
+  /// **'The return has to be above −100%.'**
+  String get errReturnTooLow;
+
+  /// No description provided for @errFeeRange.
+  ///
+  /// In en, this message translates to:
+  /// **'The fee has to be between 0% and 100%.'**
+  String get errFeeRange;
+
+  /// No description provided for @errTaxRange.
+  ///
+  /// In en, this message translates to:
+  /// **'The tax rate has to be between 0% and 100%.'**
+  String get errTaxRange;
+
+  /// No description provided for @errInflationRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Inflation has to be between 0% and 100%.'**
+  String get errInflationRange;
+
+  /// No description provided for @errGrowthRange.
+  ///
+  /// In en, this message translates to:
+  /// **'The yearly increase has to be between 0% and 100%.'**
+  String get errGrowthRange;
+
+  /// No description provided for @errNothingInvested.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a starting amount or a monthly contribution.'**
+  String get errNothingInvested;
 }
 
 class _AppLocalizationsDelegate

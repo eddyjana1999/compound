@@ -254,4 +254,37 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get inTodaysMoney => '現在の価値で';
+
+  @override
+  String get depositedShort => '元本';
+
+  @override
+  String get growthShort => '収益';
+
+  @override
+  String get errNegativeAmount => '金額にマイナスは入力できません。';
+
+  @override
+  String get errHorizonTooShort => '1 年以上を指定してください。';
+
+  @override
+  String get errHorizonTooLong => '100 年以内を指定してください。';
+
+  @override
+  String get errReturnTooLow => '利回りは −100% より大きい必要があります。';
+
+  @override
+  String get errFeeRange => '手数料は 0%〜100% の範囲で入力してください。';
+
+  @override
+  String get errTaxRange => '税率は 0%〜100% の範囲で入力してください。';
+
+  @override
+  String get errInflationRange => 'インフレ率は 0%〜100% の範囲で入力してください。';
+
+  @override
+  String get errGrowthRange => '年間増加率は 0%〜100% の範囲で入力してください。';
+
+  @override
+  String get errNothingInvested => '初期投資額か毎月の積立額を入力してください。';
 }

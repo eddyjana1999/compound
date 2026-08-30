@@ -153,9 +153,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.enterText(fields.at(3), '30');
     await tester.pumpAndSettle();
-    await reveal(tester, find.text('Advanced'));
-    await tester.tap(find.text('Advanced'));
-    await tester.pumpAndSettle();
+    // The fees-and-tax section is open by default now — it is the app's
+    // differentiator, not an advanced option — so there is nothing to expand.
     await reveal(tester, find.text('Capital gains tax'));
     await tester.enterText(fieldFor('Annual management fee'), '0.75');
     await tester.pumpAndSettle();

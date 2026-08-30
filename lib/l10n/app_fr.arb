@@ -77,5 +77,16 @@
   "contributionGrowthLabel": "Augmentation annuelle du versement",
   "beforeCosts": "Avant frais et impôts",
   "youKeepShare": "Il vous reste {percent}",
-  "inTodaysMoney": "En euros d'aujourd'hui"
+  "inTodaysMoney": "En euros d'aujourd'hui",
+  "depositedShort": "Versé",
+  "growthShort": "Gain",
+  "errNegativeAmount": "Les montants ne peuvent pas être négatifs.",
+  "errHorizonTooShort": "Choisissez au moins un an.",
+  "errHorizonTooLong": "Choisissez 100 ans ou moins.",
+  "errReturnTooLow": "Le rendement doit être supérieur à −100 %.",
+  "errFeeRange": "Les frais doivent être entre 0 % et 100 %.",
+  "errTaxRange": "Le taux d'imposition doit être entre 0 % et 100 %.",
+  "errInflationRange": "L'inflation doit être entre 0 % et 100 %.",
+  "errGrowthRange": "L'augmentation annuelle doit être entre 0 % et 100 %.",
+  "errNothingInvested": "Saisissez un montant initial ou un versement mensuel."
 }

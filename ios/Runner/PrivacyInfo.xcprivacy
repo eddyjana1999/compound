@@ -27,10 +27,40 @@
 			<key>NSPrivacyCollectedDataTypeTracking</key>
 			<true/>
 		</dict>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeCoarseLocation</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeThirdPartyAdvertising</string>
+			</array>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeProductInteraction</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeThirdPartyAdvertising</string>
+			</array>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<true/>
+		</dict>
 	</array>
 	<key>NSPrivacyTracking</key>
 	<true/>
 	<key>NSPrivacyTrackingDomains</key>
-	<array/>
+	<array>
+		<string>googleads.g.doubleclick.net</string>
+		<string>googleadservices.com</string>
+		<string>googlesyndication.com</string>
+		<string>doubleclick.net</string>
+		<string>app-measurement.com</string>
+	</array>
 </dict>
 </plist>

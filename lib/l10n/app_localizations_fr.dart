@@ -263,4 +263,40 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get inTodaysMoney => 'En euros d\'aujourd\'hui';
+
+  @override
+  String get depositedShort => 'Versé';
+
+  @override
+  String get growthShort => 'Gain';
+
+  @override
+  String get errNegativeAmount => 'Les montants ne peuvent pas être négatifs.';
+
+  @override
+  String get errHorizonTooShort => 'Choisissez au moins un an.';
+
+  @override
+  String get errHorizonTooLong => 'Choisissez 100 ans ou moins.';
+
+  @override
+  String get errReturnTooLow => 'Le rendement doit être supérieur à −100 %.';
+
+  @override
+  String get errFeeRange => 'Les frais doivent être entre 0 % et 100 %.';
+
+  @override
+  String get errTaxRange =>
+      'Le taux d\'imposition doit être entre 0 % et 100 %.';
+
+  @override
+  String get errInflationRange => 'L\'inflation doit être entre 0 % et 100 %.';
+
+  @override
+  String get errGrowthRange =>
+      'L\'augmentation annuelle doit être entre 0 % et 100 %.';
+
+  @override
+  String get errNothingInvested =>
+      'Saisissez un montant initial ou un versement mensuel.';
 }

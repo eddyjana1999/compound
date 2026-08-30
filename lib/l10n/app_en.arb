@@ -81,5 +81,16 @@
   "beforeCosts": "Before fees and tax",
   "youKeepShare": "You keep {percent}",
   "@youKeepShare": {"placeholders": {"percent": {"type": "String"}}},
-  "inTodaysMoney": "In today's money"
+  "inTodaysMoney": "In today's money",
+  "depositedShort": "Paid in",
+  "growthShort": "Growth",
+  "errNegativeAmount": "Amounts cannot be negative.",
+  "errHorizonTooShort": "Choose at least one year.",
+  "errHorizonTooLong": "Choose 100 years or fewer.",
+  "errReturnTooLow": "The return has to be above −100%.",
+  "errFeeRange": "The fee has to be between 0% and 100%.",
+  "errTaxRange": "The tax rate has to be between 0% and 100%.",
+  "errInflationRange": "Inflation has to be between 0% and 100%.",
+  "errGrowthRange": "The yearly increase has to be between 0% and 100%.",
+  "errNothingInvested": "Enter a starting amount or a monthly contribution."
 }

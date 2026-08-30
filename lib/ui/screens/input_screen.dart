@@ -38,7 +38,7 @@ class _InputScreenState extends ConsumerState<InputScreen> {
   late final TextEditingController _inflation;
   late final TextEditingController _growth;
 
-  bool _advancedOpen = false;
+  bool _advancedOpen = true;
   bool _submitted = false;
   String? _currencyOverride;
 
@@ -379,9 +379,10 @@ class _AdvancedSection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(l10n.advanced, style: context.texts.titleMedium),
+                        Text(l10n.advancedSubtitle,
+                            style: context.texts.titleMedium),
                         Text(
-                          l10n.advancedSubtitle,
+                          l10n.optional,
                           style: context.texts.bodyMedium?.copyWith(
                             fontSize: 13,
                             color: context.colors.onSurface
@@ -520,6 +521,22 @@ class _ProblemBanner extends StatelessWidget {
 
   final InputProblem problem;
 
+  /// The domain distinguishes ten failures; saying "check your numbers" for
+  /// all of them makes the user hunt for which field is wrong.
+  String _message(AppLocalizations l10n) => switch (problem) {
+        InputProblem.negativeInitialAmount ||
+        InputProblem.negativeContribution =>
+          l10n.errNegativeAmount,
+        InputProblem.horizonTooShort => l10n.errHorizonTooShort,
+        InputProblem.horizonTooLong => l10n.errHorizonTooLong,
+        InputProblem.returnAtOrBelowTotalLoss => l10n.errReturnTooLow,
+        InputProblem.feeOutOfRange => l10n.errFeeRange,
+        InputProblem.taxOutOfRange => l10n.errTaxRange,
+        InputProblem.inflationOutOfRange => l10n.errInflationRange,
+        InputProblem.contributionGrowthOutOfRange => l10n.errGrowthRange,
+        InputProblem.nothingInvested => l10n.errNothingInvested,
+      };
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -540,7 +557,7 @@ class _ProblemBanner extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              l10n.checkYourNumbers,
+              _message(l10n),
               style: context.texts.bodyMedium?.copyWith(
                 color: context.colors.onErrorContainer,
                 fontWeight: FontWeight.w600,

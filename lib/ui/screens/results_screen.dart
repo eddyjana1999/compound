@@ -157,23 +157,20 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
                         // beside the result so the number is never read
                         // without the rate that produced it.
                         _HeroChip(
-                          icon: Icons.percent_rounded,
                           label: '${format.percent(widget.input.annualReturn)}'
                               ' ${l10n.perYear}',
                         ),
+                        // Words, not icons. A piggy bank and a circled minus
+                        // carry no meaning, and the costs figure now lives in
+                        // the subline above where it reads as a comparison.
                         _HeroChip(
-                          icon: Icons.savings_outlined,
-                          label: format.moneyCompact(result.totalDeposited),
+                          label: '${l10n.depositedShort} '
+                              '${format.moneyCompact(result.totalDeposited)}',
                         ),
                         _HeroChip(
-                          icon: Icons.trending_up_rounded,
-                          label: format.moneyCompact(result.interestEarned),
+                          label: '${l10n.growthShort} '
+                              '${format.moneyCompact(result.interestEarned)}',
                         ),
-                        if (result.hasCosts)
-                          _HeroChip(
-                            icon: Icons.remove_circle_outline_rounded,
-                            label: format.moneyCompact(result.totalCosts),
-                          ),
                       ],
                     ),
                   ),
@@ -257,9 +254,8 @@ class _Subline extends StatelessWidget {
 }
 
 class _HeroChip extends StatelessWidget {
-  const _HeroChip({required this.icon, required this.label});
+  const _HeroChip({required this.label});
 
-  final IconData icon;
   final String label;
 
   @override
@@ -273,8 +269,6 @@ class _HeroChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: Colors.white.withValues(alpha: 0.9)),
-          const SizedBox(width: 6),
           Text(
             label,
             style: const TextStyle(

@@ -98,9 +98,8 @@ void main() {
     await settleAndShoot(tester, '02-input');
 
     // Open the advanced options and fill in fee and tax.
-    await reveal(tester, find.text('Advanced'));
-    await tester.tap(find.text('Advanced'));
-    await tester.pumpAndSettle();
+    // The fees-and-tax section is open by default now — it is the app's
+    // differentiator, not an advanced option — so there is nothing to expand.
     await reveal(tester, find.text('Capital gains tax'));
     await tester.enterText(fieldFor('Annual management fee'), '0.75');
     await tester.pumpAndSettle();
@@ -135,6 +134,11 @@ void main() {
     // Switch the app language through the settings sheet, the same way a
     // user would, rather than forcing a locale the app never sets itself.
     await tester.tap(find.byIcon(Icons.tune_rounded));
+    await tester.pumpAndSettle();
+    // The sheet grew when Pro was added, pushing the language list below the
+    // fold. A tap on a widget that exists but is not visible silently hits
+    // nothing, which looked like "the locale did not change".
+    await tester.ensureVisible(find.text('עברית'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('עברית'));
     await tester.pumpAndSettle();

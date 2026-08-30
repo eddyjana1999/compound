@@ -260,4 +260,37 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get inTodaysMoney => 'בכוח קנייה של היום';
+
+  @override
+  String get depositedShort => 'הופקד';
+
+  @override
+  String get growthShort => 'רווח';
+
+  @override
+  String get errNegativeAmount => 'סכומים לא יכולים להיות שליליים.';
+
+  @override
+  String get errHorizonTooShort => 'בחר שנה אחת לפחות.';
+
+  @override
+  String get errHorizonTooLong => 'בחר 100 שנים או פחות.';
+
+  @override
+  String get errReturnTooLow => 'התשואה חייבת להיות גבוהה מ־‎−100%.';
+
+  @override
+  String get errFeeRange => 'דמי הניהול חייבים להיות בין 0% ל־100%.';
+
+  @override
+  String get errTaxRange => 'שיעור המס חייב להיות בין 0% ל־100%.';
+
+  @override
+  String get errInflationRange => 'האינפלציה חייבת להיות בין 0% ל־100%.';
+
+  @override
+  String get errGrowthRange => 'הגידול השנתי חייב להיות בין 0% ל־100%.';
+
+  @override
+  String get errNothingInvested => 'הזן סכום התחלתי או הפקדה חודשית.';
 }

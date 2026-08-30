@@ -77,5 +77,16 @@
   "contributionGrowthLabel": "الزيادة السنوية للإيداع",
   "beforeCosts": "قبل الرسوم والضرائب",
   "youKeepShare": "يبقى لك {percent}",
-  "inTodaysMoney": "بقيمة اليوم"
+  "inTodaysMoney": "بقيمة اليوم",
+  "depositedShort": "المودع",
+  "growthShort": "الأرباح",
+  "errNegativeAmount": "لا يمكن أن تكون المبالغ سالبة.",
+  "errHorizonTooShort": "اختر سنة واحدة على الأقل.",
+  "errHorizonTooLong": "اختر 100 سنة أو أقل.",
+  "errReturnTooLow": "يجب أن يكون العائد أعلى من ‎−100٪.",
+  "errFeeRange": "يجب أن تكون الرسوم بين 0٪ و100٪.",
+  "errTaxRange": "يجب أن تكون نسبة الضريبة بين 0٪ و100٪.",
+  "errInflationRange": "يجب أن يكون التضخّم بين 0٪ و100٪.",
+  "errGrowthRange": "يجب أن تكون الزيادة السنوية بين 0٪ و100٪.",
+  "errNothingInvested": "أدخل مبلغًا أوليًا أو إيداعًا شهريًا."
 }
