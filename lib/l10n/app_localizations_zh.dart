@@ -237,4 +237,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get exportFailed => '无法生成导出文件。';
+
+  @override
+  String get inflationLabel => '通货膨胀';
+
+  @override
+  String get contributionGrowthLabel => '每年定投递增';
+
+  @override
+  String get beforeCosts => '扣除费用和税前';
+
+  @override
+  String youKeepShare(String percent) {
+    return '你实得 $percent';
+  }
+
+  @override
+  String get inTodaysMoney => '按今天的购买力';
 }

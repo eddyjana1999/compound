@@ -75,5 +75,11 @@
   "export": "Export",
   "exportPdf": "PDF document",
   "exportCsv": "CSV spreadsheet",
-  "exportFailed": "The export could not be created."
+  "exportFailed": "The export could not be created.",
+  "inflationLabel": "Inflation",
+  "contributionGrowthLabel": "Yearly contribution increase",
+  "beforeCosts": "Before fees and tax",
+  "youKeepShare": "You keep {percent}",
+  "@youKeepShare": {"placeholders": {"percent": {"type": "String"}}},
+  "inTodaysMoney": "In today's money"
 }

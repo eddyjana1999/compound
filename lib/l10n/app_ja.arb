@@ -72,5 +72,10 @@
   "export": "書き出す",
   "exportPdf": "PDF ドキュメント",
   "exportCsv": "CSV スプレッドシート",
-  "exportFailed": "書き出しに失敗しました。"
+  "exportFailed": "書き出しに失敗しました。",
+  "inflationLabel": "インフレ率",
+  "contributionGrowthLabel": "積立額の年間増加率",
+  "beforeCosts": "手数料と税金を引く前",
+  "youKeepShare": "手元に残るのは {percent}",
+  "inTodaysMoney": "現在の価値で"
 }

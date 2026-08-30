@@ -72,5 +72,10 @@
   "export": "Exportar",
   "exportPdf": "Documento PDF",
   "exportCsv": "Hoja de cálculo CSV",
-  "exportFailed": "No se ha podido crear la exportación."
+  "exportFailed": "No se ha podido crear la exportación.",
+  "inflationLabel": "Inflación",
+  "contributionGrowthLabel": "Aumento anual de la aportación",
+  "beforeCosts": "Antes de comisiones e impuestos",
+  "youKeepShare": "Te quedas con el {percent}",
+  "inTodaysMoney": "En dinero de hoy"
 }

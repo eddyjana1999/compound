@@ -243,4 +243,21 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get exportFailed => 'לא ניתן היה ליצור את קובץ הייצוא.';
+
+  @override
+  String get inflationLabel => 'אינפלציה';
+
+  @override
+  String get contributionGrowthLabel => 'גידול שנתי בהפקדה';
+
+  @override
+  String get beforeCosts => 'לפני דמי ניהול ומס';
+
+  @override
+  String youKeepShare(String percent) {
+    return 'נשאר לך $percent';
+  }
+
+  @override
+  String get inTodaysMoney => 'בכוח קנייה של היום';
 }

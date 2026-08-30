@@ -72,5 +72,10 @@
   "export": "تصدير",
   "exportPdf": "مستند PDF",
   "exportCsv": "جدول CSV",
-  "exportFailed": "تعذّر إنشاء ملف التصدير."
+  "exportFailed": "تعذّر إنشاء ملف التصدير.",
+  "inflationLabel": "التضخّم",
+  "contributionGrowthLabel": "الزيادة السنوية للإيداع",
+  "beforeCosts": "قبل الرسوم والضرائب",
+  "youKeepShare": "يبقى لك {percent}",
+  "inTodaysMoney": "بقيمة اليوم"
 }

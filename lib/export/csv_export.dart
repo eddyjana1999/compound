@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import '../domain/models/calculation_result.dart';
 import '../ui/formatting/money_format.dart';
 
@@ -84,3 +86,20 @@ class CsvExport {
 /// or one thousand is worse than one that is plainly English.
 MoneyFormat exportFormat(CalculationResult result) =>
     MoneyFormat('en_US', result.currency);
+
+/// Money for an exported document, written as `ILS 1,234.56`.
+///
+/// The ISO code rather than the symbol, because the PDF is drawn with the
+/// built-in Latin fonts and those contain no shekel, yen, won or rupee sign —
+/// a symbol would come out as an empty box in six of the eight languages the
+/// app ships. The code is also less ambiguous in a document that will be read
+/// by someone who did not make it.
+String exportMoney(CalculationResult result, int minor) {
+  final major = result.currency.toMajor(minor);
+  final digits = result.currency.decimalDigits;
+  final format = NumberFormat.decimalPatternDigits(
+    locale: 'en_US',
+    decimalDigits: digits,
+  );
+  return '${result.currency.code} ${format.format(major)}';
+}

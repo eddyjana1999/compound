@@ -246,4 +246,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get exportFailed => 'تعذّر إنشاء ملف التصدير.';
+
+  @override
+  String get inflationLabel => 'التضخّم';
+
+  @override
+  String get contributionGrowthLabel => 'الزيادة السنوية للإيداع';
+
+  @override
+  String get beforeCosts => 'قبل الرسوم والضرائب';
+
+  @override
+  String youKeepShare(String percent) {
+    return 'يبقى لك $percent';
+  }
+
+  @override
+  String get inTodaysMoney => 'بقيمة اليوم';
 }

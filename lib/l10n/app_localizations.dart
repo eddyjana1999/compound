@@ -547,6 +547,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The export could not be created.'**
   String get exportFailed;
+
+  /// No description provided for @inflationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Inflation'**
+  String get inflationLabel;
+
+  /// No description provided for @contributionGrowthLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly contribution increase'**
+  String get contributionGrowthLabel;
+
+  /// No description provided for @beforeCosts.
+  ///
+  /// In en, this message translates to:
+  /// **'Before fees and tax'**
+  String get beforeCosts;
+
+  /// No description provided for @youKeepShare.
+  ///
+  /// In en, this message translates to:
+  /// **'You keep {percent}'**
+  String youKeepShare(String percent);
+
+  /// No description provided for @inTodaysMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'In today\'s money'**
+  String get inTodaysMoney;
 }
 
 class _AppLocalizationsDelegate

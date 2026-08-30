@@ -72,5 +72,10 @@
   "export": "Exportieren",
   "exportPdf": "PDF-Dokument",
   "exportCsv": "CSV-Tabelle",
-  "exportFailed": "Der Export konnte nicht erstellt werden."
+  "exportFailed": "Der Export konnte nicht erstellt werden.",
+  "inflationLabel": "Inflation",
+  "contributionGrowthLabel": "Jährliche Erhöhung der Sparrate",
+  "beforeCosts": "Vor Gebühren und Steuern",
+  "youKeepShare": "Dir bleiben {percent}",
+  "inTodaysMoney": "In heutigem Geld"
 }

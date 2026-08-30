@@ -72,5 +72,10 @@
   "export": "导出",
   "exportPdf": "PDF 文档",
   "exportCsv": "CSV 表格",
-  "exportFailed": "无法生成导出文件。"
+  "exportFailed": "无法生成导出文件。",
+  "inflationLabel": "通货膨胀",
+  "contributionGrowthLabel": "每年定投递增",
+  "beforeCosts": "扣除费用和税前",
+  "youKeepShare": "你实得 {percent}",
+  "inTodaysMoney": "按今天的购买力"
 }

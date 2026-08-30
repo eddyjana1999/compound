@@ -72,5 +72,10 @@
   "export": "ייצוא",
   "exportPdf": "מסמך PDF",
   "exportCsv": "גיליון CSV",
-  "exportFailed": "לא ניתן היה ליצור את קובץ הייצוא."
+  "exportFailed": "לא ניתן היה ליצור את קובץ הייצוא.",
+  "inflationLabel": "אינפלציה",
+  "contributionGrowthLabel": "גידול שנתי בהפקדה",
+  "beforeCosts": "לפני דמי ניהול ומס",
+  "youKeepShare": "נשאר לך {percent}",
+  "inTodaysMoney": "בכוח קנייה של היום"
 }

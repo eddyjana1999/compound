@@ -176,6 +176,10 @@ void main() {
     // 5 — 49 currencies, which is the reason it is a *universal* calculator.
     await tester.pageBack();
     await tester.pumpAndSettle();
+    // Coming back from the results leaves the form scrolled to the advanced
+    // section, where the amount fields are no longer built.
+    await tester.drag(find.byType(ListView).last, const Offset(0, 700));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('USD').first);
     await shoot(tester, 'store-5-currencies');
   });

@@ -179,9 +179,19 @@ class _HistoryCard extends ConsumerWidget {
       direction: DismissDirection.endToStart,
       onDismissed: (_) {
         onDelete();
+        // A swipe is easy to do by accident and this deletes permanently.
+        // The bulk clear already asks for confirmation; the single delete had
+        // no way back at all, which is the wrong way round.
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(content: Text(l10n.deleted)));
+          ..showSnackBar(SnackBar(
+            content: Text(l10n.deleted),
+            action: SnackBarAction(
+              label: l10n.undo,
+              onPressed: () =>
+                  ref.read(historyProvider.notifier).add(entry),
+            ),
+          ));
       },
       background: Container(
         alignment: AlignmentDirectional.centerEnd,

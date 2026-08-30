@@ -82,6 +82,21 @@ class CalculationResult {
   /// Fees and tax together — the total cost of holding the investment.
   MinorUnits get totalCosts => totalFeesPaid + capitalGainsTax;
 
+  /// What the same investment would have been worth with no fee and no tax.
+  ///
+  /// The counterfactual every other calculator shows as though it were the
+  /// answer. Kept next to the real figure so the difference is visible rather
+  /// than implied.
+  MinorUnits get valueBeforeCosts => netFinalValue + totalCosts;
+
+  /// The share of the untaxed, unfeed total the investor actually keeps,
+  /// 0.0 to 1.0. One when nothing was charged.
+  double get keptShare {
+    final before = valueBeforeCosts;
+    if (before <= 0) return 1;
+    return netFinalValue / before;
+  }
+
   /// The profit left after every cost.
   MinorUnits get netProfit => netFinalValue - totalDeposited;
 

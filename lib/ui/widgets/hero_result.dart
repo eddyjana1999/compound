@@ -16,12 +16,17 @@ class HeroResult extends StatelessWidget {
     required this.amount,
     required this.format,
     this.footnote,
+    this.subline,
   });
 
   final String caption;
   final MinorUnits amount;
   final MoneyFormat format;
   final Widget? footnote;
+
+  /// A single line under the amount. The place the gross figure goes, so the
+  /// number the user came for is never read without what it cost to get it.
+  final Widget? subline;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +80,17 @@ class HeroResult extends StatelessWidget {
               );
             },
           ),
+          if (subline != null) ...[
+            const SizedBox(height: 6),
+            DefaultTextStyle.merge(
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.88),
+                fontSize: 13.5,
+                height: 1.35,
+              ),
+              child: subline!,
+            ),
+          ],
           if (footnote != null) ...[
             const SizedBox(height: 14),
             DefaultTextStyle.merge(

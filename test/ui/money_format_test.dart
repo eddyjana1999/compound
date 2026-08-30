@@ -86,6 +86,31 @@ void main() {
       expect(f.parseAmount('١٢٣٤'), 123400);
     });
 
+    test('letters make it nonsense, not a number', () {
+      // Dropping stray characters instead of rejecting them read "1e5" as 15
+      // and "5-3" as 53 — a wrong answer is worse than no answer.
+      expect(f.parseAmount('1e5'), isNull);
+      expect(f.parseAmount('5-3'), isNull);
+      expect(f.parseAmount('12abc'), isNull);
+    });
+
+    test('three decimal currencies survive an edit round trip', () {
+      // The dinar currencies keep three decimals. Treating a real 3-digit
+      // fraction as a grouping mark multiplied the amount by a thousand.
+      const kwd = CurrencySpec(code: 'KWD', decimalDigits: 3);
+      final dinar = MoneyFormat('en_US', kwd);
+      expect(dinar.parseAmount(dinar.plainAmount(1234567)), 1234567);
+      expect(dinar.parseAmount('1,234.567'), 1234567);
+      // Two decimals still mean two, and grouping still means grouping.
+      expect(dinar.parseAmount('1.50'), 1500);
+      // A lone comma with three digits is grouping, even here: the locale
+      // writes decimals with a dot, so the comma cannot be one.
+      expect(dinar.parseAmount('1,234'), 1234000);
+      // The same three digits after the locale's own decimal mark are a
+      // fraction, which is what makes the round trip above work.
+      expect(dinar.parseAmount('1.234'), 1234);
+    });
+
     test('empty and nonsense return null, not zero', () {
       expect(f.parseAmount(''), isNull);
       expect(f.parseAmount('   '), isNull);

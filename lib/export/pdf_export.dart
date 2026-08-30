@@ -24,6 +24,8 @@ class PdfExport {
   Future<Uint8List> build(CalculationResult result) async {
     final input = result.input;
     final f = exportFormat(result);
+    // Symbols would be empty boxes in the built-in fonts; see exportMoney.
+    String m(int minor) => exportMoney(result, minor);
     final doc = pw.Document(title: 'Compound calculation');
 
     pw.Widget row(String label, String value, {bool strong = false}) {
@@ -47,13 +49,25 @@ class PdfExport {
       );
     }
 
+    // MultiPage, not Page. A fixed page silently discards anything past the
+    // bottom margin, which at the default 20 year horizon threw away the
+    // whole year-by-year table and the "not investment advice" line with it.
     doc.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         margin: const pw.EdgeInsets.fromLTRB(46, 46, 46, 40),
-        build: (context) => pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children: [
+        footer: (context) => pw.Padding(
+          padding: const pw.EdgeInsets.only(top: 12),
+          child: pw.Text(
+            'Estimates only, based on a constant rate of return. '
+            'Not investment advice.',
+            style: const pw.TextStyle(fontSize: 8, color: _dim),
+          ),
+        ),
+        build: (context) => [
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
             pw.Text('COMPOUND',
                 style: pw.TextStyle(
                     fontSize: 10, color: _green, letterSpacing: 2,
@@ -76,13 +90,13 @@ class PdfExport {
                   pw.Text('After ${input.years} years, you would have',
                       style: const pw.TextStyle(fontSize: 10, color: _dim)),
                   pw.SizedBox(height: 5),
-                  pw.Text(f.moneyRounded(result.netFinalValue),
+                  pw.Text(m(result.netFinalValue),
                       style: pw.TextStyle(
                           fontSize: 30, fontWeight: pw.FontWeight.bold, color: _green)),
                   if (input.hasInflation) ...[
                     pw.SizedBox(height: 3),
                     pw.Text(
-                      '${f.moneyRounded(result.netFinalValueInTodaysMoney)} in today\'s money',
+                      '${m(result.netFinalValueInTodaysMoney)} in today\'s money',
                       style: const pw.TextStyle(fontSize: 10, color: _dim),
                     ),
                   ],
@@ -95,8 +109,8 @@ class PdfExport {
                 style: pw.TextStyle(fontSize: 13, fontWeight: pw.FontWeight.bold, color: _ink)),
             pw.SizedBox(height: 6),
             row('Currency', input.currency.code),
-            row('Starting amount', f.money(input.initialAmount)),
-            row('Monthly contribution', f.money(input.monthlyContribution)),
+            row('Starting amount', m(input.initialAmount)),
+            row('Monthly contribution', m(input.monthlyContribution)),
             row('Annual return', f.percent(input.annualReturn)),
             row('Time horizon', '${input.years} years'),
             if (input.hasFee) row('Annual management fee', f.percent(input.annualManagementFee)),
@@ -110,12 +124,12 @@ class PdfExport {
             pw.Text('Breakdown',
                 style: pw.TextStyle(fontSize: 13, fontWeight: pw.FontWeight.bold, color: _ink)),
             pw.SizedBox(height: 6),
-            row('Total deposited', f.money(result.totalDeposited)),
-            row('Interest earned', f.money(result.interestEarned)),
-            if (result.totalFeesPaid > 0) row('Fees paid', '-${f.money(result.totalFeesPaid)}'),
-            if (result.capitalGainsTax > 0) row('Tax paid', '-${f.money(result.capitalGainsTax)}'),
+            row('Total deposited', m(result.totalDeposited)),
+            row('Interest earned', m(result.interestEarned)),
+            if (result.totalFeesPaid > 0) row('Fees paid', '-${m(result.totalFeesPaid)}'),
+            if (result.capitalGainsTax > 0) row('Tax paid', '-${m(result.capitalGainsTax)}'),
             pw.Divider(color: _line, height: 18),
-            row('Net profit', f.money(result.netProfit), strong: true),
+            row('Net profit', m(result.netProfit), strong: true),
 
             pw.SizedBox(height: 22),
             pw.Text('Year by year',
@@ -136,19 +150,15 @@ class PdfExport {
                 for (final p in result.yearlySeries)
                   [
                     '${p.year}',
-                    f.moneyRounded(p.totalDeposited),
-                    f.moneyRounded(p.balance),
+                    m(p.totalDeposited),
+                    m(p.balance),
                   ],
               ],
             ),
 
-            pw.Spacer(),
-            pw.Text(
-              'Estimates only, based on a constant rate of return. Not investment advice.',
-              style: const pw.TextStyle(fontSize: 8, color: _dim),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
 

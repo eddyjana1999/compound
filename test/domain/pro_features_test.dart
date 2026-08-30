@@ -144,6 +144,45 @@ void main() {
     });
   });
 
+  group('what the costs took', () {
+    test('with no costs, nothing was taken and everything is kept', () {
+      final r = engine.calculate(
+          input(initial: 1000000, annualReturn: 700, years: 20));
+      expect(r.totalCosts, 0);
+      expect(r.valueBeforeCosts, r.netFinalValue);
+      expect(r.keptShare, 1.0);
+    });
+
+    test('the two figures differ by exactly the fees plus the tax', () {
+      final r = engine.calculate(input(
+          initial: 2500000, monthly: 150000, annualReturn: 800, years: 30,
+          tax: 2500));
+      expect(r.valueBeforeCosts - r.netFinalValue, r.totalCosts);
+    });
+
+    test('the kept share is between nothing and everything', () {
+      final r = engine.calculate(input(
+          initial: 1000000, monthly: 50000, annualReturn: 800, years: 30,
+          tax: 2500));
+      expect(r.keptShare, greaterThan(0));
+      expect(r.keptShare, lessThan(1));
+    });
+
+    test('a bigger tax leaves a smaller share', () {
+      final light = engine.calculate(
+          input(initial: 1000000, annualReturn: 800, years: 20, tax: 1000));
+      final heavy = engine.calculate(
+          input(initial: 1000000, annualReturn: 800, years: 20, tax: 4000));
+      expect(heavy.keptShare, lessThan(light.keptShare));
+    });
+
+    test('a loss cannot produce a nonsense share', () {
+      final r = engine.calculate(
+          input(initial: 1000000, annualReturn: -800, years: 10, tax: 2500));
+      expect(r.keptShare, 1.0);
+    });
+  });
+
   group('rejecting values it cannot model', () {
     test('inflation at or above total devaluation', () {
       expect(input(initial: 1000, inflation: 10000).problem,

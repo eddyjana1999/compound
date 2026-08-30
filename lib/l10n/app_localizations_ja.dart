@@ -237,4 +237,21 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get exportFailed => '書き出しに失敗しました。';
+
+  @override
+  String get inflationLabel => 'インフレ率';
+
+  @override
+  String get contributionGrowthLabel => '積立額の年間増加率';
+
+  @override
+  String get beforeCosts => '手数料と税金を引く前';
+
+  @override
+  String youKeepShare(String percent) {
+    return '手元に残るのは $percent';
+  }
+
+  @override
+  String get inTodaysMoney => '現在の価値で';
 }

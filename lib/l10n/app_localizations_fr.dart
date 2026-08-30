@@ -246,4 +246,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get exportFailed => 'L\'export n\'a pas pu être créé.';
+
+  @override
+  String get inflationLabel => 'Inflation';
+
+  @override
+  String get contributionGrowthLabel => 'Augmentation annuelle du versement';
+
+  @override
+  String get beforeCosts => 'Avant frais et impôts';
+
+  @override
+  String youKeepShare(String percent) {
+    return 'Il vous reste $percent';
+  }
+
+  @override
+  String get inTodaysMoney => 'En euros d\'aujourd\'hui';
 }

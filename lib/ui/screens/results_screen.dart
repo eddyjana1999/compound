@@ -145,6 +145,7 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
                     caption: l10n.youWouldHave(l10n.yearsValue(widget.input.years)),
                     amount: result.netFinalValue,
                     format: format,
+                    subline: _Subline(result: result, format: format),
                     // Wrap, not Row: with the rate chip added these overflow a
                     // narrow screen, and a headline that renders a yellow
                     // overflow stripe is worse than one that takes two lines.
@@ -213,6 +214,46 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
       ),
     );
   }
+}
+
+/// What the headline figure cost to arrive at.
+///
+/// Every other calculator stops at the gross number. Showing both, on the
+/// same card, is the whole argument for this app — so it is on the hero and
+/// not buried in the breakdown below.
+class _Subline extends StatelessWidget {
+  const _Subline({required this.result, required this.format});
+
+  final CalculationResult result;
+  final MoneyFormat format;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final lines = <String>[
+      if (result.hasCosts)
+        '${l10n.beforeCosts} ${format.moneyRounded(result.valueBeforeCosts)}'
+            ' · ${l10n.youKeepShare(_percent(result.keptShare))}',
+      if (result.input.hasInflation)
+        '${l10n.inTodaysMoney} '
+            '${format.moneyRounded(result.netFinalValueInTodaysMoney)}',
+    ];
+    if (lines.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final line in lines)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 2),
+            child: Text(line),
+          ),
+      ],
+    );
+  }
+
+  static String _percent(double share) =>
+      '${(share * 100).round()}%';
 }
 
 class _HeroChip extends StatelessWidget {

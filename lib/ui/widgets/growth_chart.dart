@@ -38,7 +38,11 @@ class GrowthChart extends StatelessWidget {
         FlSpot(p.month / 12, currency.toMajor(p.totalDeposited)),
     ];
 
-    final maxY = balanceSpots
+    // Both lines, not just the balance. When fees or a poor return leave
+    // contributions above the balance — exactly the case this app exists to
+    // expose — sizing to the balance alone clipped the deposits line off the
+    // top and silently removed the comparison.
+    final maxY = [...balanceSpots, ...depositSpots]
         .map((s) => s.y)
         .fold<double>(0, (a, b) => a > b ? a : b);
     final headroom = maxY == 0 ? 1.0 : maxY * 1.12;

@@ -12,6 +12,7 @@ import '../widgets/amount_field.dart';
 import '../formatting/currencies.dart';
 import '../widgets/app_card.dart';
 import '../widgets/currency_picker.dart';
+import 'paywall_screen.dart';
 import 'results_screen.dart';
 
 /// Collects the inputs and hands them to the engine on demand.
@@ -34,6 +35,8 @@ class _InputScreenState extends ConsumerState<InputScreen> {
   late final TextEditingController _years;
   late final TextEditingController _fee;
   late final TextEditingController _tax;
+  late final TextEditingController _inflation;
+  late final TextEditingController _growth;
 
   bool _advancedOpen = false;
   bool _submitted = false;
@@ -51,9 +54,14 @@ class _InputScreenState extends ConsumerState<InputScreen> {
     _years = TextEditingController(text: '20');
     _fee = TextEditingController();
     _tax = TextEditingController();
+    _inflation = TextEditingController();
+    _growth = TextEditingController();
 
     if (initial != null) {
-      _advancedOpen = initial.hasFee || initial.hasTax;
+      _advancedOpen = initial.hasFee ||
+          initial.hasTax ||
+          initial.hasInflation ||
+          initial.hasContributionGrowth;
     }
   }
 
@@ -70,6 +78,12 @@ class _InputScreenState extends ConsumerState<InputScreen> {
       if (initial.hasFee) _fee.text = _plainPercent(initial.annualManagementFee);
       if (initial.hasTax) {
         _tax.text = _plainPercent(initial.capitalGainsTaxRate);
+      }
+      if (initial.hasInflation) {
+        _inflation.text = _plainPercent(initial.annualInflation);
+      }
+      if (initial.hasContributionGrowth) {
+        _growth.text = _plainPercent(initial.annualContributionGrowth);
       }
     }
   }
@@ -123,12 +137,15 @@ class _InputScreenState extends ConsumerState<InputScreen> {
     _years.dispose();
     _fee.dispose();
     _tax.dispose();
+    _inflation.dispose();
+    _growth.dispose();
     super.dispose();
   }
 
   /// Builds the input from the current text, or null if it cannot be built.
   CalculationInput? _buildInput() {
     final format = _format;
+    final isPro = ref.read(isProProvider);
     final years = int.tryParse(_years.text.trim());
     final annualReturn = format.parsePercent(_returnRate.text);
     if (years == null || annualReturn == null) return null;
@@ -141,6 +158,11 @@ class _InputScreenState extends ConsumerState<InputScreen> {
       years: years,
       annualManagementFee: format.parsePercent(_fee.text) ?? 0,
       capitalGainsTaxRate: format.parsePercent(_tax.text) ?? 0,
+      // Pro only. A free user cannot type into these, so they stay zero and
+      // the projection is exactly what it was before Pro existed.
+      annualInflation: isPro ? (format.parsePercent(_inflation.text) ?? 0) : 0,
+      annualContributionGrowth:
+          isPro ? (format.parsePercent(_growth.text) ?? 0) : 0,
     );
   }
 
@@ -247,7 +269,11 @@ class _InputScreenState extends ConsumerState<InputScreen> {
                         setState(() => _advancedOpen = !_advancedOpen),
                     feeController: _fee,
                     taxController: _tax,
+                    inflationController: _inflation,
+                    growthController: _growth,
+                    isPro: ref.watch(isProProvider),
                     onEdited: _onEdited,
+                    onLockedTap: () => showPaywall(context),
                   ),
                   if (problem != null) ...[
                     const SizedBox(height: 18),
@@ -311,14 +337,22 @@ class _AdvancedSection extends StatelessWidget {
     required this.onToggle,
     required this.feeController,
     required this.taxController,
+    required this.inflationController,
+    required this.growthController,
+    required this.isPro,
     required this.onEdited,
+    required this.onLockedTap,
   });
 
   final bool open;
   final VoidCallback onToggle;
   final TextEditingController feeController;
   final TextEditingController taxController;
+  final TextEditingController inflationController;
+  final TextEditingController growthController;
+  final bool isPro;
   final VoidCallback onEdited;
+  final VoidCallback onLockedTap;
 
   @override
   Widget build(BuildContext context) {
@@ -396,6 +430,22 @@ class _AdvancedSection extends StatelessWidget {
                           textInputAction: TextInputAction.done,
                           onChanged: (_) => onEdited(),
                         ),
+                        const SizedBox(height: 18),
+                        _ProField(
+                          label: l10n.inflationLabel,
+                          controller: inflationController,
+                          isPro: isPro,
+                          onEdited: onEdited,
+                          onLockedTap: onLockedTap,
+                        ),
+                        const SizedBox(height: 18),
+                        _ProField(
+                          label: l10n.contributionGrowthLabel,
+                          controller: growthController,
+                          isPro: isPro,
+                          onEdited: onEdited,
+                          onLockedTap: onLockedTap,
+                        ),
                       ],
                     ),
                   )
@@ -403,6 +453,64 @@ class _AdvancedSection extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// A percentage field that only Pro can fill in.
+///
+/// Shown rather than hidden, and tapping it opens the paywall. A locked field
+/// a free user can see teaches them the feature exists; a hidden one teaches
+/// nothing, and a greyed-out one that does nothing on tap is just a dead end.
+class _ProField extends StatelessWidget {
+  const _ProField({
+    required this.label,
+    required this.controller,
+    required this.isPro,
+    required this.onEdited,
+    required this.onLockedTap,
+  });
+
+  final String label;
+  final TextEditingController controller;
+  final bool isPro;
+  final VoidCallback onEdited;
+  final VoidCallback onLockedTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final field = AmountField(
+      label: label,
+      controller: controller,
+      suffix: '%',
+      helper: isPro ? l10n.optional : null,
+      textInputAction: TextInputAction.done,
+      onChanged: (_) => onEdited(),
+    );
+
+    if (isPro) return field;
+
+    return Stack(
+      children: [
+        AbsorbPointer(child: Opacity(opacity: 0.55, child: field)),
+        Positioned.fill(
+          child: Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              onTap: onLockedTap,
+              borderRadius: BorderRadius.circular(16),
+              child: Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 14, top: 22),
+                  child: Pill(label: l10n.proBadge),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

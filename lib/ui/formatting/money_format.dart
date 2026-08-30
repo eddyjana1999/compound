@@ -108,6 +108,16 @@ class MoneyFormat {
   /// prescribes. The rule instead: the *last* separator is a decimal point
   /// when one or two digits follow it, and grouping otherwise. That reads
   /// "1,234.56", "1.234,56", "1.234" and "1,5" all correctly.
+  /// The decimal mark this locale writes, used only to break the three-digit
+  /// tie above.
+  String get _localeDecimalMark {
+    try {
+      return NumberFormat.decimalPattern(localeName).symbols.DECIMAL_SEP;
+    } on Object {
+      return '.';
+    }
+  }
+
   num? _parseNumber(String text) {
     final trimmed = text.trim();
     if (trimmed.isEmpty) return null;
@@ -127,9 +137,18 @@ class MoneyFormat {
       } else if (char == '.' || char == ',' || char == '\u066B' ||
           char == '\u066C' || char == "'" || char == '\u00A0') {
         buffer.write(char == '\u066B' ? ',' : (char == '\u066C' ? ',' : char));
-      } else if (char == '-' && buffer.isEmpty) {
-        buffer.write('-');
+      } else if ((char == '-' || char == '+') && buffer.isEmpty) {
+        if (char == '-') buffer.write('-');
+      } else if (RegExp(r'[\p{L}]', unicode: true).hasMatch(char) ||
+          char == '-' ||
+          char == '+') {
+        // A letter, or a sign in the middle, means this is not a number.
+        // Dropping the character instead — which is what this used to do —
+        // turned "1e5" into 15 and "5-3" into 53.
+        return null;
       }
+      // Anything else is decoration: a currency symbol, a space, a bracket.
+      // Skipped, so "$ 1,000.00" still reads as a thousand.
     }
 
     var cleaned = buffer.toString();
@@ -147,9 +166,26 @@ class MoneyFormat {
       normalised = cleaned;
     } else {
       final fraction = cleaned.substring(lastSeparator + 1);
-      final isDecimal = fraction.isNotEmpty &&
-          fraction.length <= 2 &&
-          !fraction.contains(RegExp(r'[.,\u0027]'));
+      final separator = cleaned[lastSeparator];
+      final separatorCount =
+          RegExp(r"[.,']").allMatches(cleaned).length;
+
+      // Three digits after a lone separator is the one genuinely ambiguous
+      // case: "1,234" is a thousand in most of the world and 1.234 in a
+      // currency that keeps three decimals. The locale's own decimal mark
+      // breaks the tie. With more than one separator there is no ambiguity —
+      // the last one is the decimal point.
+      final bool isDecimal;
+      if (fraction.isEmpty || fraction.contains(RegExp(r"[.,']"))) {
+        isDecimal = false;
+      } else if (fraction.length == 3) {
+        isDecimal =
+            currency.decimalDigits == 3 && separator == _localeDecimalMark;
+      } else {
+        final maxFraction =
+            currency.decimalDigits > 2 ? currency.decimalDigits : 2;
+        isDecimal = fraction.length <= maxFraction || separatorCount > 1;
+      }
       final whole = cleaned
           .substring(0, lastSeparator)
           .replaceAll(RegExp(r"[.,\u0027]"), '');
