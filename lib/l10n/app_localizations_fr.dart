@@ -22,10 +22,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get emptyBody =>
-      'Lancez votre première projection et voyez ce que produisent les intérêts composés.';
+      'Lancez votre première projection et voyez ce que les intérêts composés accumulent au fil des ans.';
 
   @override
-  String get startingAmount => 'Montant initial';
+  String get startingAmount => 'Capital initial';
 
   @override
   String get monthlyContribution => 'Versement mensuel';
@@ -77,7 +77,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get totalDeposited => 'Total versé';
 
   @override
-  String get interestEarned => 'Intérêts générés';
+  String get interestEarned => 'Intérêts composés';
 
   @override
   String get feesPaid => 'Frais payés';
@@ -89,13 +89,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get netProfit => 'Gain net';
 
   @override
-  String get growthOverTime => 'Évolution dans le temps';
+  String get growthOverTime => 'Évolution du capital';
 
   @override
   String get legendBalance => 'Solde';
 
   @override
-  String get legendDeposited => 'Versé';
+  String get legendDeposited => 'Capital versé';
 
   @override
   String get save => 'Enregistrer';

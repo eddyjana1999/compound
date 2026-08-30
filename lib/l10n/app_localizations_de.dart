@@ -22,10 +22,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get emptyBody =>
-      'Starte deine erste Hochrechnung und sieh, was der Zinseszins bewirkt.';
+      'Starte deine erste Hochrechnung und sieh, was der Zinseszins über die Jahre aufbaut.';
 
   @override
-  String get startingAmount => 'Startbetrag';
+  String get startingAmount => 'Startkapital';
 
   @override
   String get monthlyContribution => 'Monatliche Sparrate';
@@ -57,7 +57,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get managementFee => 'Jährliche Verwaltungsgebühr';
 
   @override
-  String get capitalGainsTax => 'Kapitalertragsteuer';
+  String get capitalGainsTax => 'Abgeltungsteuer';
 
   @override
   String get optional => 'Optional';
@@ -77,7 +77,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get totalDeposited => 'Eingezahlt insgesamt';
 
   @override
-  String get interestEarned => 'Erwirtschaftete Erträge';
+  String get interestEarned => 'Zinseszins';
 
   @override
   String get feesPaid => 'Gezahlte Gebühren';
@@ -89,13 +89,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get netProfit => 'Nettogewinn';
 
   @override
-  String get growthOverTime => 'Entwicklung über die Zeit';
+  String get growthOverTime => 'Kapitalentwicklung';
 
   @override
   String get legendBalance => 'Guthaben';
 
   @override
-  String get legendDeposited => 'Eingezahlt';
+  String get legendDeposited => 'Eingezahltes Kapital';
 
   @override
   String get save => 'Speichern';

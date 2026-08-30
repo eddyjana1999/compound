@@ -140,11 +140,41 @@ Compound הוא כלי הערכה. הוא מניח תשואה קבועה, שאף
 
 ---
 
-## Two things to decide before you paste this in
+---
 
-1. **The name is shortened.** "Compound — Investment Calculator" is 32 characters and Apple's limit
-   is 30, so it became "Calc". If you would rather keep the full word, drop something else —
-   "Compound: Investment Calculator" is still 31.
-2. **The disclaimer is in the description on purpose.** Both stores treat anything that reads as
+# The name, per market
+
+Both stores localise the listing name. In App Store Connect every localisation you add carries its
+own **Name**, **Subtitle**, keywords, description and screenshots; Play does the same under Store
+listing → translations. The 30-character limit applies **per localisation**, which is why the full
+"Compound Interest Calculator" fits after all — the earlier "Calc" abbreviation is no longer needed.
+
+What decides which one a person sees is the **language of their device**, not the country they are
+in. An Israeli with an English phone gets the English listing.
+
+| Locale | Name | | Subtitle | |
+|---|---|---:|---|---:|
+| en | Compound Interest Calculator | 28 | See what you actually keep | 26 |
+| es | Calculadora Interés Compuesto | 29 | Lo que de verdad te queda | 25 |
+| fr | Calcul Intérêts Composés | 24 | Ce qu'il vous reste vraiment | 28 |
+| de | Zinseszinsrechner | 17 | Was am Ende wirklich bleibt | 27 |
+| zh | 复利计算器 | 5 | 扣除费用和税后还剩多少 | 11 |
+| ja | 複利計算機 | 5 | 手数料と税引き後に残る額 | 12 |
+| ar | حاسبة الفائدة المركبة | 21 | ما يبقى لك فعليًا | 17 |
+| he | מחשבון ריבית דריבית | 19 | כמה באמת יישאר לך ביד | 21 |
+
+Every one was counted in code, not by eye.
+
+**The name under the icon on the phone is separate** and stays "Compound" everywhere. That one is
+`CFBundleDisplayName`, and iOS truncates a long one to about twelve characters — a translated
+descriptive name would be cut off. Localise the listing, not the launcher.
+
+---
+
+## Two things to keep in mind
+
+1. **The disclaimer is in the description on purpose.** Both stores treat anything that reads as
    financial advice as a review risk, and a calculator that projects returns sits close to that
    line. Do not remove it to save space.
+2. **The in-app strings now use each market's own terminology**, not translations of the English.
+   See `TRANSLATIONS.md` for the short list of terms worth a native check.

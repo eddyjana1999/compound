@@ -22,10 +22,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get emptyBody =>
-      'ابدأ أول توقع لك وشاهد ما يصنعه الربح المركّب مع مرور الوقت.';
+      'ابدأ أول توقّع لك وشاهد ما تراكمه الفائدة المركبة عبر السنين.';
 
   @override
-  String get startingAmount => 'المبلغ الأولي';
+  String get startingAmount => 'رأس المال الأولي';
 
   @override
   String get monthlyContribution => 'الإيداع الشهري';
@@ -80,7 +80,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get totalDeposited => 'إجمالي المودع';
 
   @override
-  String get interestEarned => 'الأرباح المحققة';
+  String get interestEarned => 'أرباح الفائدة المركبة';
 
   @override
   String get feesPaid => 'الرسوم المدفوعة';
@@ -92,13 +92,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get netProfit => 'صافي الربح';
 
   @override
-  String get growthOverTime => 'النمو عبر الزمن';
+  String get growthOverTime => 'نمو رأس المال';
 
   @override
   String get legendBalance => 'الرصيد';
 
   @override
-  String get legendDeposited => 'المودع';
+  String get legendDeposited => 'رأس المال المودع';
 
   @override
   String get save => 'حفظ';

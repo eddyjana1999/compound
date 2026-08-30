@@ -227,7 +227,7 @@ abstract class AppLocalizations {
   /// No description provided for @interestEarned.
   ///
   /// In en, this message translates to:
-  /// **'Interest earned'**
+  /// **'Compound interest earned'**
   String get interestEarned;
 
   /// No description provided for @feesPaid.
@@ -263,7 +263,7 @@ abstract class AppLocalizations {
   /// No description provided for @legendDeposited.
   ///
   /// In en, this message translates to:
-  /// **'Deposited'**
+  /// **'Capital paid in'**
   String get legendDeposited;
 
   /// No description provided for @save.

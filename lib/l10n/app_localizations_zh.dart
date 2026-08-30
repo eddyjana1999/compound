@@ -21,13 +21,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get emptyTitle => '还没有记录';
 
   @override
-  String get emptyBody => '做一次测算，看看复利在时间里能积累出什么。';
+  String get emptyBody => '做一次测算，看看复利在多年之后能累积出多少。';
 
   @override
-  String get startingAmount => '初始金额';
+  String get startingAmount => '初始本金';
 
   @override
-  String get monthlyContribution => '每月投入';
+  String get monthlyContribution => '每月定投';
 
   @override
   String get annualReturn => '年化收益率';
@@ -52,7 +52,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get advancedSubtitle => '费用与税费';
 
   @override
-  String get managementFee => '年管理费';
+  String get managementFee => '年管理费率';
 
   @override
   String get capitalGainsTax => '资本利得税';
@@ -75,7 +75,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get totalDeposited => '累计投入';
 
   @override
-  String get interestEarned => '累计收益';
+  String get interestEarned => '复利收益';
 
   @override
   String get feesPaid => '已付费用';
@@ -87,13 +87,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get netProfit => '净收益';
 
   @override
-  String get growthOverTime => '增长曲线';
+  String get growthOverTime => '本金与复利的增长';
 
   @override
   String get legendBalance => '总资产';
 
   @override
-  String get legendDeposited => '本金';
+  String get legendDeposited => '累计本金';
 
   @override
   String get save => '保存';

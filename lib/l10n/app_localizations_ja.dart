@@ -21,7 +21,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get emptyTitle => 'まだ何もありません';
 
   @override
-  String get emptyBody => '最初のシミュレーションを実行して、複利が時間をかけて生み出すものを確かめましょう。';
+  String get emptyBody => '最初のシミュレーションを実行して、複利が長い年月で積み上げるものを確かめましょう。';
 
   @override
   String get startingAmount => '初期投資額';
@@ -30,7 +30,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get monthlyContribution => '毎月の積立額';
 
   @override
-  String get annualReturn => '年利回り';
+  String get annualReturn => '想定利回り（年率）';
 
   @override
   String get timeHorizon => '運用期間';
@@ -52,7 +52,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get advancedSubtitle => '手数料と税金';
 
   @override
-  String get managementFee => '年間信託報酬';
+  String get managementFee => '信託報酬（年率）';
 
   @override
   String get capitalGainsTax => '譲渡益課税';
@@ -75,7 +75,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get totalDeposited => '投資元本';
 
   @override
-  String get interestEarned => '運用収益';
+  String get interestEarned => '複利による運用収益';
 
   @override
   String get feesPaid => '支払手数料';
@@ -93,7 +93,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get legendBalance => '評価額';
 
   @override
-  String get legendDeposited => '元本';
+  String get legendDeposited => '投資元本';
 
   @override
   String get save => '保存';

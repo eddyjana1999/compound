@@ -77,7 +77,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get totalDeposited => 'Total deposited';
 
   @override
-  String get interestEarned => 'Interest earned';
+  String get interestEarned => 'Compound interest earned';
 
   @override
   String get feesPaid => 'Fees paid';
@@ -95,7 +95,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get legendBalance => 'Balance';
 
   @override
-  String get legendDeposited => 'Deposited';
+  String get legendDeposited => 'Capital paid in';
 
   @override
   String get save => 'Save';

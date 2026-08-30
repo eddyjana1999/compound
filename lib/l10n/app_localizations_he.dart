@@ -22,7 +22,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get emptyBody =>
-      'הרץ את התחזית הראשונה שלך וראה מה ריבית דריבית עושה לאורך זמן.';
+      'הרץ את התחזית הראשונה שלך וראה מה ריבית דריבית צוברת לאורך השנים.';
 
   @override
   String get startingAmount => 'סכום התחלתי';
@@ -78,7 +78,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get totalDeposited => 'סך ההפקדות';
 
   @override
-  String get interestEarned => 'רווחי השקעה';
+  String get interestEarned => 'רווחי ריבית דריבית';
 
   @override
   String get feesPaid => 'דמי ניהול ששולמו';
@@ -90,13 +90,13 @@ class AppLocalizationsHe extends AppLocalizations {
   String get netProfit => 'רווח נטו';
 
   @override
-  String get growthOverTime => 'הצמיחה לאורך זמן';
+  String get growthOverTime => 'צמיחת ההון';
 
   @override
   String get legendBalance => 'יתרה';
 
   @override
-  String get legendDeposited => 'הפקדות';
+  String get legendDeposited => 'הון שהופקד';
 
   @override
   String get save => 'שמירה';

@@ -1,70 +1,52 @@
-# Translation review — queued for 2026-08-30
+# Terminology — what changed, and what still wants a native eye
 
-## The one sentence to start with
+Done 2026-08-31. The in-app strings now use the term each market's brokers and fund factsheets
+actually print, rather than a translation of the English.
 
-> Do the translation pass in TRANSLATIONS.md
+## What was changed
 
-Everything needed is below. No context from the previous session is required.
+| | English | Was | Now |
+|---|---|---|---|
+| es | Starting amount | Importe inicial | **Capital inicial** |
+| es | Monthly contribution | Aportación mensual | **Aportación periódica** |
+| fr | Starting amount | Montant initial | **Capital initial** |
+| fr | Interest earned | Intérêts générés | **Intérêts composés** |
+| de | Starting amount | Startbetrag | **Startkapital** |
+| de | Capital gains tax | Kapitalertragsteuer | **Abgeltungsteuer** |
+| de | Interest earned | Erwirtschaftete Erträge | **Zinseszins** |
+| zh | Monthly contribution | 每月投入 | **每月定投** |
+| zh | Starting amount | 初始金额 | **初始本金** |
+| ja | Annual return | 年利回り | **想定利回り（年率）** |
+| ja | Management fee | 年間信託報酬 | **信託報酬（年率）** |
+| ar | compounding | الربح المركّب | **الفائدة المركبة** |
+| he | Interest earned | רווחי השקעה | **רווחי ריבית דריבית** |
 
-## The task
+The empty-state sentence was rewritten in every language; it was the most literary string in the
+app and the most obviously translated.
 
-`lib/l10n/app_*.arb` — 8 locales, ~46 keys each. English and Hebrew were written carefully and
-read well. The other six were written in one pass and have not been reviewed. Rewrite anything
-that reads as translated rather than written.
+## Still worth a native check, and why
 
-After editing, always:
+These are the places where the right word depends on what local brokers print, not on grammar.
+A native speaker who invests can settle each one in a minute.
 
-    flutter gen-l10n && flutter analyze && flutter test
+1. **de — `Abgeltungsteuer` vs `Kapitalertragsteuer`.** Abgeltungsteuer is the specific German flat
+   tax on investment gains and is what a broker statement says. Kapitalertragsteuer is the
+   withholding mechanism and is broader. If the app is aimed beyond Germany — Austria uses
+   *Kapitalertragsteuer (KESt)* — the broader one may travel better.
+2. **de — `Verwaltungsgebühr` vs `TER`.** Fund factsheets print *TER* or *laufende Kosten*.
+   Verwaltungsgebühr is correct but reads retail-bank rather than fund.
+3. **ar — regional split.** Gulf and Egyptian financial vocabulary diverge. `الفائدة المركبة` is
+   safe everywhere; `رسوم الإدارة` and `ضريبة الأرباح الرأسمالية` are worth confirming against a
+   Gulf brokerage.
+4. **ja — `譲渡益課税` vs `キャピタルゲイン税`.** The first is the legal and broker term; the second is the
+   loanword and is more recognisable to younger investors.
+5. **zh — mainland vs Taiwan/HK.** The strings use simplified mainland terms: 定投, 年化收益率,
+   资本利得税. Traditional-character markets say 定期定額 and 資本利得稅.
+6. **es — Spain vs Latin America.** `plusvalías` is Spain's term; several Latin American markets say
+   `ganancias de capital`.
 
-Each ARB must stay valid JSON and keep every key the English file has. `yearsValue` carries ICU
-plurals — Arabic needs its `few`/`many` categories, Hebrew its `=2` dual. Do not flatten those.
+## Register
 
-## Where I am least confident, in priority order
-
-These are the specific places I hedged while writing them. Start here.
-
-1. **`emptyBody`** — the empty-state sentence, in every language. It is the most "literary" string
-   in the app and therefore the most likely to read as machine output. The Chinese
-   ("复利在时间里能积累出什么") and Japanese ("複利が時間をかけて生み出すもの") versions in
-   particular are vague where the English is concrete.
-
-2. **Arabic `capitalGainsTax` and compound-interest wording.** I used `الربح المركّب` for
-   compounding; `الفائدة المركبة` is the more standard financial term. Check which the Gulf and
-   Egyptian markets actually use, and make `ضريبة الأرباح الرأسمالية` match local usage.
-
-3. **Financial terms must match each market's convention, not translate literally:**
-   - `managementFee` — Japanese `信託報酬` is right for a fund; German `Verwaltungsgebühr` may be
-     better as `Verwaltungskosten` or `TER` depending on audience.
-   - `capitalGainsTax` — German `Kapitalertragsteuer` is correct; French
-     `Impôt sur les plus-values` is correct; verify the Spanish and Chinese.
-   - `annualReturn` — check that each reads as "expected return", not "interest".
-
-4. **`disclaimer`.** Quasi-legal. It must not read as advice in any language, and both app stores
-   treat financial advice as a review risk. Verify each version still clearly disclaims.
-
-5. **Register and formality.** English uses "you" informally. German currently uses `du`, French
-   `vous` — that inconsistency is deliberate per language convention but worth a second opinion.
-   Japanese uses polite masu form throughout; keep it.
-
-6. **Length.** German and French strings are the longest and are the ones most likely to overflow.
-   After editing, re-run the E2E screenshots and look at the results screen and the settings sheet:
-
-       flutter drive --driver=test_driver/integration_test.dart \
-         --target=integration_test/walkthrough_test.dart \
-         -d "iPhone 16 Pro" --dart-define=SKIP_PRIVACY_PROMPTS=true
-
-   Screenshots land in `screenshots/`.
-
-## What NOT to change
-
-- `appTitle` stays "Compound" in Latin script in every locale — it is the brand.
-- Hebrew and English are fine. Only touch them if something is actually wrong.
-- Do not add or remove keys. If a language genuinely needs a different phrasing structure, say so
-  rather than inventing a key.
-
-## Caveat worth telling Edgar again
-
-I can raise these from "machine-quality" to "fluent and idiomatic". I cannot certify them the way
-a native speaker in that market would — especially for the financial terms in point 3, where the
-right word depends on what local brokers actually print on statements. For a finance app going to
-eight markets, budget a real reviewer for at least ar, zh, ja before launch.
+One thing to keep an eye on: Hebrew mixes the imperative (`חשב`, `בדוק`) with the gerund
+(`שמירה`). Apple and Google's Hebrew style is uniformly gerund, partly to avoid gendering the user.
+Changing `חשב` → `חישוב` would make it consistent.
