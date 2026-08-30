@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:compound/ads/ad_config.dart';
 import 'package:compound/ads/ad_service.dart';
 import 'package:flutter/widgets.dart';
@@ -55,15 +57,44 @@ void main() {
       expect(AdConfig.showPrivacyPrompts, isTrue);
     });
 
-    test('a build without the opt-in flag serves test ads', () {
-      // The default must be the safe one. If this ever fails, a debug build
-      // is about to request real ads and burn the AdMob account.
+    test('a test run serves test ads and never the real ones', () {
+      // Tests run unoptimised, so this is the debug path. If it ever fails,
+      // a debug build is about to request real ads, which is what gets an
+      // AdMob account suspended for invalid traffic.
       expect(AdConfig.useRealUnits, isFalse);
       expect(AdConfig.bannerUnitId, startsWith('ca-app-pub-3940256099942544/'));
       expect(
         AdConfig.interstitialUnitId,
         startsWith('ca-app-pub-3940256099942544/'),
       );
+    });
+
+    test('the real ids belong to this publisher, not to Google', () {
+      // Guards against pasting an id with a typo in the publisher number —
+      // a wrong one earns nothing and reports no error at all.
+      const source = String.fromEnvironment('unused');
+      expect(source, isEmpty); // keeps the const above from being pruned
+      final file = File('lib/ads/ad_config.dart').readAsStringSync();
+      final real = RegExp(r"_real\w+ = '(ca-app-pub-[^']+)'")
+          .allMatches(file)
+          .map((m) => m.group(1)!)
+          .toList();
+      expect(real, isNotEmpty);
+      for (final id in real) {
+        expect(id, startsWith('ca-app-pub-3386708172616785/'), reason: id);
+        expect(id, isNot(contains('3940256099942544')),
+            reason: 'a Google test unit is sitting in a real-id slot');
+      }
+    });
+
+    test('a placement with no real unit serves nothing rather than a test ad',
+        () {
+      // iOS has a banner but no interstitial yet, and Android has neither.
+      // In release those must come back null, not fall through to a unit
+      // stamped "Test Ad" — which is an App Store rejection.
+      final file = File('lib/ads/ad_config.dart').readAsStringSync();
+      expect(file, contains("_realInterstitialIos = ''"));
+      expect(file, contains('return real.isEmpty ? null : real;'));
     });
   });
 

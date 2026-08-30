@@ -1,44 +1,39 @@
 import 'dart:io' show Platform;
 
-/// Which ad units the app asks for, and how often the video plays.
+import 'package:flutter/foundation.dart' show kReleaseMode;
+
+/// Which ad units the app asks for, and how often the full-screen ad plays.
 ///
 /// No `google_mobile_ads` import here on purpose: this file is plain Dart so
-/// the numbers and the policy can be read, tested and reviewed without
-/// dragging the SDK in.
+/// the ids and the policy can be read and reviewed without dragging the SDK
+/// in.
 class AdConfig {
   AdConfig._();
 
-  /// Real ad units are opt-in at build time:
+  /// Real units in a release build, Google's test units otherwise — decided
+  /// by the build itself, not by a flag someone has to remember.
   ///
-  ///   flutter build ipa --dart-define=USE_REAL_AD_UNITS=true \
-  ///     --dart-define=AD_BANNER_IOS=ca-app-pub-…/… \
-  ///     --dart-define=AD_INTERSTITIAL_IOS=ca-app-pub-…/…
-  ///
-  /// A debug build, a CI build, or a release someone forgot to configure all
-  /// serve Google's test ads. Shipping test IDs costs nothing; shipping real
-  /// IDs from a debug build gets the AdMob account suspended for invalid
-  /// traffic, so the default is the safe one.
-  static const bool useRealUnits =
-      bool.fromEnvironment('USE_REAL_AD_UNITS');
+  /// The direction matters in both ways. A debug build that asks for real
+  /// units generates invalid traffic and gets the AdMob account suspended; a
+  /// release build serving units stamped "Test Ad" is an App Store rejection.
+  /// Neither can happen now, because neither is a choice.
+  static bool get useRealUnits => kReleaseMode;
 
-  static const String _realBannerAndroid =
-      String.fromEnvironment('AD_BANNER_ANDROID');
-  static const String _realBannerIos =
-      String.fromEnvironment('AD_BANNER_IOS');
-  static const String _realInterstitialAndroid =
-      String.fromEnvironment('AD_INTERSTITIAL_ANDROID');
-  static const String _realInterstitialIos =
-      String.fromEnvironment('AD_INTERSTITIAL_IOS');
+  // ---------------------------------------------------------------------
+  // Real units. Not secrets — they ship inside the app bundle either way.
+  // An empty string means "not created in AdMob yet", and the app then
+  // serves nothing at all in release rather than serving a test ad.
+  // ---------------------------------------------------------------------
+  static const String _realBannerIos = 'ca-app-pub-3386708172616785/6559041580';
+  static const String _realInterstitialIos = '';
+  static const String _realBannerAndroid = '';
+  static const String _realInterstitialAndroid = '';
 
   // Google's published test units. Safe to commit; they never bill anyone.
   static const String _testBannerAndroid =
       'ca-app-pub-3940256099942544/6300978111';
   static const String _testBannerIos =
       'ca-app-pub-3940256099942544/2934735716';
-  // The plain full-screen interstitial, not the video one. In production
-  // this distinction is not yours to make: a real interstitial unit serves
-  // whichever creative wins the auction, static or video. Restrict it in the
-  // AdMob console under the ad unit's settings if you want static only.
   static const String _testInterstitialAndroid =
       'ca-app-pub-3940256099942544/1033173712';
   static const String _testInterstitialIos =
@@ -46,20 +41,20 @@ class AdConfig {
 
   static bool get _isIos => Platform.isIOS;
 
-  static String get bannerUnitId {
-    if (useRealUnits) {
-      final real = _isIos ? _realBannerIos : _realBannerAndroid;
-      if (real.isNotEmpty) return real;
-    }
-    return _isIos ? _testBannerIos : _testBannerAndroid;
+  /// The banner unit, or null when a release build has no real one to use.
+  static String? get bannerUnitId {
+    if (!useRealUnits) return _isIos ? _testBannerIos : _testBannerAndroid;
+    final real = _isIos ? _realBannerIos : _realBannerAndroid;
+    return real.isEmpty ? null : real;
   }
 
-  static String get interstitialUnitId {
-    if (useRealUnits) {
-      final real = _isIos ? _realInterstitialIos : _realInterstitialAndroid;
-      if (real.isNotEmpty) return real;
+  /// The full-screen unit, or null when a release build has no real one.
+  static String? get interstitialUnitId {
+    if (!useRealUnits) {
+      return _isIos ? _testInterstitialIos : _testInterstitialAndroid;
     }
-    return _isIos ? _testInterstitialIos : _testInterstitialAndroid;
+    final real = _isIos ? _realInterstitialIos : _realInterstitialAndroid;
+    return real.isEmpty ? null : real;
   }
 
   /// Show the full-screen ad after every third calculation.

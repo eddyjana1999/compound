@@ -134,10 +134,17 @@ class GoogleAdService implements AdService {
   void preloadInterstitial() {
     if (!_adsAllowed) return;
     if (_interstitial != null || _loadingInterstitial) return;
+
+    // No real unit for this placement on this platform yet. Showing nothing
+    // is the only safe option: a release build serving an ad stamped
+    // "Test Ad" is an App Store rejection.
+    final unitId = AdConfig.interstitialUnitId;
+    if (unitId == null) return;
+
     _loadingInterstitial = true;
 
     InterstitialAd.load(
-      adUnitId: AdConfig.interstitialUnitId,
+      adUnitId: unitId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -216,6 +223,9 @@ class _AnchoredBannerState extends State<_AnchoredBanner> {
   }
 
   Future<void> _load(int width) async {
+    final unitId = AdConfig.bannerUnitId;
+    if (unitId == null) return;
+
     final size = await AdSize.getLargeAnchoredAdaptiveBannerAdSize(
       width,
     );
@@ -223,7 +233,7 @@ class _AnchoredBannerState extends State<_AnchoredBanner> {
 
     final previous = _ad;
     final ad = BannerAd(
-      adUnitId: AdConfig.bannerUnitId,
+      adUnitId: unitId,
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(
