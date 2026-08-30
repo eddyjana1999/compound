@@ -131,13 +131,13 @@ abstract class AppLocalizations {
   /// No description provided for @emptyTitle.
   ///
   /// In en, this message translates to:
-  /// **'Nothing here yet'**
+  /// **'Nothing saved yet'**
   String get emptyTitle;
 
   /// No description provided for @emptyBody.
   ///
   /// In en, this message translates to:
-  /// **'Run your first projection and see what compounding does over time.'**
+  /// **'How much your money builds over the years — and how much of it you keep after fees and tax.'**
   String get emptyBody;
 
   /// No description provided for @startingAmount.

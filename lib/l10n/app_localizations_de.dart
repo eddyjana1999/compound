@@ -18,11 +18,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get newCalculation => 'Neue Berechnung';
 
   @override
-  String get emptyTitle => 'Noch nichts vorhanden';
+  String get emptyTitle => 'Noch nichts gespeichert';
 
   @override
   String get emptyBody =>
-      'Starte deine erste Hochrechnung und sieh, was der Zinseszins über die Jahre aufbaut.';
+      'Was dein Geld über die Jahre aufbaut, und was davon nach Gebühren und Steuern übrig bleibt.';
 
   @override
   String get startingAmount => 'Startkapital';

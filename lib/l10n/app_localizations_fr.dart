@@ -18,11 +18,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get newCalculation => 'Nouveau calcul';
 
   @override
-  String get emptyTitle => 'Rien pour l\'instant';
+  String get emptyTitle => 'Aucun calcul enregistré';
 
   @override
   String get emptyBody =>
-      'Lancez votre première projection et voyez ce que les intérêts composés accumulent au fil des ans.';
+      'Ce que votre argent accumule au fil des ans, et ce qu\'il en reste après frais et impôts.';
 
   @override
   String get startingAmount => 'Capital initial';

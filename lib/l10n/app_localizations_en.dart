@@ -18,11 +18,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newCalculation => 'New calculation';
 
   @override
-  String get emptyTitle => 'Nothing here yet';
+  String get emptyTitle => 'Nothing saved yet';
 
   @override
   String get emptyBody =>
-      'Run your first projection and see what compounding does over time.';
+      'How much your money builds over the years — and how much of it you keep after fees and tax.';
 
   @override
   String get startingAmount => 'Starting amount';

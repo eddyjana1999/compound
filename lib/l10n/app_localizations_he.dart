@@ -18,11 +18,11 @@ class AppLocalizationsHe extends AppLocalizations {
   String get newCalculation => 'חישוב חדש';
 
   @override
-  String get emptyTitle => 'עדיין אין כאן כלום';
+  String get emptyTitle => 'כאן יופיעו החישובים שלך';
 
   @override
   String get emptyBody =>
-      'הרץ את התחזית הראשונה שלך וראה מה ריבית דריבית צוברת לאורך השנים.';
+      'כמה יצבור הכסף שלך לאורך השנים — וכמה מזה יישאר אחרי דמי ניהול ומס.';
 
   @override
   String get startingAmount => 'סכום התחלתי';

@@ -18,10 +18,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get newCalculation => '新しい計算';
 
   @override
-  String get emptyTitle => 'まだ何もありません';
+  String get emptyTitle => '保存された計算はまだありません';
 
   @override
-  String get emptyBody => '最初のシミュレーションを実行して、複利が長い年月で積み上げるものを確かめましょう。';
+  String get emptyBody => 'お金が年月をかけてどこまで増えるか、そして手数料と税を引いたあとに何が残るか。';
 
   @override
   String get startingAmount => '初期投資額';

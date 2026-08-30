@@ -18,10 +18,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get newCalculation => '新建计算';
 
   @override
-  String get emptyTitle => '还没有记录';
+  String get emptyTitle => '还没有保存的计算';
 
   @override
-  String get emptyBody => '做一次测算，看看复利在多年之后能累积出多少。';
+  String get emptyBody => '这笔钱多年后能累积到多少，扣除费用和税后又还剩多少。';
 
   @override
   String get startingAmount => '初始本金';

@@ -18,11 +18,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get newCalculation => 'Nuevo cálculo';
 
   @override
-  String get emptyTitle => 'Aún no hay nada';
+  String get emptyTitle => 'Aún no hay cálculos guardados';
 
   @override
   String get emptyBody =>
-      'Haz tu primera proyección y comprueba lo que el interés compuesto acumula con los años.';
+      'Cuánto acumula tu dinero con los años, y cuánto te queda después de comisiones e impuestos.';
 
   @override
   String get startingAmount => 'Capital inicial';

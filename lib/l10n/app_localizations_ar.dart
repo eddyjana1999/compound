@@ -18,11 +18,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get newCalculation => 'حساب جديد';
 
   @override
-  String get emptyTitle => 'لا يوجد شيء بعد';
+  String get emptyTitle => 'لا توجد عمليات محفوظة بعد';
 
   @override
   String get emptyBody =>
-      'ابدأ أول توقّع لك وشاهد ما تراكمه الفائدة المركبة عبر السنين.';
+      'كم يتراكم مالك عبر السنين، وكم يبقى منه فعليًا بعد الرسوم والضرائب.';
 
   @override
   String get startingAmount => 'رأس المال الأولي';
