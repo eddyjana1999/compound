@@ -30,13 +30,14 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <!-- AdMob application id. This is GOOGLE'S TEST ID and is safe to
-             commit. Replace it with the real one from the AdMob console as
-             part of the release build only: a debug build pointed at a real
-             app id generates invalid traffic and gets the account suspended. -->
+        <!-- Edgar's Android AdMob app. Separate from the iOS one; the two
+             stores are separate apps in the AdMob console and share nothing
+             but the publisher number. Which *units* get requested is decided
+             by kReleaseMode in AdConfig, so a debug build still asks only for
+             Google's test units. -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-3386708172616785~6902761716"/>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

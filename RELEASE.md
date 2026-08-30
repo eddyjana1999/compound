@@ -37,23 +37,25 @@ is not this Mac.
 `ios/Runner.xcodeproj/project.pbxproj`. Open the project in Xcode, pick your team under
 Signing & Capabilities, and let it create the provisioning profile.
 
-### Real AdMob IDs — partly done
+### Real AdMob IDs — done
 
-**iOS is configured.** App id `ca-app-pub-3386708172616785~5617600204` is in `Info.plist`, and the
-banner unit `…/6559041580` is in `lib/ads/ad_config.dart`. Which units are used is decided by
-`kReleaseMode`, not by a build flag — a debug build physically cannot request real units, and a
-release build cannot serve one stamped "Test Ad".
+Both platforms are fully configured, publisher `3386708172616785`:
 
-**Still missing, and each one silently serves nothing in release until it exists:**
+| | iOS | Android |
+|---|---|---|
+| App id | `~5617600204` (`Info.plist`) | `~6902761716` (`AndroidManifest.xml`) |
+| Banner | `/6559041580` | `/5202667235` |
+| Interstitial | `/3210928716` | `/5589680048` |
 
-- an **iOS interstitial** unit — the app shows a full-screen ad after every third calculation, and
-  that placement is dark until you create the unit and paste it into `_realInterstitialIos`;
-- an **Android AdMob app** entirely. Android ids are separate from iOS ones; you have to create a
-  second app in the AdMob console. Until then `android/app/src/main/AndroidManifest.xml` still
-  carries Google's *test* app id, and **the Android build must not be submitted** with it.
+The units live in `lib/ads/ad_config.dart`. Which set is used is decided by `kReleaseMode`, not by
+a build flag: a debug build physically cannot request real units, and a release build cannot serve
+one stamped "Test Ad". A test asserts all four slots are filled and that neither app id is
+Google's.
 
-A placement with no real unit returns null and no request is made at all. That is deliberate: an
-empty space earns nothing, but a test ad in a shipped build is a rejection.
+**Do not tap your own ads in a release build.** Self-clicks are the most common way a new AdMob
+account gets disabled, and there is no appeal worth relying on. Register your phone as a test
+device in AdMob (Settings → Test devices) before you install a release build on it; test devices
+serve real ad units but do not count as traffic.
 
 ### Old notes on the flag-based approach
 Everything ad-related is Google's test IDs right now, deliberately. Three places to change:

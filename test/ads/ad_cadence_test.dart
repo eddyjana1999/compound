@@ -69,32 +69,40 @@ void main() {
       );
     });
 
-    test('the real ids belong to this publisher, not to Google', () {
-      // Guards against pasting an id with a typo in the publisher number —
-      // a wrong one earns nothing and reports no error at all.
-      const source = String.fromEnvironment('unused');
-      expect(source, isEmpty); // keeps the const above from being pruned
+    test('every placement on both platforms has a real unit', () {
+      // Four units: banner and interstitial, iOS and Android. A missing one
+      // is not an error — it just makes that placement silently dark in
+      // release — so it has to be asserted rather than noticed.
       final file = File('lib/ads/ad_config.dart').readAsStringSync();
-      final real = RegExp(r"_real\w+ = '(ca-app-pub-[^']+)'")
-          .allMatches(file)
-          .map((m) => m.group(1)!)
-          .toList();
-      expect(real, isNotEmpty);
-      for (final id in real) {
-        expect(id, startsWith('ca-app-pub-3386708172616785/'), reason: id);
-        expect(id, isNot(contains('3940256099942544')),
-            reason: 'a Google test unit is sitting in a real-id slot');
+      for (final name in const [
+        '_realBannerIos',
+        '_realInterstitialIos',
+        '_realBannerAndroid',
+        '_realInterstitialAndroid',
+      ]) {
+        final match =
+            RegExp("$name =\\s*'([^']*)'").firstMatch(file)?.group(1) ?? '';
+        expect(match, isNotEmpty, reason: '$name has no unit id');
+        expect(match, startsWith('ca-app-pub-3386708172616785/'), reason: name);
       }
     });
 
-    test('a placement with no real unit serves nothing rather than a test ad',
-        () {
-      // iOS has a banner but no interstitial yet, and Android has neither.
-      // In release those must come back null, not fall through to a unit
-      // stamped "Test Ad" — which is an App Store rejection.
+    test('an empty unit still serves nothing rather than a test ad', () {
+      // The guard stays even though every slot is filled: it is what makes
+      // adding a fifth placement safe by default.
       final file = File('lib/ads/ad_config.dart').readAsStringSync();
-      expect(file, contains("_realInterstitialIos = ''"));
       expect(file, contains('return real.isEmpty ? null : real;'));
+    });
+
+    test('the two app ids are per-platform and neither is a Google test id',
+        () {
+      final plist = File('ios/Runner/Info.plist').readAsStringSync();
+      final manifest =
+          File('android/app/src/main/AndroidManifest.xml').readAsStringSync();
+      expect(plist, contains('ca-app-pub-3386708172616785~5617600204'));
+      expect(manifest, contains('ca-app-pub-3386708172616785~6902761716'));
+      expect(plist, isNot(contains('ca-app-pub-3940256099942544~')));
+      expect(manifest, isNot(contains('ca-app-pub-3940256099942544~')));
     });
   });
 

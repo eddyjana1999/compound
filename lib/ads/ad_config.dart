@@ -24,10 +24,14 @@ class AdConfig {
   // An empty string means "not created in AdMob yet", and the app then
   // serves nothing at all in release rather than serving a test ad.
   // ---------------------------------------------------------------------
-  static const String _realBannerIos = 'ca-app-pub-3386708172616785/6559041580';
-  static const String _realInterstitialIos = '';
-  static const String _realBannerAndroid = '';
-  static const String _realInterstitialAndroid = '';
+  static const String _realBannerIos =
+      'ca-app-pub-3386708172616785/6559041580';
+  static const String _realInterstitialIos =
+      'ca-app-pub-3386708172616785/3210928716';
+  static const String _realBannerAndroid =
+      'ca-app-pub-3386708172616785/5202667235';
+  static const String _realInterstitialAndroid =
+      'ca-app-pub-3386708172616785/5589680048';
 
   // Google's published test units. Safe to commit; they never bill anyone.
   static const String _testBannerAndroid =
