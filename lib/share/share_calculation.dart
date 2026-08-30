@@ -8,7 +8,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../domain/models/calculation_result.dart';
-import '../l10n/app_localizations.dart';
 import '../ui/formatting/money_format.dart';
 import '../ui/widgets/share_card.dart';
 
@@ -30,7 +29,6 @@ class ShareCalculation {
     CalculationResult result, {
     required Rect? origin,
   }) async {
-    final l10n = AppLocalizations.of(context);
     final bytes = await renderImage(context, result);
     if (bytes == null) throw StateError('render produced no image');
 
@@ -40,8 +38,11 @@ class ShareCalculation {
 
     await SharePlus.instance.share(
       ShareParams(
+        // The image and nothing else. Adding a caption made iOS treat the
+        // share as "Plain Text and 1 Document" — two items — which both
+        // clutters the sheet and stops it recognising the payload as a
+        // picture, so Save Image and the photo-aware targets disappear.
         files: [XFile(file.path, mimeType: 'image/png')],
-        text: l10n.sharedFrom,
         // Without this an iPad throws instead of opening the sheet: the
         // popover has to be anchored to something.
         sharePositionOrigin: origin,
