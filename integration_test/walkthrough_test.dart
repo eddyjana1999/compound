@@ -118,7 +118,7 @@ void main() {
     // The rate the projection assumed must travel with the result.
     expect(find.text('8% per year'), findsOneWidget);
     expect(find.text('Total deposited'), findsOneWidget);
-    expect(find.text('Interest earned'), findsOneWidget);
+    expect(find.text('Compound interest earned'), findsOneWidget);
     expect(find.text('Fees paid'), findsOneWidget);
     expect(find.text('Tax paid'), findsOneWidget);
     await settleAndShoot(tester, '04-results');
