@@ -241,4 +241,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get errNothingInvested => 'أدخل مبلغًا أوليًا أو إيداعًا شهريًا.';
+
+  @override
+  String get share => 'مشاركة';
+
+  @override
+  String get shareFailed => 'تعذّر إنشاء الصورة.';
+
+  @override
+  String get sharedFrom => 'حُسِب باستخدام Compound';
 }

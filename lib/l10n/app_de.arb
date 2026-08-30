@@ -67,5 +67,8 @@
   "errTaxRange": "Der Steuersatz muss zwischen 0 % und 100 % liegen.",
   "errInflationRange": "Die Inflation muss zwischen 0 % und 100 % liegen.",
   "errGrowthRange": "Die jährliche Erhöhung muss zwischen 0 % und 100 % liegen.",
-  "errNothingInvested": "Gib einen Startbetrag oder eine monatliche Sparrate ein."
+  "errNothingInvested": "Gib einen Startbetrag oder eine monatliche Sparrate ein.",
+  "share": "Teilen",
+  "shareFailed": "Das Bild konnte nicht erstellt werden.",
+  "sharedFrom": "Berechnet mit Compound"
 }

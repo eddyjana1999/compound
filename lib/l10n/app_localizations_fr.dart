@@ -238,4 +238,13 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get errNothingInvested =>
       'Saisissez un montant initial ou un versement mensuel.';
+
+  @override
+  String get share => 'Partager';
+
+  @override
+  String get shareFailed => 'L\'image n\'a pas pu être créée.';
+
+  @override
+  String get sharedFrom => 'Calculé avec Compound';
 }

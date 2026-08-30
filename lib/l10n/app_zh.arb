@@ -67,5 +67,8 @@
   "errTaxRange": "税率需在 0% 到 100% 之间。",
   "errInflationRange": "通胀率需在 0% 到 100% 之间。",
   "errGrowthRange": "年增长率需在 0% 到 100% 之间。",
-  "errNothingInvested": "请输入初始金额或每月投入。"
+  "errNothingInvested": "请输入初始金额或每月投入。",
+  "share": "分享",
+  "shareFailed": "无法生成图片。",
+  "sharedFrom": "由 Compound 计算"
 }

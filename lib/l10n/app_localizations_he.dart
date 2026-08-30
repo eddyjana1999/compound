@@ -236,4 +236,13 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get errNothingInvested => 'הזן סכום התחלתי או הפקדה חודשית.';
+
+  @override
+  String get share => 'שיתוף';
+
+  @override
+  String get shareFailed => 'לא ניתן היה ליצור את התמונה.';
+
+  @override
+  String get sharedFrom => 'חושב באמצעות Compound';
 }

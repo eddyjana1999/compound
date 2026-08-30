@@ -67,5 +67,8 @@
   "errTaxRange": "שיעור המס חייב להיות בין 0% ל־100%.",
   "errInflationRange": "האינפלציה חייבת להיות בין 0% ל־100%.",
   "errGrowthRange": "הגידול השנתי חייב להיות בין 0% ל־100%.",
-  "errNothingInvested": "הזן סכום התחלתי או הפקדה חודשית."
+  "errNothingInvested": "הזן סכום התחלתי או הפקדה חודשית.",
+  "share": "שיתוף",
+  "shareFailed": "לא ניתן היה ליצור את התמונה.",
+  "sharedFrom": "חושב באמצעות Compound"
 }

@@ -67,5 +67,8 @@
   "errTaxRange": "El impuesto debe estar entre el 0 % y el 100 %.",
   "errInflationRange": "La inflación debe estar entre el 0 % y el 100 %.",
   "errGrowthRange": "El aumento anual debe estar entre el 0 % y el 100 %.",
-  "errNothingInvested": "Introduce un importe inicial o una aportación mensual."
+  "errNothingInvested": "Introduce un importe inicial o una aportación mensual.",
+  "share": "Compartir",
+  "shareFailed": "No se ha podido crear la imagen.",
+  "sharedFrom": "Calculado con Compound"
 }

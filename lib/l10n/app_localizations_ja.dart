@@ -229,4 +229,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get errNothingInvested => '初期投資額か毎月の積立額を入力してください。';
+
+  @override
+  String get share => '共有';
+
+  @override
+  String get shareFailed => '画像を作成できませんでした。';
+
+  @override
+  String get sharedFrom => 'Compound で計算';
 }

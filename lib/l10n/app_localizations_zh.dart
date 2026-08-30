@@ -229,4 +229,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get errNothingInvested => '请输入初始金额或每月投入。';
+
+  @override
+  String get share => '分享';
+
+  @override
+  String get shareFailed => '无法生成图片。';
+
+  @override
+  String get sharedFrom => '由 Compound 计算';
 }

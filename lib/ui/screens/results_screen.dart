@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/saved_calculation.dart';
+import '../../share/share_calculation.dart';
 import '../../domain/models/calculation_input.dart';
+import '../../domain/models/calculation_result.dart';
 import '../../l10n/app_localizations.dart';
 import '../formatting/money_format.dart';
 import '../state/providers.dart';
@@ -30,6 +32,27 @@ class ResultsScreen extends ConsumerStatefulWidget {
 
 class _ResultsScreenState extends ConsumerState<ResultsScreen> {
   late bool _saved = widget.saved;
+  bool _sharing = false;
+
+  Future<void> _share(CalculationResult result) async {
+    final l10n = AppLocalizations.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    // The share sheet is a popover on iPad and needs something to point at.
+    final box = context.findRenderObject() as RenderBox?;
+    final origin =
+        box == null ? null : box.localToGlobal(Offset.zero) & box.size;
+
+    setState(() => _sharing = true);
+    try {
+      await const ShareCalculation().share(context, result, origin: origin);
+    } on Object {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l10n.shareFailed)));
+    } finally {
+      if (mounted) setState(() => _sharing = false);
+    }
+  }
 
   Future<void> _save() async {
     final l10n = AppLocalizations.of(context);
@@ -66,7 +89,16 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.results)),
+      appBar: AppBar(
+        title: Text(l10n.results),
+        actions: [
+          IconButton(
+            tooltip: l10n.share,
+            icon: const Icon(Icons.ios_share_rounded),
+            onPressed: _sharing ? null : () => _share(result),
+          ),
+        ],
+      ),
       body: SafeArea(
         top: false,
         child: Column(

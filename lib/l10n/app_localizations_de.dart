@@ -239,4 +239,13 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get errNothingInvested =>
       'Gib einen Startbetrag oder eine monatliche Sparrate ein.';
+
+  @override
+  String get share => 'Teilen';
+
+  @override
+  String get shareFailed => 'Das Bild konnte nicht erstellt werden.';
+
+  @override
+  String get sharedFrom => 'Berechnet mit Compound';
 }

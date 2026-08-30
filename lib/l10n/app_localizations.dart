@@ -517,6 +517,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter a starting amount or a monthly contribution.'**
   String get errNothingInvested;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @shareFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The image could not be created.'**
+  String get shareFailed;
+
+  /// No description provided for @sharedFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculated with Compound'**
+  String get sharedFrom;
 }
 
 class _AppLocalizationsDelegate
