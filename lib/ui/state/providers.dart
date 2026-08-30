@@ -40,6 +40,16 @@ class HistoryNotifier extends AsyncNotifier<List<SavedCalculation>> {
     state = AsyncData(await repo.delete(id));
   }
 
+  Future<void> removeAll(Set<String> ids) async {
+    final repo = ref.read(repositoryProvider);
+    state = AsyncData(await repo.deleteAll(ids));
+  }
+
+  Future<void> setFavourite(String id, bool favourite) async {
+    final repo = ref.read(repositoryProvider);
+    state = AsyncData(await repo.setFavourite(id, favourite));
+  }
+
   Future<void> clear() async {
     final repo = ref.read(repositoryProvider);
     state = AsyncData(await repo.clear());

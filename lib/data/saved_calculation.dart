@@ -14,13 +14,23 @@ class SavedCalculation {
     required this.id,
     required this.createdAt,
     required this.input,
+    this.favourite = false,
   });
 
   final String id;
   final DateTime createdAt;
   final CalculationInput input;
 
-  static const int _schemaVersion = 1;
+  /// Starred by the user. Favourites sort to the top of the history.
+  final bool favourite;
+
+  /// Bumped to 2 when favourites arrived.
+  ///
+  /// Version 1 rows are still read, with `favourite` defaulting to false —
+  /// which is what those rows meant. Refusing them would wipe the history of
+  /// anyone updating the app.
+  static const int _schemaVersion = 2;
+  static const Set<int> _readableVersions = {1, 2};
 
   Map<String, Object?> toJson() => {
         'v': _schemaVersion,
@@ -35,6 +45,7 @@ class SavedCalculation {
         'annualManagementFee': input.annualManagementFee,
         'capitalGainsTaxRate': input.capitalGainsTaxRate,
         'rateConversion': input.rateConversion.name,
+        'favourite': favourite,
       };
 
   /// Returns null for an entry this build cannot read, rather than throwing.
@@ -44,7 +55,7 @@ class SavedCalculation {
   /// the app from opening.
   static SavedCalculation? tryFromJson(Map<String, Object?> json) {
     try {
-      if (json['v'] != _schemaVersion) return null;
+      if (!_readableVersions.contains(json['v'])) return null;
 
       final id = json['id'];
       final createdAt = json['createdAt'];
@@ -80,6 +91,7 @@ class SavedCalculation {
         id: id,
         createdAt: DateTime.parse(createdAt).toLocal(),
         input: input,
+        favourite: json['favourite'] as bool? ?? false,
       );
     } on Object {
       return null;
@@ -98,13 +110,21 @@ class SavedCalculation {
     }
   }
 
+  SavedCalculation copyWith({bool? favourite}) => SavedCalculation(
+        id: id,
+        createdAt: createdAt,
+        input: input,
+        favourite: favourite ?? this.favourite,
+      );
+
   @override
   bool operator ==(Object other) =>
       other is SavedCalculation &&
       other.id == id &&
       other.createdAt == createdAt &&
-      other.input == input;
+      other.input == input &&
+      other.favourite == favourite;
 
   @override
-  int get hashCode => Object.hash(id, createdAt, input);
+  int get hashCode => Object.hash(id, createdAt, input, favourite);
 }

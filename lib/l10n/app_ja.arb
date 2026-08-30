@@ -53,5 +53,10 @@
   "purchaseThanks": "ありがとうございます。広告は表示されません。",
   "purchaseFailed": "購入を完了できませんでした。",
   "nothingToRestore": "このアカウントに以前の購入は見つかりませんでした。",
-  "adsRemovedTitle": "広告は非表示です"
+  "adsRemovedTitle": "広告は非表示です",
+  "addToFavourites": "お気に入りに追加",
+  "removeFromFavourites": "お気に入りから削除",
+  "selectedCount": "{count, plural, other{{count} 件を選択中}}",
+  "deleteSelectedTitle": "選択した計算を削除しますか？",
+  "select": "選択"
 }

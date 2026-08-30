@@ -53,5 +53,10 @@
   "purchaseThanks": "شكرًا لك. لقد اختفت الإعلانات.",
   "purchaseFailed": "تعذّر إتمام عملية الشراء.",
   "nothingToRestore": "لم يُعثر على عملية شراء سابقة على هذا الحساب.",
-  "adsRemovedTitle": "تمت إزالة الإعلانات"
+  "adsRemovedTitle": "تمت إزالة الإعلانات",
+  "addToFavourites": "إضافة إلى المفضّلة",
+  "removeFromFavourites": "إزالة من المفضّلة",
+  "selectedCount": "{count, plural, =1{تم تحديد عنصر واحد} =2{تم تحديد عنصرين} few{تم تحديد {count} عناصر} many{تم تحديد {count} عنصرًا} other{تم تحديد {count} عنصر}}",
+  "deleteSelectedTitle": "حذف العمليات المحدّدة؟",
+  "select": "تحديد"
 }

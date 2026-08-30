@@ -433,6 +433,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ads removed'**
   String get adsRemovedTitle;
+
+  /// No description provided for @addToFavourites.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to favourites'**
+  String get addToFavourites;
+
+  /// No description provided for @removeFromFavourites.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from favourites'**
+  String get removeFromFavourites;
+
+  /// No description provided for @selectedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 selected} other{{count} selected}}'**
+  String selectedCount(int count);
+
+  /// No description provided for @deleteSelectedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the selected calculations?'**
+  String get deleteSelectedTitle;
+
+  /// No description provided for @select.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get select;
 }
 
 class _AppLocalizationsDelegate

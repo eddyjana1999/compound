@@ -141,9 +141,16 @@ void main() {
     // 1 — the app with something in it.
     await shoot(tester, 'store-1-home');
 
-    // 2 — the inputs, filled in.
+    // 2 — 49 currencies, which is the reason it is a *universal* calculator.
+    // Taken first, while the form is still scrolled to the top.
     await tester.tap(find.text('New calculation'));
     await tester.pumpAndSettle();
+    await tester.tap(find.text('USD').first);
+    await shoot(tester, 'store-5-currencies');
+    Navigator.of(tester.element(find.text('Currency').first)).pop();
+    await tester.pumpAndSettle();
+
+    // 3 — the inputs, filled in.
     final fields = find.byType(TextField);
     await tester.enterText(fields.at(0), '25000');
     await tester.pumpAndSettle();
@@ -173,10 +180,5 @@ void main() {
     await tester.drag(find.byType(ListView).last, const Offset(0, -430));
     await shoot(tester, 'store-4-chart');
 
-    // 5 — 49 currencies, which is the reason it is a *universal* calculator.
-    await tester.pageBack();
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('USD').first);
-    await shoot(tester, 'store-5-currencies');
   });
 }

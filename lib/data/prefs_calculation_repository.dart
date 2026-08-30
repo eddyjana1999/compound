@@ -36,6 +36,22 @@ class PrefsCalculationRepository implements CalculationRepository {
   }
 
   @override
+  Future<List<SavedCalculation>> deleteAll(Set<String> ids) async {
+    if (ids.isEmpty) return _read();
+    final entries = _read()..removeWhere((e) => ids.contains(e.id));
+    return _write(entries);
+  }
+
+  @override
+  Future<List<SavedCalculation>> setFavourite(String id, bool favourite) async {
+    final entries = _read();
+    final index = entries.indexWhere((e) => e.id == id);
+    if (index == -1) return entries;
+    entries[index] = entries[index].copyWith(favourite: favourite);
+    return _write(entries);
+  }
+
+  @override
   Future<List<SavedCalculation>> clear() async {
     await _prefs.remove(_key);
     return const [];
@@ -48,11 +64,25 @@ class PrefsCalculationRepository implements CalculationRepository {
       final entry = SavedCalculation.tryDecode(row);
       if (entry != null) entries.add(entry);
     }
-    entries.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    _sort(entries);
     return entries;
   }
 
+  /// Starred first, then newest. Sorting rather than filtering keeps one
+  /// list: a favourite is a calculation you pinned, not a separate place you
+  /// have to go and look.
+  static void _sort(List<SavedCalculation> entries) {
+    entries.sort((a, b) {
+      if (a.favourite != b.favourite) return a.favourite ? -1 : 1;
+      return b.createdAt.compareTo(a.createdAt);
+    });
+  }
+
   Future<List<SavedCalculation>> _write(List<SavedCalculation> entries) async {
+    _sort(entries);
+    // The cap drops the oldest, and a starred entry is never the oldest by
+    // this order — so pinning something also protects it from being pushed
+    // out by fifty newer calculations.
     final capped = entries.take(maxEntries).toList(growable: false);
     await _prefs.setStringList(
       _key,

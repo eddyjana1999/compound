@@ -53,5 +53,10 @@
   "purchaseThanks": "谢谢，广告已去除。",
   "purchaseFailed": "购买未能完成。",
   "nothingToRestore": "未找到该账号的历史购买记录。",
-  "adsRemovedTitle": "已去除广告"
+  "adsRemovedTitle": "已去除广告",
+  "addToFavourites": "加入收藏",
+  "removeFromFavourites": "取消收藏",
+  "selectedCount": "{count, plural, other{已选择 {count} 项}}",
+  "deleteSelectedTitle": "删除选中的计算？",
+  "select": "选择"
 }

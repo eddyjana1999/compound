@@ -188,4 +188,30 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adsRemovedTitle => 'تمت إزالة الإعلانات';
+
+  @override
+  String get addToFavourites => 'إضافة إلى المفضّلة';
+
+  @override
+  String get removeFromFavourites => 'إزالة من المفضّلة';
+
+  @override
+  String selectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تم تحديد $count عنصر',
+      many: 'تم تحديد $count عنصرًا',
+      few: 'تم تحديد $count عناصر',
+      two: 'تم تحديد عنصرين',
+      one: 'تم تحديد عنصر واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deleteSelectedTitle => 'حذف العمليات المحدّدة؟';
+
+  @override
+  String get select => 'تحديد';
 }

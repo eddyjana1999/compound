@@ -53,5 +53,10 @@
   "purchaseThanks": "Merci. Les publicités ont disparu.",
   "purchaseFailed": "L'achat n'a pas pu être finalisé.",
   "nothingToRestore": "Aucun achat antérieur trouvé sur ce compte.",
-  "adsRemovedTitle": "Publicités supprimées"
+  "adsRemovedTitle": "Publicités supprimées",
+  "addToFavourites": "Ajouter aux favoris",
+  "removeFromFavourites": "Retirer des favoris",
+  "selectedCount": "{count, plural, =1{1 sélectionné} other{{count} sélectionnés}}",
+  "deleteSelectedTitle": "Supprimer les calculs sélectionnés ?",
+  "select": "Sélectionner"
 }

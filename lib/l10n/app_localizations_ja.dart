@@ -180,4 +180,26 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get adsRemovedTitle => '広告は非表示です';
+
+  @override
+  String get addToFavourites => 'お気に入りに追加';
+
+  @override
+  String get removeFromFavourites => 'お気に入りから削除';
+
+  @override
+  String selectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 件を選択中',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deleteSelectedTitle => '選択した計算を削除しますか？';
+
+  @override
+  String get select => '選択';
 }

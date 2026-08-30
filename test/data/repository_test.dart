@@ -80,6 +80,109 @@ void main() {
     });
   });
 
+  group('favourites', () {
+    test('an entry starts unstarred', () {
+      expect(anEntry('a').favourite, isFalse);
+    });
+
+    test('starring survives a round trip', () {
+      final starred = anEntry('a').copyWith(favourite: true);
+      expect(SavedCalculation.tryDecode(starred.encode())!.favourite, isTrue);
+    });
+
+    test('a version 1 row loads unstarred rather than being refused', () {
+      // What sits in storage for anyone updating the app. Rejecting it would
+      // silently wipe their history.
+      final v1 = anEntry('old').toJson()
+        ..['v'] = 1
+        ..remove('favourite');
+      final restored = SavedCalculation.tryFromJson(v1);
+      expect(restored, isNotNull);
+      expect(restored!.favourite, isFalse);
+      expect(restored.input.years, 20);
+    });
+
+    test('starred entries sort above newer unstarred ones', () async {
+      final repo = await emptyRepo();
+      await repo.save(anEntry('new', at: DateTime(2026, 8, 1)));
+      await repo.save(anEntry('old', at: DateTime(2026, 1, 1)));
+      final after = await repo.setFavourite('old', true);
+      expect(after.map((e) => e.id), ['old', 'new']);
+    });
+
+    test('among themselves, favourites are still newest first', () async {
+      final repo = await emptyRepo();
+      await repo.save(anEntry('a', at: DateTime(2026, 1, 1)));
+      await repo.save(anEntry('b', at: DateTime(2026, 6, 1)));
+      await repo.setFavourite('a', true);
+      final after = await repo.setFavourite('b', true);
+      expect(after.map((e) => e.id), ['b', 'a']);
+    });
+
+    test('unstarring puts it back in date order', () async {
+      final repo = await emptyRepo();
+      await repo.save(anEntry('new', at: DateTime(2026, 8, 1)));
+      await repo.save(anEntry('old', at: DateTime(2026, 1, 1)));
+      await repo.setFavourite('old', true);
+      final after = await repo.setFavourite('old', false);
+      expect(after.map((e) => e.id), ['new', 'old']);
+    });
+
+    test('starring an unknown id changes nothing', () async {
+      final repo = await emptyRepo();
+      await repo.save(anEntry('a'));
+      final after = await repo.setFavourite('nope', true);
+      expect(after.length, 1);
+      expect(after.single.favourite, isFalse);
+    });
+
+    test('a favourite is never pushed out by the entry cap', () async {
+      // The cap drops the oldest. A starred entry sorts above everything
+      // unstarred, so pinning also protects.
+      final repo = await emptyRepo();
+      await repo.save(anEntry('keep', at: DateTime(2020, 1, 1)));
+      await repo.setFavourite('keep', true);
+      for (var i = 0; i < PrefsCalculationRepository.maxEntries + 5; i++) {
+        await repo.save(
+            anEntry('id$i', at: DateTime(2026, 1, 1).add(Duration(days: i))));
+      }
+      final loaded = await repo.load();
+      expect(loaded.length, PrefsCalculationRepository.maxEntries);
+      expect(loaded.first.id, 'keep');
+    });
+  });
+
+  group('deleting several at once', () {
+    test('removes exactly the ones named', () async {
+      final repo = await emptyRepo();
+      for (final id in ['a', 'b', 'c']) {
+        await repo.save(anEntry(id, at: DateTime(2026, 1, 1)));
+      }
+      final left = await repo.deleteAll({'a', 'c'});
+      expect(left.map((e) => e.id), ['b']);
+    });
+
+    test('an empty selection is a no-op, not a wipe', () async {
+      final repo = await emptyRepo();
+      await repo.save(anEntry('a'));
+      expect((await repo.deleteAll({})).length, 1);
+    });
+
+    test('unknown ids in the selection are ignored', () async {
+      final repo = await emptyRepo();
+      await repo.save(anEntry('a'));
+      final left = await repo.deleteAll({'a', 'ghost'});
+      expect(left, isEmpty);
+    });
+
+    test('deletes favourites too when they were selected', () async {
+      final repo = await emptyRepo();
+      await repo.save(anEntry('a'));
+      await repo.setFavourite('a', true);
+      expect(await repo.deleteAll({'a'}), isEmpty);
+    });
+  });
+
   group('history', () {
     test('starts empty', () async {
       final repo = await emptyRepo();

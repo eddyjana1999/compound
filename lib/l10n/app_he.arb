@@ -53,5 +53,10 @@
   "purchaseThanks": "תודה. הפרסומות נעלמו.",
   "purchaseFailed": "לא ניתן היה להשלים את הרכישה.",
   "nothingToRestore": "לא נמצאה רכישה קודמת בחשבון הזה.",
-  "adsRemovedTitle": "הפרסומות הוסרו"
+  "adsRemovedTitle": "הפרסומות הוסרו",
+  "addToFavourites": "הוספה למועדפים",
+  "removeFromFavourites": "הסרה מהמועדפים",
+  "selectedCount": "{count, plural, =1{נבחר אחד} =2{נבחרו שניים} other{נבחרו {count}}}",
+  "deleteSelectedTitle": "למחוק את החישובים שנבחרו?",
+  "select": "בחירה"
 }

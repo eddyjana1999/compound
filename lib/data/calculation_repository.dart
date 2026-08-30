@@ -13,5 +13,11 @@ abstract class CalculationRepository {
 
   Future<List<SavedCalculation>> delete(String id);
 
+  /// Removes several at once, for the selection mode on the home screen.
+  Future<List<SavedCalculation>> deleteAll(Set<String> ids);
+
+  /// Stars or unstars one entry.
+  Future<List<SavedCalculation>> setFavourite(String id, bool favourite);
+
   Future<List<SavedCalculation>> clear();
 }

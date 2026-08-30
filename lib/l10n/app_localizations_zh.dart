@@ -180,4 +180,26 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get adsRemovedTitle => '已去除广告';
+
+  @override
+  String get addToFavourites => '加入收藏';
+
+  @override
+  String get removeFromFavourites => '取消收藏';
+
+  @override
+  String selectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已选择 $count 项',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deleteSelectedTitle => '删除选中的计算？';
+
+  @override
+  String get select => '选择';
 }

@@ -56,5 +56,11 @@
   "purchaseThanks": "Thank you. The ads are gone.",
   "purchaseFailed": "The purchase could not be completed.",
   "nothingToRestore": "No previous purchase found on this account.",
-  "adsRemovedTitle": "Ads removed"
+  "adsRemovedTitle": "Ads removed",
+  "addToFavourites": "Add to favourites",
+  "removeFromFavourites": "Remove from favourites",
+  "selectedCount": "{count, plural, =1{1 selected} other{{count} selected}}",
+  "@selectedCount": {"placeholders": {"count": {"type": "int"}}},
+  "deleteSelectedTitle": "Delete the selected calculations?",
+  "select": "Select"
 }

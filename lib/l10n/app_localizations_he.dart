@@ -185,4 +185,28 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get adsRemovedTitle => 'הפרסומות הוסרו';
+
+  @override
+  String get addToFavourites => 'הוספה למועדפים';
+
+  @override
+  String get removeFromFavourites => 'הסרה מהמועדפים';
+
+  @override
+  String selectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'נבחרו $count',
+      two: 'נבחרו שניים',
+      one: 'נבחר אחד',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deleteSelectedTitle => 'למחוק את החישובים שנבחרו?';
+
+  @override
+  String get select => 'בחירה';
 }
