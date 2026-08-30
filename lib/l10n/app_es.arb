@@ -68,5 +68,9 @@
   "termsOfUse": "Términos de uso",
   "privacyPolicy": "Política de privacidad",
   "proNotSubscription": "Una compra única, no una suscripción. No se renueva ni se vuelve a cobrar.",
-  "proLockedHint": "Pro"
+  "proLockedHint": "Pro",
+  "export": "Exportar",
+  "exportPdf": "Documento PDF",
+  "exportCsv": "Hoja de cálculo CSV",
+  "exportFailed": "No se ha podido crear la exportación."
 }

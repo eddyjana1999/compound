@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/saved_calculation.dart';
+import '../../export/export_service.dart';
 import '../../domain/models/calculation_input.dart';
+import '../../domain/models/calculation_result.dart';
 import '../../l10n/app_localizations.dart';
 import '../formatting/money_format.dart';
 import '../state/providers.dart';
@@ -15,6 +17,7 @@ import '../widgets/app_card.dart';
 import '../widgets/breakdown_card.dart';
 import '../widgets/growth_chart.dart';
 import '../widgets/hero_result.dart';
+import 'paywall_screen.dart';
 
 class ResultsScreen extends ConsumerStatefulWidget {
   const ResultsScreen({super.key, required this.input, this.saved = false});
@@ -50,6 +53,55 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
       ..showSnackBar(SnackBar(content: Text(l10n.savedToHistory)));
   }
 
+  /// Pro only. A free user is shown the paywall rather than a disabled
+  /// button, because a control that does nothing teaches nothing.
+  Future<void> _export(CalculationResult result) async {
+    if (!ref.read(isProProvider)) {
+      await showPaywall(context);
+      return;
+    }
+
+    final l10n = AppLocalizations.of(context);
+    final format = await showModalBottomSheet<ExportFormat>(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.picture_as_pdf_outlined),
+              title: Text(l10n.exportPdf),
+              onTap: () => Navigator.pop(context, ExportFormat.pdf),
+            ),
+            ListTile(
+              leading: const Icon(Icons.table_chart_outlined),
+              title: Text(l10n.exportCsv),
+              onTap: () => Navigator.pop(context, ExportFormat.csv),
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+    if (format == null || !mounted) return;
+
+    final messenger = ScaffoldMessenger.of(context);
+    // The share sheet needs somewhere to point on iPad, or it throws.
+    final box = context.findRenderObject() as RenderBox?;
+    final origin = box == null
+        ? null
+        : box.localToGlobal(Offset.zero) & box.size;
+
+    try {
+      await const ExportService().share(result, format, origin: origin);
+    } on Object {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l10n.exportFailed)));
+    }
+  }
+
   static String _newId() {
     final random = math.Random();
     return '${DateTime.now().microsecondsSinceEpoch}'
@@ -66,7 +118,16 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.results)),
+      appBar: AppBar(
+        title: Text(l10n.results),
+        actions: [
+          IconButton(
+            tooltip: l10n.export,
+            icon: const Icon(Icons.ios_share_rounded),
+            onPressed: () => _export(result),
+          ),
+        ],
+      ),
       body: SafeArea(
         top: false,
         child: Column(

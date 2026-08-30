@@ -523,6 +523,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pro'**
   String get proLockedHint;
+
+  /// No description provided for @export.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get export;
+
+  /// No description provided for @exportPdf.
+  ///
+  /// In en, this message translates to:
+  /// **'PDF document'**
+  String get exportPdf;
+
+  /// No description provided for @exportCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'CSV spreadsheet'**
+  String get exportCsv;
+
+  /// No description provided for @exportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The export could not be created.'**
+  String get exportFailed;
 }
 
 class _AppLocalizationsDelegate

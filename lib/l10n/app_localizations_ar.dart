@@ -234,4 +234,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get proLockedHint => 'Pro';
+
+  @override
+  String get export => 'تصدير';
+
+  @override
+  String get exportPdf => 'مستند PDF';
+
+  @override
+  String get exportCsv => 'جدول CSV';
+
+  @override
+  String get exportFailed => 'تعذّر إنشاء ملف التصدير.';
 }

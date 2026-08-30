@@ -225,4 +225,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get proLockedHint => 'Pro';
+
+  @override
+  String get export => '書き出す';
+
+  @override
+  String get exportPdf => 'PDF ドキュメント';
+
+  @override
+  String get exportCsv => 'CSV スプレッドシート';
+
+  @override
+  String get exportFailed => '書き出しに失敗しました。';
 }

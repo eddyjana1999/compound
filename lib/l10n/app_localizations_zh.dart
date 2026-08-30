@@ -225,4 +225,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get proLockedHint => 'Pro';
+
+  @override
+  String get export => '导出';
+
+  @override
+  String get exportPdf => 'PDF 文档';
+
+  @override
+  String get exportCsv => 'CSV 表格';
+
+  @override
+  String get exportFailed => '无法生成导出文件。';
 }

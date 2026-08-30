@@ -68,5 +68,9 @@
   "termsOfUse": "利用規約",
   "privacyPolicy": "プライバシーポリシー",
   "proNotSubscription": "買い切りです。サブスクリプションではないため、自動更新も追加請求もありません。",
-  "proLockedHint": "Pro"
+  "proLockedHint": "Pro",
+  "export": "書き出す",
+  "exportPdf": "PDF ドキュメント",
+  "exportCsv": "CSV スプレッドシート",
+  "exportFailed": "書き出しに失敗しました。"
 }

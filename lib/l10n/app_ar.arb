@@ -68,5 +68,9 @@
   "termsOfUse": "شروط الاستخدام",
   "privacyPolicy": "سياسة الخصوصية",
   "proNotSubscription": "عملية شراء لمرة واحدة وليست اشتراكًا. لا تجديد ولا خصم مرة أخرى.",
-  "proLockedHint": "Pro"
+  "proLockedHint": "Pro",
+  "export": "تصدير",
+  "exportPdf": "مستند PDF",
+  "exportCsv": "جدول CSV",
+  "exportFailed": "تعذّر إنشاء ملف التصدير."
 }

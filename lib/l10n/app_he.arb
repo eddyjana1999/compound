@@ -68,5 +68,9 @@
   "termsOfUse": "תנאי שימוש",
   "privacyPolicy": "מדיניות פרטיות",
   "proNotSubscription": "רכישה חד-פעמית, לא מנוי. שום דבר לא מתחדש ולא תחויב שוב.",
-  "proLockedHint": "Pro"
+  "proLockedHint": "Pro",
+  "export": "ייצוא",
+  "exportPdf": "מסמך PDF",
+  "exportCsv": "גיליון CSV",
+  "exportFailed": "לא ניתן היה ליצור את קובץ הייצוא."
 }

@@ -68,5 +68,9 @@
   "termsOfUse": "Nutzungsbedingungen",
   "privacyPolicy": "Datenschutz",
   "proNotSubscription": "Ein einmaliger Kauf, kein Abo. Nichts verlängert sich, nichts wird erneut abgebucht.",
-  "proLockedHint": "Pro"
+  "proLockedHint": "Pro",
+  "export": "Exportieren",
+  "exportPdf": "PDF-Dokument",
+  "exportCsv": "CSV-Tabelle",
+  "exportFailed": "Der Export konnte nicht erstellt werden."
 }

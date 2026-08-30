@@ -233,4 +233,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get proLockedHint => 'Pro';
+
+  @override
+  String get export => 'Exportar';
+
+  @override
+  String get exportPdf => 'Documento PDF';
+
+  @override
+  String get exportCsv => 'Hoja de cálculo CSV';
+
+  @override
+  String get exportFailed => 'No se ha podido crear la exportación.';
 }

@@ -68,5 +68,9 @@
   "termsOfUse": "使用条款",
   "privacyPolicy": "隐私政策",
   "proNotSubscription": "一次性购买，不是订阅。不会自动续费，也不会再次扣款。",
-  "proLockedHint": "Pro"
+  "proLockedHint": "Pro",
+  "export": "导出",
+  "exportPdf": "PDF 文档",
+  "exportCsv": "CSV 表格",
+  "exportFailed": "无法生成导出文件。"
 }

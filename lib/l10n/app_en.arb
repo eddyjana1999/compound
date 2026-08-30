@@ -71,5 +71,9 @@
   "termsOfUse": "Terms of Use",
   "privacyPolicy": "Privacy Policy",
   "proNotSubscription": "A one-off purchase, not a subscription. Nothing renews and nothing is charged again.",
-  "proLockedHint": "Pro"
+  "proLockedHint": "Pro",
+  "export": "Export",
+  "exportPdf": "PDF document",
+  "exportCsv": "CSV spreadsheet",
+  "exportFailed": "The export could not be created."
 }
