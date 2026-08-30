@@ -17,6 +17,13 @@ import '../ui/widgets/share_card.dart';
 /// Files and everything else the user has installed come from the operating
 /// system. There is nothing to integrate per app, and nothing to keep up to
 /// date when they install a new one.
+///
+/// The sheet's order is iOS's to decide, not ours — the app row is ranked by
+/// who you share with most, the action list by content type, and a developer
+/// cannot change either. An in-app sheet in front of it was considered and
+/// rejected on 2026-08-31: apps that build one do it because they have
+/// several export formats to choose between, and this app has one picture.
+/// A chooser with a single option is a tap that buys nothing.
 class ShareCalculation {
   const ShareCalculation();
 
