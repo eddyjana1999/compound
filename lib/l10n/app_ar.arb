@@ -58,5 +58,14 @@
   "removeFromFavourites": "إزالة من المفضّلة",
   "selectedCount": "{count, plural, =1{تم تحديد عنصر واحد} =2{تم تحديد عنصرين} few{تم تحديد {count} عناصر} many{تم تحديد {count} عنصرًا} other{تم تحديد {count} عنصر}}",
   "deleteSelectedTitle": "حذف العمليات المحدّدة؟",
-  "select": "تحديد"
+  "select": "تحديد",
+  "errNegativeAmount": "لا يمكن أن تكون المبالغ سالبة.",
+  "errHorizonTooShort": "اختر سنة واحدة على الأقل.",
+  "errHorizonTooLong": "اختر 100 سنة أو أقل.",
+  "errReturnTooLow": "يجب أن يكون العائد أعلى من ‎−100٪.",
+  "errFeeRange": "يجب أن تكون الرسوم بين 0٪ و100٪.",
+  "errTaxRange": "يجب أن تكون نسبة الضريبة بين 0٪ و100٪.",
+  "errInflationRange": "يجب أن يكون التضخّم بين 0٪ و100٪.",
+  "errGrowthRange": "يجب أن تكون الزيادة السنوية بين 0٪ و100٪.",
+  "errNothingInvested": "أدخل مبلغًا أوليًا أو إيداعًا شهريًا."
 }

@@ -412,6 +412,20 @@ class _ProblemBanner extends StatelessWidget {
 
   final InputProblem problem;
 
+  /// The domain distinguishes ten failures; saying "check your numbers" for
+  /// all of them leaves the user hunting for which field is wrong.
+  String _message(AppLocalizations l10n) => switch (problem) {
+        InputProblem.negativeInitialAmount ||
+        InputProblem.negativeContribution =>
+          l10n.errNegativeAmount,
+        InputProblem.horizonTooShort => l10n.errHorizonTooShort,
+        InputProblem.horizonTooLong => l10n.errHorizonTooLong,
+        InputProblem.returnAtOrBelowTotalLoss => l10n.errReturnTooLow,
+        InputProblem.feeOutOfRange => l10n.errFeeRange,
+        InputProblem.taxOutOfRange => l10n.errTaxRange,
+        InputProblem.nothingInvested => l10n.errNothingInvested,
+      };
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -432,7 +446,7 @@ class _ProblemBanner extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              l10n.checkYourNumbers,
+              _message(l10n),
               style: context.texts.bodyMedium?.copyWith(
                 color: context.colors.onErrorContainer,
                 fontWeight: FontWeight.w600,

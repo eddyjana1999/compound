@@ -58,5 +58,14 @@
   "removeFromFavourites": "הסרה מהמועדפים",
   "selectedCount": "{count, plural, =1{נבחר אחד} =2{נבחרו שניים} other{נבחרו {count}}}",
   "deleteSelectedTitle": "למחוק את החישובים שנבחרו?",
-  "select": "בחירה"
+  "select": "בחירה",
+  "errNegativeAmount": "סכומים לא יכולים להיות שליליים.",
+  "errHorizonTooShort": "בחר שנה אחת לפחות.",
+  "errHorizonTooLong": "בחר 100 שנים או פחות.",
+  "errReturnTooLow": "התשואה חייבת להיות גבוהה מ־‎−100%.",
+  "errFeeRange": "דמי הניהול חייבים להיות בין 0% ל־100%.",
+  "errTaxRange": "שיעור המס חייב להיות בין 0% ל־100%.",
+  "errInflationRange": "האינפלציה חייבת להיות בין 0% ל־100%.",
+  "errGrowthRange": "הגידול השנתי חייב להיות בין 0% ל־100%.",
+  "errNothingInvested": "הזן סכום התחלתי או הפקדה חודשית."
 }

@@ -214,4 +214,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get select => 'تحديد';
+
+  @override
+  String get errNegativeAmount => 'لا يمكن أن تكون المبالغ سالبة.';
+
+  @override
+  String get errHorizonTooShort => 'اختر سنة واحدة على الأقل.';
+
+  @override
+  String get errHorizonTooLong => 'اختر 100 سنة أو أقل.';
+
+  @override
+  String get errReturnTooLow => 'يجب أن يكون العائد أعلى من ‎−100٪.';
+
+  @override
+  String get errFeeRange => 'يجب أن تكون الرسوم بين 0٪ و100٪.';
+
+  @override
+  String get errTaxRange => 'يجب أن تكون نسبة الضريبة بين 0٪ و100٪.';
+
+  @override
+  String get errInflationRange => 'يجب أن يكون التضخّم بين 0٪ و100٪.';
+
+  @override
+  String get errGrowthRange => 'يجب أن تكون الزيادة السنوية بين 0٪ و100٪.';
+
+  @override
+  String get errNothingInvested => 'أدخل مبلغًا أوليًا أو إيداعًا شهريًا.';
 }

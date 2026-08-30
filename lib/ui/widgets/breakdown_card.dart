@@ -176,7 +176,16 @@ class _Row extends StatelessWidget {
           ],
           Expanded(child: Text(label, style: labelStyle)),
           const SizedBox(width: 12),
-          Text(value, style: valueStyle),
+          // Shrinks rather than overflows. At the largest accessibility text
+          // sizes a full figure like $1,622,189.55 is wider than the card,
+          // and a Row will not give it room on its own.
+          Flexible(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: AlignmentDirectional.centerEnd,
+              child: Text(value, style: valueStyle, maxLines: 1),
+            ),
+          ),
         ],
       ),
     );

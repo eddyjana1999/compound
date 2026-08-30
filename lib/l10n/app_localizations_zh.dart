@@ -202,4 +202,31 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get select => '选择';
+
+  @override
+  String get errNegativeAmount => '金额不能为负数。';
+
+  @override
+  String get errHorizonTooShort => '请至少选择 1 年。';
+
+  @override
+  String get errHorizonTooLong => '请选择 100 年以内。';
+
+  @override
+  String get errReturnTooLow => '收益率必须高于 −100%。';
+
+  @override
+  String get errFeeRange => '费率需在 0% 到 100% 之间。';
+
+  @override
+  String get errTaxRange => '税率需在 0% 到 100% 之间。';
+
+  @override
+  String get errInflationRange => '通胀率需在 0% 到 100% 之间。';
+
+  @override
+  String get errGrowthRange => '年增长率需在 0% 到 100% 之间。';
+
+  @override
+  String get errNothingInvested => '请输入初始金额或每月投入。';
 }

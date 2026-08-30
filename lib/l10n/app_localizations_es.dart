@@ -209,4 +209,34 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get select => 'Seleccionar';
+
+  @override
+  String get errNegativeAmount => 'Los importes no pueden ser negativos.';
+
+  @override
+  String get errHorizonTooShort => 'Elige al menos un año.';
+
+  @override
+  String get errHorizonTooLong => 'Elige 100 años o menos.';
+
+  @override
+  String get errReturnTooLow => 'La rentabilidad debe ser superior al −100 %.';
+
+  @override
+  String get errFeeRange => 'La comisión debe estar entre el 0 % y el 100 %.';
+
+  @override
+  String get errTaxRange => 'El impuesto debe estar entre el 0 % y el 100 %.';
+
+  @override
+  String get errInflationRange =>
+      'La inflación debe estar entre el 0 % y el 100 %.';
+
+  @override
+  String get errGrowthRange =>
+      'El aumento anual debe estar entre el 0 % y el 100 %.';
+
+  @override
+  String get errNothingInvested =>
+      'Introduce un importe inicial o una aportación mensual.';
 }

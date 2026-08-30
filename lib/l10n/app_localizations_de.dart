@@ -208,4 +208,35 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get select => 'Auswählen';
+
+  @override
+  String get errNegativeAmount => 'Beträge können nicht negativ sein.';
+
+  @override
+  String get errHorizonTooShort => 'Wähle mindestens ein Jahr.';
+
+  @override
+  String get errHorizonTooLong => 'Wähle höchstens 100 Jahre.';
+
+  @override
+  String get errReturnTooLow => 'Die Rendite muss über −100 % liegen.';
+
+  @override
+  String get errFeeRange => 'Die Gebühr muss zwischen 0 % und 100 % liegen.';
+
+  @override
+  String get errTaxRange =>
+      'Der Steuersatz muss zwischen 0 % und 100 % liegen.';
+
+  @override
+  String get errInflationRange =>
+      'Die Inflation muss zwischen 0 % und 100 % liegen.';
+
+  @override
+  String get errGrowthRange =>
+      'Die jährliche Erhöhung muss zwischen 0 % und 100 % liegen.';
+
+  @override
+  String get errNothingInvested =>
+      'Gib einen Startbetrag oder eine monatliche Sparrate ein.';
 }

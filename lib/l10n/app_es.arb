@@ -58,5 +58,14 @@
   "removeFromFavourites": "Quitar de favoritos",
   "selectedCount": "{count, plural, =1{1 seleccionado} other{{count} seleccionados}}",
   "deleteSelectedTitle": "¿Eliminar los cálculos seleccionados?",
-  "select": "Seleccionar"
+  "select": "Seleccionar",
+  "errNegativeAmount": "Los importes no pueden ser negativos.",
+  "errHorizonTooShort": "Elige al menos un año.",
+  "errHorizonTooLong": "Elige 100 años o menos.",
+  "errReturnTooLow": "La rentabilidad debe ser superior al −100 %.",
+  "errFeeRange": "La comisión debe estar entre el 0 % y el 100 %.",
+  "errTaxRange": "El impuesto debe estar entre el 0 % y el 100 %.",
+  "errInflationRange": "La inflación debe estar entre el 0 % y el 100 %.",
+  "errGrowthRange": "El aumento anual debe estar entre el 0 % y el 100 %.",
+  "errNothingInvested": "Introduce un importe inicial o una aportación mensual."
 }

@@ -68,6 +68,7 @@ class StorePurchaseService implements PurchaseService {
 
   void _finish(PurchaseOutcome outcome) {
     final pending = _pending;
+    _pending = null;
     if (pending != null && !pending.isCompleted) pending.complete(outcome);
   }
 
@@ -109,14 +110,20 @@ class StorePurchaseService implements PurchaseService {
       }
 
       // A sheet the user never dismisses must not hang the button forever.
+      // No `finally` clearing _pending. In an async function it runs when the
+      // return is *evaluated*, not when the returned future completes — so it
+      // nulled _pending before the purchase stream could ever reach it, and
+      // every purchase hung until this timeout. _finish clears it instead.
       return completer.future.timeout(
         const Duration(minutes: 5),
-        onTimeout: () => PurchaseOutcome.pending,
+        onTimeout: () {
+          _pending = null;
+          return PurchaseOutcome.pending;
+        },
       );
     } on Object {
-      return PurchaseOutcome.failed;
-    } finally {
       _pending = null;
+      return PurchaseOutcome.failed;
     }
   }
 
@@ -136,14 +143,16 @@ class StorePurchaseService implements PurchaseService {
       // wait, then treat silence as "nothing to restore".
       return completer.future.timeout(
         const Duration(seconds: 8),
-        onTimeout: () => _sawRestore
-            ? PurchaseOutcome.restored
-            : PurchaseOutcome.nothingToRestore,
+        onTimeout: () {
+          _pending = null;
+          return _sawRestore
+              ? PurchaseOutcome.restored
+              : PurchaseOutcome.nothingToRestore;
+        },
       );
     } on Object {
-      return PurchaseOutcome.failed;
-    } finally {
       _pending = null;
+      return PurchaseOutcome.failed;
     }
   }
 

@@ -58,5 +58,14 @@
   "removeFromFavourites": "取消收藏",
   "selectedCount": "{count, plural, other{已选择 {count} 项}}",
   "deleteSelectedTitle": "删除选中的计算？",
-  "select": "选择"
+  "select": "选择",
+  "errNegativeAmount": "金额不能为负数。",
+  "errHorizonTooShort": "请至少选择 1 年。",
+  "errHorizonTooLong": "请选择 100 年以内。",
+  "errReturnTooLow": "收益率必须高于 −100%。",
+  "errFeeRange": "费率需在 0% 到 100% 之间。",
+  "errTaxRange": "税率需在 0% 到 100% 之间。",
+  "errInflationRange": "通胀率需在 0% 到 100% 之间。",
+  "errGrowthRange": "年增长率需在 0% 到 100% 之间。",
+  "errNothingInvested": "请输入初始金额或每月投入。"
 }

@@ -58,5 +58,14 @@
   "removeFromFavourites": "お気に入りから削除",
   "selectedCount": "{count, plural, other{{count} 件を選択中}}",
   "deleteSelectedTitle": "選択した計算を削除しますか？",
-  "select": "選択"
+  "select": "選択",
+  "errNegativeAmount": "金額にマイナスは入力できません。",
+  "errHorizonTooShort": "1 年以上を指定してください。",
+  "errHorizonTooLong": "100 年以内を指定してください。",
+  "errReturnTooLow": "利回りは −100% より大きい必要があります。",
+  "errFeeRange": "手数料は 0%〜100% の範囲で入力してください。",
+  "errTaxRange": "税率は 0%〜100% の範囲で入力してください。",
+  "errInflationRange": "インフレ率は 0%〜100% の範囲で入力してください。",
+  "errGrowthRange": "年間増加率は 0%〜100% の範囲で入力してください。",
+  "errNothingInvested": "初期投資額か毎月の積立額を入力してください。"
 }
