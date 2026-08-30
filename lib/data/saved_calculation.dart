@@ -110,6 +110,15 @@ class SavedCalculation {
     }
   }
 
+  /// Starred first, then newest.
+  ///
+  /// Lives here rather than in the repository because the UI has to apply the
+  /// same order the moment something changes, without waiting for storage.
+  static int compare(SavedCalculation a, SavedCalculation b) {
+    if (a.favourite != b.favourite) return a.favourite ? -1 : 1;
+    return b.createdAt.compareTo(a.createdAt);
+  }
+
   SavedCalculation copyWith({bool? favourite}) => SavedCalculation(
         id: id,
         createdAt: createdAt,

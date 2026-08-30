@@ -30,29 +30,51 @@ class HistoryNotifier extends AsyncNotifier<List<SavedCalculation>> {
   Future<List<SavedCalculation>> build() =>
       ref.watch(repositoryProvider).load();
 
+  /// The list as it will look, applied before anything is awaited.
+  ///
+  /// This is not an optimisation. `Dismissible` asserts that the entry it
+  /// just dismissed is gone from the list by the end of that frame, and
+  /// waiting on storage first means it is still there — which throws, freezes
+  /// the frame, and leaves the gesture arena in a state where later taps go
+  /// to the wrong place.
+  void _apply(List<SavedCalculation> entries) {
+    state = AsyncData(entries..sort(SavedCalculation.compare));
+  }
+
+  List<SavedCalculation> get _current =>
+      [...state.value ?? const <SavedCalculation>[]];
+
   Future<void> add(SavedCalculation calculation) async {
-    final repo = ref.read(repositoryProvider);
-    state = AsyncData(await repo.save(calculation));
+    _apply(_current
+      ..removeWhere((e) => e.id == calculation.id)
+      ..add(calculation));
+    state = AsyncData(await ref.read(repositoryProvider).save(calculation));
   }
 
   Future<void> remove(String id) async {
-    final repo = ref.read(repositoryProvider);
-    state = AsyncData(await repo.delete(id));
+    _apply(_current..removeWhere((e) => e.id == id));
+    state = AsyncData(await ref.read(repositoryProvider).delete(id));
   }
 
   Future<void> removeAll(Set<String> ids) async {
-    final repo = ref.read(repositoryProvider);
-    state = AsyncData(await repo.deleteAll(ids));
+    _apply(_current..removeWhere((e) => ids.contains(e.id)));
+    state = AsyncData(await ref.read(repositoryProvider).deleteAll(ids));
   }
 
   Future<void> setFavourite(String id, bool favourite) async {
-    final repo = ref.read(repositoryProvider);
-    state = AsyncData(await repo.setFavourite(id, favourite));
+    final entries = _current;
+    final index = entries.indexWhere((e) => e.id == id);
+    if (index != -1) {
+      entries[index] = entries[index].copyWith(favourite: favourite);
+      _apply(entries);
+    }
+    state = AsyncData(
+        await ref.read(repositoryProvider).setFavourite(id, favourite));
   }
 
   Future<void> clear() async {
-    final repo = ref.read(repositoryProvider);
-    state = AsyncData(await repo.clear());
+    _apply([]);
+    state = AsyncData(await ref.read(repositoryProvider).clear());
   }
 }
 

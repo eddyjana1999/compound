@@ -68,15 +68,10 @@ class PrefsCalculationRepository implements CalculationRepository {
     return entries;
   }
 
-  /// Starred first, then newest. Sorting rather than filtering keeps one
-  /// list: a favourite is a calculation you pinned, not a separate place you
-  /// have to go and look.
-  static void _sort(List<SavedCalculation> entries) {
-    entries.sort((a, b) {
-      if (a.favourite != b.favourite) return a.favourite ? -1 : 1;
-      return b.createdAt.compareTo(a.createdAt);
-    });
-  }
+  /// Sorting rather than filtering keeps one list: a favourite is a
+  /// calculation you pinned, not a separate place you have to go and look.
+  static void _sort(List<SavedCalculation> entries) =>
+      entries.sort(SavedCalculation.compare);
 
   Future<List<SavedCalculation>> _write(List<SavedCalculation> entries) async {
     _sort(entries);
