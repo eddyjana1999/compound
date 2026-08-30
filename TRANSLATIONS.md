@@ -45,8 +45,14 @@ A native speaker who invests can settle each one in a minute.
 6. **es — Spain vs Latin America.** `plusvalías` is Spain's term; several Latin American markets say
    `ganancias de capital`.
 
-## Register
+## Register — decided, do not "fix" it
 
-One thing to keep an eye on: Hebrew mixes the imperative (`חשב`, `בדוק`) with the gerund
-(`שמירה`). Apple and Google's Hebrew style is uniformly gerund, partly to avoid gendering the user.
-Changing `חשב` → `חישוב` would make it consistent.
+Hebrew mixes the imperative (`חשב`, `בדוק`) with the gerund (`שמירה`, `ייצוא`). Apple and Google's
+own Hebrew style is uniformly gerund, partly so the interface never has to guess the reader's
+gender.
+
+**Edgar chose to keep `חשב` on 2026-08-31.** It is short, it is what Israeli apps commonly print on
+a primary button, and it is his call. `בדוק את הנתונים` stays imperative alongside it for the same
+reason — switching only one of them would be worse than either choice made consistently.
+
+Leave both as they are. This is a decision, not an oversight.
