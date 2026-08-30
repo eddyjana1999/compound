@@ -188,4 +188,50 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adsRemovedTitle => 'تمت إزالة الإعلانات';
+
+  @override
+  String get proBadge => 'PRO';
+
+  @override
+  String get proTitle => 'تحكّم بالكامل في مستقبلك المالي';
+
+  @override
+  String get proBlurb => 'دفعة واحدة. ملكك للأبد على هذا الحساب.';
+
+  @override
+  String get proInflation => 'التضخّم — اعرف ما ستشتريه أموالك فعليًا';
+
+  @override
+  String get proGrowth => 'إيداع شهري يزداد مع راتبك';
+
+  @override
+  String get proExport => 'صدّر أي عملية حسابية إلى PDF أو CSV';
+
+  @override
+  String get proNoAds => 'بلا إعلانات، نهائيًا';
+
+  @override
+  String get proCta => 'الترقية إلى Pro';
+
+  @override
+  String get proActive => 'Pro مُفعَّل';
+
+  @override
+  String get proThanks => 'شكرًا لك. تم تفعيل Pro.';
+
+  @override
+  String get proUnavailable => 'Pro غير متاح حاليًا. يُرجى المحاولة لاحقًا.';
+
+  @override
+  String get termsOfUse => 'شروط الاستخدام';
+
+  @override
+  String get privacyPolicy => 'سياسة الخصوصية';
+
+  @override
+  String get proNotSubscription =>
+      'عملية شراء لمرة واحدة وليست اشتراكًا. لا تجديد ولا خصم مرة أخرى.';
+
+  @override
+  String get proLockedHint => 'Pro';
 }

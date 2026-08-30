@@ -53,5 +53,20 @@
   "purchaseThanks": "谢谢，广告已去除。",
   "purchaseFailed": "购买未能完成。",
   "nothingToRestore": "未找到该账号的历史购买记录。",
-  "adsRemovedTitle": "已去除广告"
+  "adsRemovedTitle": "已去除广告",
+  "proBadge": "PRO",
+  "proTitle": "完全掌控你的财务未来",
+  "proBlurb": "一次付费，此账号永久可用。",
+  "proInflation": "通货膨胀——看清这笔钱将来真正能买到什么",
+  "proGrowth": "随收入逐年增长的定投金额",
+  "proExport": "将任意计算导出为 PDF 或 CSV",
+  "proNoAds": "永久去除广告",
+  "proCta": "升级到 Pro",
+  "proActive": "Pro 已启用",
+  "proThanks": "谢谢，Pro 已解锁。",
+  "proUnavailable": "Pro 暂时无法购买，请稍后再试。",
+  "termsOfUse": "使用条款",
+  "privacyPolicy": "隐私政策",
+  "proNotSubscription": "一次性购买，不是订阅。不会自动续费，也不会再次扣款。",
+  "proLockedHint": "Pro"
 }

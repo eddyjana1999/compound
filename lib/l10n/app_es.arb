@@ -53,5 +53,20 @@
   "purchaseThanks": "Gracias. Los anuncios han desaparecido.",
   "purchaseFailed": "No se ha podido completar la compra.",
   "nothingToRestore": "No se ha encontrado ninguna compra anterior en esta cuenta.",
-  "adsRemovedTitle": "Anuncios eliminados"
+  "adsRemovedTitle": "Anuncios eliminados",
+  "proBadge": "PRO",
+  "proTitle": "Toma el control total de tu futuro financiero",
+  "proBlurb": "Un solo pago. Tuyo para siempre, en esta cuenta.",
+  "proInflation": "Inflación: descubre qué podrás comprar de verdad",
+  "proGrowth": "Una aportación que crece con tu sueldo",
+  "proExport": "Exporta cualquier cálculo a PDF o CSV",
+  "proNoAds": "Sin publicidad, nunca",
+  "proCta": "Pasar a Pro",
+  "proActive": "Pro está activo",
+  "proThanks": "Gracias. Pro está desbloqueado.",
+  "proUnavailable": "Pro no está disponible ahora mismo. Inténtalo más tarde.",
+  "termsOfUse": "Términos de uso",
+  "privacyPolicy": "Política de privacidad",
+  "proNotSubscription": "Una compra única, no una suscripción. No se renueva ni se vuelve a cobrar.",
+  "proLockedHint": "Pro"
 }

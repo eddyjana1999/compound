@@ -53,5 +53,20 @@
   "purchaseThanks": "Danke. Die Werbung ist weg.",
   "purchaseFailed": "Der Kauf konnte nicht abgeschlossen werden.",
   "nothingToRestore": "Kein früherer Kauf für dieses Konto gefunden.",
-  "adsRemovedTitle": "Werbung entfernt"
+  "adsRemovedTitle": "Werbung entfernt",
+  "proBadge": "PRO",
+  "proTitle": "Übernimm die volle Kontrolle über deine finanzielle Zukunft",
+  "proBlurb": "Einmal zahlen. Für immer deins, auf diesem Konto.",
+  "proInflation": "Inflation — sieh, was das Geld wirklich wert sein wird",
+  "proGrowth": "Eine Sparrate, die mit deinem Gehalt wächst",
+  "proExport": "Jede Berechnung als PDF oder CSV exportieren",
+  "proNoAds": "Keine Werbung, nie",
+  "proCta": "Auf Pro upgraden",
+  "proActive": "Pro ist aktiv",
+  "proThanks": "Danke. Pro ist freigeschaltet.",
+  "proUnavailable": "Pro ist gerade nicht verfügbar. Bitte später erneut versuchen.",
+  "termsOfUse": "Nutzungsbedingungen",
+  "privacyPolicy": "Datenschutz",
+  "proNotSubscription": "Ein einmaliger Kauf, kein Abo. Nichts verlängert sich, nichts wird erneut abgebucht.",
+  "proLockedHint": "Pro"
 }

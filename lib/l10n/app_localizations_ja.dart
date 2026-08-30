@@ -180,4 +180,49 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get adsRemovedTitle => '広告は非表示です';
+
+  @override
+  String get proBadge => 'PRO';
+
+  @override
+  String get proTitle => 'あなたの資産の未来を、完全にコントロールする';
+
+  @override
+  String get proBlurb => '一度のお支払いで、このアカウントで永続的にご利用いただけます。';
+
+  @override
+  String get proInflation => 'インフレ — そのお金が将来実際に買えるものがわかります';
+
+  @override
+  String get proGrowth => '収入に合わせて毎年増える積立額';
+
+  @override
+  String get proExport => 'どの計算も PDF や CSV に書き出し';
+
+  @override
+  String get proNoAds => '広告は一切表示されません';
+
+  @override
+  String get proCta => 'Pro にアップグレード';
+
+  @override
+  String get proActive => 'Pro は有効です';
+
+  @override
+  String get proThanks => 'ありがとうございます。Pro が有効になりました。';
+
+  @override
+  String get proUnavailable => '現在 Pro をご購入いただけません。しばらくしてからお試しください。';
+
+  @override
+  String get termsOfUse => '利用規約';
+
+  @override
+  String get privacyPolicy => 'プライバシーポリシー';
+
+  @override
+  String get proNotSubscription => '買い切りです。サブスクリプションではないため、自動更新も追加請求もありません。';
+
+  @override
+  String get proLockedHint => 'Pro';
 }

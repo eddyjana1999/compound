@@ -180,4 +180,49 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get adsRemovedTitle => '已去除广告';
+
+  @override
+  String get proBadge => 'PRO';
+
+  @override
+  String get proTitle => '完全掌控你的财务未来';
+
+  @override
+  String get proBlurb => '一次付费，此账号永久可用。';
+
+  @override
+  String get proInflation => '通货膨胀——看清这笔钱将来真正能买到什么';
+
+  @override
+  String get proGrowth => '随收入逐年增长的定投金额';
+
+  @override
+  String get proExport => '将任意计算导出为 PDF 或 CSV';
+
+  @override
+  String get proNoAds => '永久去除广告';
+
+  @override
+  String get proCta => '升级到 Pro';
+
+  @override
+  String get proActive => 'Pro 已启用';
+
+  @override
+  String get proThanks => '谢谢，Pro 已解锁。';
+
+  @override
+  String get proUnavailable => 'Pro 暂时无法购买，请稍后再试。';
+
+  @override
+  String get termsOfUse => '使用条款';
+
+  @override
+  String get privacyPolicy => '隐私政策';
+
+  @override
+  String get proNotSubscription => '一次性购买，不是订阅。不会自动续费，也不会再次扣款。';
+
+  @override
+  String get proLockedHint => 'Pro';
 }

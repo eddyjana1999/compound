@@ -185,4 +185,53 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get adsRemovedTitle => 'Werbung entfernt';
+
+  @override
+  String get proBadge => 'PRO';
+
+  @override
+  String get proTitle =>
+      'Übernimm die volle Kontrolle über deine finanzielle Zukunft';
+
+  @override
+  String get proBlurb => 'Einmal zahlen. Für immer deins, auf diesem Konto.';
+
+  @override
+  String get proInflation =>
+      'Inflation — sieh, was das Geld wirklich wert sein wird';
+
+  @override
+  String get proGrowth => 'Eine Sparrate, die mit deinem Gehalt wächst';
+
+  @override
+  String get proExport => 'Jede Berechnung als PDF oder CSV exportieren';
+
+  @override
+  String get proNoAds => 'Keine Werbung, nie';
+
+  @override
+  String get proCta => 'Auf Pro upgraden';
+
+  @override
+  String get proActive => 'Pro ist aktiv';
+
+  @override
+  String get proThanks => 'Danke. Pro ist freigeschaltet.';
+
+  @override
+  String get proUnavailable =>
+      'Pro ist gerade nicht verfügbar. Bitte später erneut versuchen.';
+
+  @override
+  String get termsOfUse => 'Nutzungsbedingungen';
+
+  @override
+  String get privacyPolicy => 'Datenschutz';
+
+  @override
+  String get proNotSubscription =>
+      'Ein einmaliger Kauf, kein Abo. Nichts verlängert sich, nichts wird erneut abgebucht.';
+
+  @override
+  String get proLockedHint => 'Pro';
 }

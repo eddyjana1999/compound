@@ -53,5 +53,20 @@
   "purchaseThanks": "תודה. הפרסומות נעלמו.",
   "purchaseFailed": "לא ניתן היה להשלים את הרכישה.",
   "nothingToRestore": "לא נמצאה רכישה קודמת בחשבון הזה.",
-  "adsRemovedTitle": "הפרסומות הוסרו"
+  "adsRemovedTitle": "הפרסומות הוסרו",
+  "proBadge": "PRO",
+  "proTitle": "קח שליטה מלאה על העתיד הפיננסי שלך",
+  "proBlurb": "תשלום אחד. שלך לתמיד, בחשבון הזה.",
+  "proInflation": "אינפלציה — כמה הכסף הזה באמת יקנה",
+  "proGrowth": "הפקדה חודשית שגדלה יחד עם המשכורת",
+  "proExport": "ייצוא כל חישוב ל-PDF או CSV",
+  "proNoAds": "בלי פרסומות, לתמיד",
+  "proCta": "שדרג ל-Pro",
+  "proActive": "Pro פעיל",
+  "proThanks": "תודה. Pro נפתח.",
+  "proUnavailable": "לא ניתן לרכוש את Pro כרגע. נסה שוב מאוחר יותר.",
+  "termsOfUse": "תנאי שימוש",
+  "privacyPolicy": "מדיניות פרטיות",
+  "proNotSubscription": "רכישה חד-פעמית, לא מנוי. שום דבר לא מתחדש ולא תחויב שוב.",
+  "proLockedHint": "Pro"
 }

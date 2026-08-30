@@ -433,6 +433,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ads removed'**
   String get adsRemovedTitle;
+
+  /// No description provided for @proBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'PRO'**
+  String get proBadge;
+
+  /// No description provided for @proTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take full control of your financial future'**
+  String get proTitle;
+
+  /// No description provided for @proBlurb.
+  ///
+  /// In en, this message translates to:
+  /// **'One payment. Yours forever, on this account.'**
+  String get proBlurb;
+
+  /// No description provided for @proInflation.
+  ///
+  /// In en, this message translates to:
+  /// **'Inflation — see what the money will actually buy'**
+  String get proInflation;
+
+  /// No description provided for @proGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'A contribution that grows with your salary'**
+  String get proGrowth;
+
+  /// No description provided for @proExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export any calculation to PDF or CSV'**
+  String get proExport;
+
+  /// No description provided for @proNoAds.
+  ///
+  /// In en, this message translates to:
+  /// **'No advertising, ever'**
+  String get proNoAds;
+
+  /// No description provided for @proCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Pro'**
+  String get proCta;
+
+  /// No description provided for @proActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro is active'**
+  String get proActive;
+
+  /// No description provided for @proThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you. Pro is unlocked.'**
+  String get proThanks;
+
+  /// No description provided for @proUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro is not available right now. Please try again later.'**
+  String get proUnavailable;
+
+  /// No description provided for @termsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUse;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @proNotSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'A one-off purchase, not a subscription. Nothing renews and nothing is charged again.'**
+  String get proNotSubscription;
+
+  /// No description provided for @proLockedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get proLockedHint;
 }
 
 class _AppLocalizationsDelegate

@@ -53,5 +53,20 @@
   "purchaseThanks": "شكرًا لك. لقد اختفت الإعلانات.",
   "purchaseFailed": "تعذّر إتمام عملية الشراء.",
   "nothingToRestore": "لم يُعثر على عملية شراء سابقة على هذا الحساب.",
-  "adsRemovedTitle": "تمت إزالة الإعلانات"
+  "adsRemovedTitle": "تمت إزالة الإعلانات",
+  "proBadge": "PRO",
+  "proTitle": "تحكّم بالكامل في مستقبلك المالي",
+  "proBlurb": "دفعة واحدة. ملكك للأبد على هذا الحساب.",
+  "proInflation": "التضخّم — اعرف ما ستشتريه أموالك فعليًا",
+  "proGrowth": "إيداع شهري يزداد مع راتبك",
+  "proExport": "صدّر أي عملية حسابية إلى PDF أو CSV",
+  "proNoAds": "بلا إعلانات، نهائيًا",
+  "proCta": "الترقية إلى Pro",
+  "proActive": "Pro مُفعَّل",
+  "proThanks": "شكرًا لك. تم تفعيل Pro.",
+  "proUnavailable": "Pro غير متاح حاليًا. يُرجى المحاولة لاحقًا.",
+  "termsOfUse": "شروط الاستخدام",
+  "privacyPolicy": "سياسة الخصوصية",
+  "proNotSubscription": "عملية شراء لمرة واحدة وليست اشتراكًا. لا تجديد ولا خصم مرة أخرى.",
+  "proLockedHint": "Pro"
 }

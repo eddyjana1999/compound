@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../iap/purchase_service.dart';
 import '../state/providers.dart';
 import '../theme/app_theme.dart';
-import '../widgets/remove_ads_card.dart';
+import 'paywall_screen.dart';
 
 /// Language and appearance, as a sheet rather than a screen — they are two
 /// settings, not a section of the app.
@@ -174,7 +175,19 @@ class _RestoreRowState extends ConsumerState<_RestoreRow> {
     final outcome = await ref.read(purchaseServiceProvider).restore();
     if (!mounted) return;
     setState(() => _busy = false);
-    showPurchaseOutcome(context, outcome);
+
+    final l10n = AppLocalizations.of(context);
+    final String? message = switch (outcome) {
+      PurchaseOutcome.purchased || PurchaseOutcome.restored => l10n.proThanks,
+      PurchaseOutcome.nothingToRestore => l10n.nothingToRestore,
+      PurchaseOutcome.failed || PurchaseOutcome.unavailable => l10n.purchaseFailed,
+      PurchaseOutcome.cancelled || PurchaseOutcome.pending => null,
+    };
+    if (message != null) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(message)));
+    }
   }
 
   @override
@@ -190,7 +203,7 @@ class _RestoreRowState extends ConsumerState<_RestoreRow> {
                 size: 20, color: context.palette.growth),
             const SizedBox(width: 10),
             Text(
-              l10n.adsRemovedTitle,
+              l10n.proActive,
               style: context.texts.titleMedium
                   ?.copyWith(color: context.palette.growth),
             ),
@@ -199,9 +212,35 @@ class _RestoreRowState extends ConsumerState<_RestoreRow> {
       );
     }
 
+    // Two ways in for someone who has not bought yet: buy, or tell us you
+    // already did. Restore has to be reachable without buying first.
     return Padding(
       padding: const EdgeInsets.only(bottom: 26),
-      child: OutlinedButton.icon(
+      child: Column(
+        children: [
+          FilledButton.tonalIcon(
+            onPressed: () {
+              Navigator.pop(context);
+              showPaywall(context);
+            },
+            icon: const Icon(Icons.workspace_premium_rounded, size: 19),
+            label: Text(l10n.proCta),
+            style: FilledButton.styleFrom(
+              minimumSize: const Size.fromHeight(46),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          _restoreButton(context, l10n),
+        ],
+      ),
+    );
+  }
+
+  Widget _restoreButton(BuildContext context, AppLocalizations l10n) {
+    return OutlinedButton.icon(
         onPressed: _busy ? null : _restore,
         icon: _busy
             ? const SizedBox(
@@ -216,7 +255,6 @@ class _RestoreRowState extends ConsumerState<_RestoreRow> {
             borderRadius: BorderRadius.circular(14),
           ),
         ),
-      ),
-    );
+      );
   }
 }

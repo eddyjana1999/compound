@@ -53,5 +53,20 @@
   "purchaseThanks": "ありがとうございます。広告は表示されません。",
   "purchaseFailed": "購入を完了できませんでした。",
   "nothingToRestore": "このアカウントに以前の購入は見つかりませんでした。",
-  "adsRemovedTitle": "広告は非表示です"
+  "adsRemovedTitle": "広告は非表示です",
+  "proBadge": "PRO",
+  "proTitle": "あなたの資産の未来を、完全にコントロールする",
+  "proBlurb": "一度のお支払いで、このアカウントで永続的にご利用いただけます。",
+  "proInflation": "インフレ — そのお金が将来実際に買えるものがわかります",
+  "proGrowth": "収入に合わせて毎年増える積立額",
+  "proExport": "どの計算も PDF や CSV に書き出し",
+  "proNoAds": "広告は一切表示されません",
+  "proCta": "Pro にアップグレード",
+  "proActive": "Pro は有効です",
+  "proThanks": "ありがとうございます。Pro が有効になりました。",
+  "proUnavailable": "現在 Pro をご購入いただけません。しばらくしてからお試しください。",
+  "termsOfUse": "利用規約",
+  "privacyPolicy": "プライバシーポリシー",
+  "proNotSubscription": "買い切りです。サブスクリプションではないため、自動更新も追加請求もありません。",
+  "proLockedHint": "Pro"
 }

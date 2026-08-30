@@ -56,5 +56,20 @@
   "purchaseThanks": "Thank you. The ads are gone.",
   "purchaseFailed": "The purchase could not be completed.",
   "nothingToRestore": "No previous purchase found on this account.",
-  "adsRemovedTitle": "Ads removed"
+  "adsRemovedTitle": "Ads removed",
+  "proBadge": "PRO",
+  "proTitle": "Take full control of your financial future",
+  "proBlurb": "One payment. Yours forever, on this account.",
+  "proInflation": "Inflation — see what the money will actually buy",
+  "proGrowth": "A contribution that grows with your salary",
+  "proExport": "Export any calculation to PDF or CSV",
+  "proNoAds": "No advertising, ever",
+  "proCta": "Upgrade to Pro",
+  "proActive": "Pro is active",
+  "proThanks": "Thank you. Pro is unlocked.",
+  "proUnavailable": "Pro is not available right now. Please try again later.",
+  "termsOfUse": "Terms of Use",
+  "privacyPolicy": "Privacy Policy",
+  "proNotSubscription": "A one-off purchase, not a subscription. Nothing renews and nothing is charged again.",
+  "proLockedHint": "Pro"
 }
