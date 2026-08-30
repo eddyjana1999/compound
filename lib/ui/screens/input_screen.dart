@@ -484,7 +484,9 @@ class _ProField extends StatelessWidget {
     final field = AmountField(
       label: label,
       controller: controller,
-      suffix: '%',
+      // The badge sits where the suffix would, so the locked field drops the
+      // per-cent sign rather than printing "PRO%" on top of it.
+      suffix: isPro ? '%' : null,
       helper: isPro ? l10n.optional : null,
       textInputAction: TextInputAction.done,
       onChanged: (_) => onEdited(),
