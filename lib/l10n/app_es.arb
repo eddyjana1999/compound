@@ -76,5 +76,7 @@
   "tryAgain": "Reintentar",
   "assumptions": "Supuestos",
   "chartIsPreTax": "El gráfico sigue la cartera antes del impuesto sobre plusvalías, que se descuenta una sola vez de la ganancia total al final.",
-  "errIncomplete": "Completa la rentabilidad anual y el plazo."
+  "errIncomplete": "Completa la rentabilidad anual y el plazo.",
+  "chartEndsAt": "Donde termina el gráfico",
+  "yoursAfterTax": "Tuyo después de impuestos"
 }

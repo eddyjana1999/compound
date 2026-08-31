@@ -264,4 +264,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errIncomplete => 'Fill in the annual return and the time horizon.';
+
+  @override
+  String get chartEndsAt => 'Where the chart ends';
+
+  @override
+  String get yoursAfterTax => 'Yours after tax';
 }

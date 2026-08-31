@@ -266,4 +266,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get errIncomplete => 'Renseignez le rendement annuel et la durée.';
+
+  @override
+  String get chartEndsAt => 'Fin du graphique';
+
+  @override
+  String get yoursAfterTax => 'Net après impôt';
 }

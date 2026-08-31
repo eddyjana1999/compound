@@ -76,5 +76,7 @@
   "tryAgain": "Réessayer",
   "assumptions": "Hypothèses",
   "chartIsPreTax": "Le graphique suit le portefeuille avant l'impôt sur les plus-values, prélevé une seule fois sur le gain total à la fin.",
-  "errIncomplete": "Renseignez le rendement annuel et la durée."
+  "errIncomplete": "Renseignez le rendement annuel et la durée.",
+  "chartEndsAt": "Fin du graphique",
+  "yoursAfterTax": "Net après impôt"
 }

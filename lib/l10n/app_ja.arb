@@ -76,5 +76,7 @@
   "tryAgain": "再試行",
   "assumptions": "計算の前提",
   "chartIsPreTax": "グラフは譲渡益税を差し引く前の資産額です。税は期末に総利益から一度だけ差し引かれます。",
-  "errIncomplete": "年間リターンと投資期間を入力してください。"
+  "errIncomplete": "年間リターンと投資期間を入力してください。",
+  "chartEndsAt": "グラフの終点",
+  "yoursAfterTax": "税引後の手取り"
 }

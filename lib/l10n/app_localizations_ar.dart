@@ -269,4 +269,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get errIncomplete => 'يرجى إدخال العائد السنوي ومدة الاستثمار.';
+
+  @override
+  String get chartEndsAt => 'نهاية الرسم البياني';
+
+  @override
+  String get yoursAfterTax => 'لك بعد الضريبة';
 }

@@ -256,4 +256,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get errIncomplete => '年間リターンと投資期間を入力してください。';
+
+  @override
+  String get chartEndsAt => 'グラフの終点';
+
+  @override
+  String get yoursAfterTax => '税引後の手取り';
 }

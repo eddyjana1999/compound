@@ -160,6 +160,10 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
                         ),
                         const SizedBox(height: 16),
                         GrowthChart(result: result, format: format),
+                        if (result.capitalGainsTax > 0) ...[
+                          const SizedBox(height: 18),
+                          _TaxBridge(result: result, format: format),
+                        ],
                         const SizedBox(height: 20),
                         _Assumptions(result: result, format: format),
                       ],
@@ -338,22 +342,91 @@ class _Assumptions extends StatelessWidget {
         row(l10n.timeHorizon, l10n.yearsValue(input.years)),
         if (input.annualManagementFee > 0)
           row(l10n.managementFee, format.percent(input.annualManagementFee)),
-        if (input.capitalGainsTaxRate > 0) ...[
+        if (input.capitalGainsTaxRate > 0)
           row(l10n.capitalGainsTax, format.percent(input.capitalGainsTaxRate)),
+      ],
+    );
+  }
+}
+
+/// The one subtraction that reconciles the chart with the headline.
+///
+/// A sentence saying the chart is pre-tax was not enough: the reader is
+/// looking at two large figures that differ by six digits and wants to see
+/// where the difference went. So show the arithmetic, with the same three
+/// numbers already on the screen, in the order they happen.
+class _TaxBridge extends StatelessWidget {
+  const _TaxBridge({required this.result, required this.format});
+
+  final CalculationResult result;
+  final MoneyFormat format;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final palette = context.palette;
+
+    Widget line(String label, String value, {bool emphasis = false}) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  label,
+                  style: context.texts.bodyMedium?.copyWith(
+                    fontSize: 13.5,
+                    fontWeight: emphasis ? FontWeight.w600 : null,
+                    color: emphasis
+                        ? null
+                        : context.colors.onSurface.withValues(alpha: 0.6),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                value,
+                style: context.texts.bodyMedium?.copyWith(
+                  fontSize: emphasis ? 15.5 : 13.5,
+                  fontWeight: emphasis ? FontWeight.w800 : FontWeight.w600,
+                  color: emphasis ? palette.growth : null,
+                  fontFeatures: const [FontFeature.tabularFigures()],
+                ),
+              ),
+            ],
+          ),
+        );
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+      decoration: BoxDecoration(
+        color: context.colors.onSurface.withValues(alpha: 0.035),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          line(l10n.chartEndsAt, format.money(result.grossFinalValue)),
+          line(l10n.taxPaid, '\u2212${format.money(result.capitalGainsTax)}'),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: Divider(
+              height: 1,
+              color: context.colors.onSurface.withValues(alpha: 0.12),
+            ),
+          ),
+          line(l10n.yoursAfterTax, format.money(result.netFinalValue),
+              emphasis: true),
           const SizedBox(height: 10),
-          // Only worth saying when a tax was actually applied; otherwise the
-          // chart and the headline end on the same figure and the note would
-          // be explaining a difference that is not there.
           Text(
             l10n.chartIsPreTax,
             style: context.texts.bodyMedium?.copyWith(
-              fontSize: 12,
+              fontSize: 11.5,
               height: 1.35,
               color: context.colors.onSurface.withValues(alpha: 0.45),
             ),
           ),
         ],
-      ],
+      ),
     );
   }
 }

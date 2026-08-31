@@ -268,4 +268,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get errIncomplete =>
       'Bitte jährliche Rendite und Anlagedauer ausfüllen.';
+
+  @override
+  String get chartEndsAt => 'Ende des Diagramms';
+
+  @override
+  String get yoursAfterTax => 'Nach Steuern für Sie';
 }

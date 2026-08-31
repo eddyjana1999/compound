@@ -256,4 +256,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get errIncomplete => '请填写年化收益率和投资期限。';
+
+  @override
+  String get chartEndsAt => '图表终点';
+
+  @override
+  String get yoursAfterTax => '税后归你';
 }

@@ -264,4 +264,10 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get errIncomplete => 'יש למלא את התשואה השנתית ואת טווח ההשקעה.';
+
+  @override
+  String get chartEndsAt => 'הגרף מסתיים ב';
+
+  @override
+  String get yoursAfterTax => 'נשאר לך אחרי מס';
 }

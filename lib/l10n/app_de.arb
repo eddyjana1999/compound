@@ -76,5 +76,7 @@
   "tryAgain": "Erneut versuchen",
   "assumptions": "Annahmen",
   "chartIsPreTax": "Das Diagramm zeigt das Depot vor Abgeltungsteuer, die am Ende einmalig vom Gesamtgewinn abgezogen wird.",
-  "errIncomplete": "Bitte jährliche Rendite und Anlagedauer ausfüllen."
+  "errIncomplete": "Bitte jährliche Rendite und Anlagedauer ausfüllen.",
+  "chartEndsAt": "Ende des Diagramms",
+  "yoursAfterTax": "Nach Steuern für Sie"
 }

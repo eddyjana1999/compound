@@ -267,4 +267,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errIncomplete => 'Completa la rentabilidad anual y el plazo.';
+
+  @override
+  String get chartEndsAt => 'Donde termina el gráfico';
+
+  @override
+  String get yoursAfterTax => 'Tuyo después de impuestos';
 }

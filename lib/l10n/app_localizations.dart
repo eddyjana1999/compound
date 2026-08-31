@@ -571,6 +571,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fill in the annual return and the time horizon.'**
   String get errIncomplete;
+
+  /// No description provided for @chartEndsAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Where the chart ends'**
+  String get chartEndsAt;
+
+  /// No description provided for @yoursAfterTax.
+  ///
+  /// In en, this message translates to:
+  /// **'Yours after tax'**
+  String get yoursAfterTax;
 }
 
 class _AppLocalizationsDelegate
