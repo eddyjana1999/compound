@@ -253,4 +253,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Conditions d\'utilisation';
+
+  @override
+  String get tryAgain => 'Réessayer';
 }

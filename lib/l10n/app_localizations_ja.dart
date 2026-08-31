@@ -244,4 +244,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get termsOfUse => '利用規約';
+
+  @override
+  String get tryAgain => '再試行';
 }

@@ -98,12 +98,34 @@ class GoogleAdService implements AdService {
       final status = await AppTrackingTransparency.trackingAuthorizationStatus;
       if (status != TrackingStatus.notDetermined) return;
 
-      // iOS silently refuses to show the prompt if the app has not finished
-      // becoming active. A short wait is the documented workaround.
-      await Future<void>.delayed(const Duration(milliseconds: 300));
+      // iOS silently refuses to present the prompt unless the app is
+      // actually active: the call returns notDetermined and nothing is shown.
+      // A fixed 300ms was a guess that happened to work when the consent
+      // check was slow enough to cover the gap. Wait for the real signal
+      // instead, and give up rather than hang if it never arrives.
+      await _whenResumed();
       await AppTrackingTransparency.requestTrackingAuthorization();
     } on Object {
       // A declined or unavailable prompt is a normal outcome, not an error.
+    }
+  }
+
+  /// Resolves once the app is foregrounded, or after five seconds.
+  ///
+  /// Apple rejects an app that declares tracking and never presents the
+  /// prompt, so the cost of asking too early is a rejection; the cost of
+  /// waiting is a second of delay before the first ad request.
+  Future<void> _whenResumed() async {
+    final binding = WidgetsBinding.instance;
+    await binding.endOfFrame;
+
+    const step = Duration(milliseconds: 100);
+    var waited = Duration.zero;
+    const limit = Duration(seconds: 5);
+    while (binding.lifecycleState != AppLifecycleState.resumed &&
+        waited < limit) {
+      await Future<void>.delayed(step);
+      waited += step;
     }
   }
 

@@ -72,5 +72,6 @@
   "shareFailed": "画像を作成できませんでした。",
   "sharedFrom": "Compound Lab で計算",
   "privacyPolicy": "プライバシーポリシー",
-  "termsOfUse": "利用規約"
+  "termsOfUse": "利用規約",
+  "tryAgain": "再試行"
 }

@@ -72,5 +72,6 @@
   "shareFailed": "无法生成图片。",
   "sharedFrom": "由 Compound Lab 计算",
   "privacyPolicy": "隐私政策",
-  "termsOfUse": "使用条款"
+  "termsOfUse": "使用条款",
+  "tryAgain": "重试"
 }

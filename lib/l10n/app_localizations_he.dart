@@ -251,4 +251,7 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get termsOfUse => 'תנאי שימוש';
+
+  @override
+  String get tryAgain => 'נסה שוב';
 }

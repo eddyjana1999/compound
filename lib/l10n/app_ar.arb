@@ -72,5 +72,6 @@
   "shareFailed": "تعذّر إنشاء الصورة.",
   "sharedFrom": "حُسِب باستخدام Compound Lab",
   "privacyPolicy": "سياسة الخصوصية",
-  "termsOfUse": "شروط الاستخدام"
+  "termsOfUse": "شروط الاستخدام",
+  "tryAgain": "إعادة المحاولة"
 }

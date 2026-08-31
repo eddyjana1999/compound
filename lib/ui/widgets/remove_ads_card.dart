@@ -9,9 +9,15 @@ import 'app_card.dart';
 
 /// The one-off unlock, offered on the home screen.
 ///
-/// Renders nothing at all when the store has no offer to give — no store on
-/// the device, no network, or the product not configured yet. A dead button
-/// priced from a constant is worse than no button.
+/// Always visible until it has been bought, whatever the store says. It used
+/// to disappear whenever the offer had not resolved, on the principle that a
+/// dead button priced from a constant is worse than no button — which is
+/// right about the *price* and wrong about the *card*. An App Store reviewer
+/// who opens the app while the product is still resolving sees no purchase at
+/// all, and "we were unable to locate the in-app purchase" is a rejection.
+///
+/// So: the card stays, and only the button changes. The price is still never
+/// invented — it is either the store's own string, a spinner, or a retry.
 class RemoveAdsCard extends ConsumerStatefulWidget {
   const RemoveAdsCard({super.key});
 
@@ -34,8 +40,9 @@ class _RemoveAdsCardState extends ConsumerState<RemoveAdsCard> {
   Widget build(BuildContext context) {
     if (ref.watch(adsRemovedProvider)) return const SizedBox.shrink();
 
-    final offer = ref.watch(removeAdsOfferProvider).value;
-    if (offer == null) return const SizedBox.shrink();
+    final offerState = ref.watch(removeAdsOfferProvider);
+    final offer = offerState.value;
+    final resolving = offerState.isLoading;
 
     final l10n = AppLocalizations.of(context);
     final palette = context.palette;
@@ -81,7 +88,14 @@ class _RemoveAdsCardState extends ConsumerState<RemoveAdsCard> {
             ),
             const SizedBox(width: 10),
             FilledButton(
-              onPressed: _busy ? null : _buy,
+              onPressed: _busy || resolving
+                  ? null
+                  : offer == null
+                      // Nothing to buy yet — no network, or the product is
+                      // still propagating. Let them ask again rather than
+                      // leaving a button that does nothing.
+                      ? () => ref.invalidate(removeAdsOfferProvider)
+                      : _buy,
               style: FilledButton.styleFrom(
                 minimumSize: const Size(0, 42),
                 padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -93,7 +107,7 @@ class _RemoveAdsCardState extends ConsumerState<RemoveAdsCard> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              child: _busy
+              child: _busy || resolving
                   ? const SizedBox(
                       width: 18,
                       height: 18,
@@ -102,9 +116,11 @@ class _RemoveAdsCardState extends ConsumerState<RemoveAdsCard> {
                         color: Colors.white,
                       ),
                     )
-                  // The store's own localised price string. Never formatted
-                  // by this app and never a constant.
-                  : Text(offer.price, textDirection: TextDirection.ltr),
+                  : offer == null
+                      ? Text(l10n.tryAgain)
+                      // The store's own localised price string. Never
+                      // formatted by this app and never a constant.
+                      : Text(offer.price, textDirection: TextDirection.ltr),
             ),
           ],
         ),

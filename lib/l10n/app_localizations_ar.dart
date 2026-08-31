@@ -256,4 +256,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get termsOfUse => 'شروط الاستخدام';
+
+  @override
+  String get tryAgain => 'إعادة المحاولة';
 }

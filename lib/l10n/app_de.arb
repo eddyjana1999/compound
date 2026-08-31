@@ -72,5 +72,6 @@
   "shareFailed": "Das Bild konnte nicht erstellt werden.",
   "sharedFrom": "Berechnet mit Compound Lab",
   "privacyPolicy": "Datenschutz",
-  "termsOfUse": "Nutzungsbedingungen"
+  "termsOfUse": "Nutzungsbedingungen",
+  "tryAgain": "Erneut versuchen"
 }

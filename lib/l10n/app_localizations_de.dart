@@ -254,4 +254,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Nutzungsbedingungen';
+
+  @override
+  String get tryAgain => 'Erneut versuchen';
 }
