@@ -191,3 +191,50 @@ which is still pending approval).
 Never commit either. Google Play binds the listing to this certificate permanently — losing it
 means a new listing and a new package name, with no way to update the published app.
 Release signature: `CN=Edgar Janashvili, OU=Compound, O=Compound, L=Tel Aviv, C=IL`.
+
+## 2026-08-31 — Apple approved, three bugs found on real hardware
+
+Agreements, Tax and Banking are all **Active**, so `in_app_purchase` will now return a price.
+Team ID `8AJ6FLRP28` is wired into all three Runner configs. Both signing certificates exist.
+
+### The bug worth remembering
+
+`GoogleAdService._adsAllowed` was a plain bool behind a Riverpod `Provider` that hands back one
+instance and never notifies. Readiness is set **asynchronously**, seconds into the session, after
+the consent check and the iOS tracking prompt. `banner()` was called once during the first build,
+read `false`, returned `SizedBox.shrink()`, and was never asked again.
+
+**No banner could appear, in any build, ever.** It would have shipped: downloads, no ad revenue, no
+crash and no error to point at. Now a `ValueNotifier` the banner rebuilds on. Verified on device:
+banner and interstitial both serve.
+
+Two process notes that cost real time here:
+
+- **`devicectl --console` does not capture Dart `print`.** Only native `NSLog` reaches it, so
+  instrumentation added to Dart looked like silence and read as "the code never ran". Use
+  `flutter run --profile -d <ecid>` when you need Dart logs from a device.
+- **A profile build uses Google's *test* ad units** (`kReleaseMode` is false). That is the clean way
+  to separate "our code is broken" from "AdMob is not serving yet" — but a test run against
+  already-broken code proves nothing, which is a conclusion I drew too early and had to withdraw.
+
+### Also fixed
+
+- Chart gridlines landed on 28/56/84/112% of the peak. Round steps now (`lib/ui/formatting/axis_scale.dart`).
+- An open bottom sheet kept the colour it was opened with when the theme flipped.
+
+### Installing on the device
+
+`flutter run` fails to install here (it matches on a different device identifier). This works:
+
+    flutter build ios --release
+    xcrun devicectl device install app --device 00008110-000844462280401E build/ios/iphoneos/Runner.app
+    xcrun devicectl device process launch --device 00008110-000844462280401E com.compoundapp.compound
+
+The phone must be **unlocked** or the launch is denied with `FBSOpenApplicationServiceErrorDomain`.
+
+### Still open
+
+`flutter build ipa` has never succeeded — four attempts, all failing to provision. A device is now
+registered to the team, which was the missing piece, so retry it; fall back to Xcode's
+`Product > Archive` if it still fails. Store record, price tier and Sandbox tester are all
+undecided, and the keystore backup folder is still on the Desktop.
