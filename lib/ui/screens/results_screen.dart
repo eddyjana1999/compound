@@ -32,6 +32,11 @@ class ResultsScreen extends ConsumerStatefulWidget {
 }
 
 class _ResultsScreenState extends ConsumerState<ResultsScreen> {
+  /// Same reason as the settings sheet: this page is well over a screen tall
+  /// once the chart, the tax bridge and the assumptions are all on it, and
+  /// nothing said so. Owned here so the bar and the list share one object.
+  final ScrollController _scroll = ScrollController();
+
   late bool _saved = widget.saved;
   bool _sharing = false;
 
@@ -40,8 +45,9 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
     final messenger = ScaffoldMessenger.of(context);
     // The share sheet is a popover on iPad and needs something to point at.
     final box = context.findRenderObject() as RenderBox?;
-    final origin =
-        box == null ? null : box.localToGlobal(Offset.zero) & box.size;
+    final origin = box == null
+        ? null
+        : box.localToGlobal(Offset.zero) & box.size;
 
     setState(() => _sharing = true);
     try {
@@ -81,6 +87,12 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
   }
 
   @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final result = ref.read(engineProvider).calculate(widget.input);
@@ -102,87 +114,99 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
       ),
       body: SafeArea(
         top: false,
+        // The banner runs to the very bottom edge; the inset below it is
+        // reserved by AdSlot only when there is no banner to fill it.
+        bottom: false,
         child: Column(
           children: [
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.fromLTRB(
-                  AppTheme.pagePadding,
-                  8,
-                  AppTheme.pagePadding,
-                  24,
-                ),
-                children: [
-                  HeroResult(
-                    caption: l10n.youWouldHave(l10n.yearsValue(widget.input.years)),
-                    amount: result.netFinalValue,
-                    format: format,
-                    // Wrap, not Row: with the rate chip added these overflow a
-                    // narrow screen, and a headline that renders a yellow
-                    // overflow stripe is worse than one that takes two lines.
-                    footnote: Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        // The assumption the whole projection rests on. Shown
-                        // beside the result so the number is never read
-                        // without the rate that produced it.
-                        _HeroChip(
-                          icon: Icons.percent_rounded,
-                          label: '${format.percent(widget.input.annualReturn)}'
-                              ' ${l10n.perYear}',
-                        ),
-                        _HeroChip(
-                          icon: Icons.savings_outlined,
-                          label: format.moneyCompact(result.totalDeposited),
-                        ),
-                        _HeroChip(
-                          icon: Icons.trending_up_rounded,
-                          label: format.moneyCompact(result.interestEarned),
-                        ),
-                        if (result.hasCosts)
+              child: Scrollbar(
+                controller: _scroll,
+                thumbVisibility: true,
+                child: ListView(
+                  controller: _scroll,
+                  padding: const EdgeInsets.fromLTRB(
+                    AppTheme.pagePadding,
+                    8,
+                    AppTheme.pagePadding,
+                    24,
+                  ),
+                  children: [
+                    HeroResult(
+                      caption: l10n.youWouldHave(
+                        l10n.yearsValue(widget.input.years),
+                      ),
+                      amount: result.netFinalValue,
+                      format: format,
+                      // Wrap, not Row: with the rate chip added these overflow a
+                      // narrow screen, and a headline that renders a yellow
+                      // overflow stripe is worse than one that takes two lines.
+                      footnote: Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          // The assumption the whole projection rests on. Shown
+                          // beside the result so the number is never read
+                          // without the rate that produced it.
                           _HeroChip(
-                            icon: Icons.remove_circle_outline_rounded,
-                            label: format.moneyCompact(result.totalCosts),
+                            icon: Icons.percent_rounded,
+                            label:
+                                '${format.percent(widget.input.annualReturn)}'
+                                ' ${l10n.perYear}',
                           ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 18),
-                  BreakdownCard(result: result, format: format),
-                  const SizedBox(height: 18),
-                  AppCard(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          l10n.growthOverTime,
-                          style: context.texts.titleMedium,
-                        ),
-                        const SizedBox(height: 16),
-                        GrowthChart(result: result, format: format),
-                        if (result.capitalGainsTax > 0) ...[
-                          const SizedBox(height: 18),
-                          _TaxBridge(result: result, format: format),
+                          _HeroChip(
+                            icon: Icons.savings_outlined,
+                            label: format.moneyCompact(result.totalDeposited),
+                          ),
+                          _HeroChip(
+                            icon: Icons.trending_up_rounded,
+                            label: format.moneyCompact(result.interestEarned),
+                          ),
+                          if (result.hasCosts)
+                            _HeroChip(
+                              icon: Icons.remove_circle_outline_rounded,
+                              label: format.moneyCompact(result.totalCosts),
+                            ),
                         ],
-                        const SizedBox(height: 20),
-                        _Assumptions(result: result, format: format),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: Text(
-                      l10n.disclaimer,
-                      style: context.texts.bodyMedium?.copyWith(
-                        fontSize: 12.5,
-                        color:
-                            context.colors.onSurface.withValues(alpha: 0.45),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 18),
+                    BreakdownCard(result: result, format: format),
+                    const SizedBox(height: 18),
+                    AppCard(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l10n.growthOverTime,
+                            style: context.texts.titleMedium,
+                          ),
+                          const SizedBox(height: 16),
+                          GrowthChart(result: result, format: format),
+                          if (result.capitalGainsTax > 0) ...[
+                            const SizedBox(height: 18),
+                            _TaxBridge(result: result, format: format),
+                          ],
+                          const SizedBox(height: 20),
+                          _Assumptions(result: result, format: format),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text(
+                        l10n.disclaimer,
+                        style: context.texts.bodyMedium?.copyWith(
+                          fontSize: 12.5,
+                          color: context.colors.onSurface.withValues(
+                            alpha: 0.45,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             _SaveBar(saved: _saved, onSave: _save),
@@ -254,7 +278,10 @@ class _SaveBar extends ConsumerWidget {
             child: _button(context, l10n),
           ),
           AdSlot(child: ref.watch(adServiceProvider).banner()),
-          SizedBox(height: MediaQuery.paddingOf(context).bottom),
+          // Nothing will ever fill the bottom edge for someone who paid to
+          // remove ads, so the gesture-bar inset is reserved for them alone.
+          if (ref.watch(adsRemovedProvider))
+            SizedBox(height: MediaQuery.paddingOf(context).bottom),
         ],
       ),
     );
@@ -294,36 +321,36 @@ class _SaveBar extends ConsumerWidget {
   /// German it is "Neue Berechnung". Wrapping made one button taller than the
   /// other and left a single letter on its own line.
   static Widget _fit(String label) => FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Text(label, maxLines: 1, softWrap: false),
-      );
+    fit: BoxFit.scaleDown,
+    child: Text(label, maxLines: 1, softWrap: false),
+  );
 
   /// One shape for both, so they sit as a pair rather than as two buttons
   /// that happen to be adjacent.
   static ButtonStyle _pairStyle(ButtonStyle base) => base.copyWith(
-        minimumSize: WidgetStateProperty.all(const Size.fromHeight(56)),
-        padding: WidgetStateProperty.all(
-          const EdgeInsets.symmetric(horizontal: 12),
-        ),
-        shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        ),
-      );
+    minimumSize: WidgetStateProperty.all(const Size.fromHeight(56)),
+    padding: WidgetStateProperty.all(
+      const EdgeInsets.symmetric(horizontal: 12),
+    ),
+    shape: WidgetStateProperty.all(
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+    ),
+  );
 
   Widget _saveButton(BuildContext context, AppLocalizations l10n) {
     return saved
-          ? FilledButton.tonalIcon(
-              onPressed: null,
-              icon: const Icon(Icons.check_rounded, size: 19),
-              label: _fit(l10n.savedToHistory),
-              style: _pairStyle(FilledButton.styleFrom()),
-            )
-          : FilledButton.icon(
-              onPressed: onSave,
-              icon: const Icon(Icons.bookmark_add_outlined, size: 19),
-              label: _fit(l10n.save),
-              style: _pairStyle(FilledButton.styleFrom()),
-            );
+        ? FilledButton.tonalIcon(
+            onPressed: null,
+            icon: const Icon(Icons.check_rounded, size: 19),
+            label: _fit(l10n.savedToHistory),
+            style: _pairStyle(FilledButton.styleFrom()),
+          )
+        : FilledButton.icon(
+            onPressed: onSave,
+            icon: const Icon(Icons.bookmark_add_outlined, size: 19),
+            label: _fit(l10n.save),
+            style: _pairStyle(FilledButton.styleFrom()),
+          );
   }
 }
 
@@ -347,29 +374,31 @@ class _Assumptions extends StatelessWidget {
     final muted = context.colors.onSurface.withValues(alpha: 0.55);
 
     Widget row(String label, String value) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  label,
-                  style: context.texts.bodyMedium
-                      ?.copyWith(fontSize: 13.5, color: muted),
-                ),
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Text(
+              label,
+              style: context.texts.bodyMedium?.copyWith(
+                fontSize: 13.5,
+                color: muted,
               ),
-              const SizedBox(width: 12),
-              Text(
-                value,
-                style: context.texts.bodyMedium?.copyWith(
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.w600,
-                  fontFeatures: const [FontFeature.tabularFigures()],
-                ),
-              ),
-            ],
+            ),
           ),
-        );
+          const SizedBox(width: 12),
+          Text(
+            value,
+            style: context.texts.bodyMedium?.copyWith(
+              fontSize: 13.5,
+              fontWeight: FontWeight.w600,
+              fontFeatures: const [FontFeature.tabularFigures()],
+            ),
+          ),
+        ],
+      ),
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,8 +412,10 @@ class _Assumptions extends StatelessWidget {
         const SizedBox(height: 6),
         row(l10n.startingAmount, format.money(input.initialAmount)),
         if (input.monthlyContribution > 0)
-          row(l10n.monthlyContribution,
-              format.money(input.monthlyContribution)),
+          row(
+            l10n.monthlyContribution,
+            format.money(input.monthlyContribution),
+          ),
         row(l10n.annualReturn, format.percent(input.annualReturn)),
         row(l10n.timeHorizon, l10n.yearsValue(input.years)),
         if (input.annualManagementFee > 0)
@@ -414,34 +445,34 @@ class _TaxBridge extends StatelessWidget {
     final palette = context.palette;
 
     Widget line(String label, String value, {bool emphasis = false}) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  label,
-                  style: context.texts.bodyMedium?.copyWith(
-                    fontSize: 13.5,
-                    fontWeight: emphasis ? FontWeight.w600 : null,
-                    color: emphasis
-                        ? null
-                        : context.colors.onSurface.withValues(alpha: 0.6),
-                  ),
-                ),
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              label,
+              style: context.texts.bodyMedium?.copyWith(
+                fontSize: 13.5,
+                fontWeight: emphasis ? FontWeight.w600 : null,
+                color: emphasis
+                    ? null
+                    : context.colors.onSurface.withValues(alpha: 0.6),
               ),
-              const SizedBox(width: 12),
-              Text(
-                value,
-                style: context.texts.bodyMedium?.copyWith(
-                  fontSize: emphasis ? 15.5 : 13.5,
-                  fontWeight: emphasis ? FontWeight.w800 : FontWeight.w600,
-                  color: emphasis ? palette.growth : null,
-                  fontFeatures: const [FontFeature.tabularFigures()],
-                ),
-              ),
-            ],
+            ),
           ),
-        );
+          const SizedBox(width: 12),
+          Text(
+            value,
+            style: context.texts.bodyMedium?.copyWith(
+              fontSize: emphasis ? 15.5 : 13.5,
+              fontWeight: emphasis ? FontWeight.w800 : FontWeight.w600,
+              color: emphasis ? palette.growth : null,
+              fontFeatures: const [FontFeature.tabularFigures()],
+            ),
+          ),
+        ],
+      ),
+    );
 
     return Container(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
@@ -461,8 +492,11 @@ class _TaxBridge extends StatelessWidget {
               color: context.colors.onSurface.withValues(alpha: 0.12),
             ),
           ),
-          line(l10n.yoursAfterTax, format.money(result.netFinalValue),
-              emphasis: true),
+          line(
+            l10n.yoursAfterTax,
+            format.money(result.netFinalValue),
+            emphasis: true,
+          ),
           const SizedBox(height: 10),
           Text(
             l10n.chartIsPreTax,

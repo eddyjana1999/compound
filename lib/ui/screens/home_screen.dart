@@ -525,7 +525,10 @@ class _NewCalculationBar extends ConsumerWidget {
           // reach of the primary button invites accidental taps, which AdMob
           // counts as invalid traffic.
           AdSlot(child: ref.watch(adServiceProvider).banner()),
-          SizedBox(height: MediaQuery.paddingOf(context).bottom),
+          // Nothing will ever fill the bottom edge for someone who paid to
+          // remove ads, so the gesture-bar inset is reserved for them alone.
+          if (ref.watch(adsRemovedProvider))
+            SizedBox(height: MediaQuery.paddingOf(context).bottom),
         ],
       ),
     );

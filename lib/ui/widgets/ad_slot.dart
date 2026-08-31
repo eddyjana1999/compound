@@ -8,6 +8,10 @@ import '../theme/app_theme.dart';
 /// a mis-tap lands on nothing rather than on a banner. And it collapses to
 /// zero height when the ad has not loaded, so a slow fill or no fill leaves
 /// the layout exactly as it would be with ads switched off.
+///
+/// It does not reserve the home-indicator inset. A banner runs to the bottom
+/// edge of the screen — the strip of app background under it read as a gap —
+/// so the caller reserves that space only when it knows no banner is coming.
 class AdSlot extends StatelessWidget {
   const AdSlot({super.key, required this.child});
 
