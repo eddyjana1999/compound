@@ -16,6 +16,11 @@ Future<void> showSettingsSheet(BuildContext context) {
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,
+    // Without this the sheet is free to grow to the very top of the screen,
+    // and with a long list open it slides under the camera cutout. It insets
+    // the whole sheet rather than its contents, so the rounded top edge stays
+    // visible below the island instead of the title hiding behind it.
+    useSafeArea: true,
     showDragHandle: true,
     // No colour or shape passed here on purpose. Both come from
     // bottomSheetTheme so they follow a theme change while the sheet is open.
@@ -64,6 +69,7 @@ class _SettingsSheetState extends ConsumerState<_SettingsSheet> {
         : _languageNames[settings.locale!.languageCode] ?? l10n.systemDefault;
 
     return SafeArea(
+      top: false,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 4, 20, 20),
         child: Column(

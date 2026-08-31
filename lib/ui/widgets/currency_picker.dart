@@ -15,6 +15,11 @@ Future<String?> showCurrencyPicker(
   return showModalBottomSheet<String>(
     context: context,
     isScrollControlled: true,
+    // Without this the sheet is free to grow to the very top of the screen,
+    // and with a long list open it slides under the camera cutout. It insets
+    // the whole sheet rather than its contents, so the rounded top edge stays
+    // visible below the island instead of the title hiding behind it.
+    useSafeArea: true,
     showDragHandle: true,
     // Colour and shape come from bottomSheetTheme, not from here — see the
     // note in app_theme.dart.
