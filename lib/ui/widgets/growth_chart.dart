@@ -1,8 +1,11 @@
+import 'dart:math' as math;
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/models/calculation_result.dart';
 import '../../l10n/app_localizations.dart';
+import '../formatting/axis_scale.dart';
 import '../formatting/money_format.dart';
 import '../theme/app_theme.dart';
 
@@ -42,10 +45,15 @@ class GrowthChart extends StatelessWidget {
     // contributions above the balance — exactly the case this app exists to
     // expose — sizing to the balance alone clipped the deposits line off the
     // top and silently removed the comparison.
-    final maxY = [...balanceSpots, ...depositSpots]
+    final peak = [...balanceSpots, ...depositSpots]
         .map((s) => s.y)
         .fold<double>(0, (a, b) => a > b ? a : b);
-    final headroom = maxY == 0 ? 1.0 : maxY * 1.12;
+    // Round gridlines, not a flat percentage of the peak. See axis_scale.dart
+    // for why the old `peak * 1.12 / 4` was unreadable.
+    final axis = niceAxis(peak);
+    final labels = [
+      for (final t in axis.ticks) format.numberCompact(currency.fromMajor(t)),
+    ];
     final years = result.input.years;
 
     return Column(
@@ -60,6 +68,15 @@ class GrowthChart extends StatelessWidget {
               label: l10n.legendDeposited,
               dashed: true,
             ),
+            const Spacer(),
+            // The axis no longer repeats the symbol on every gridline, so it
+            // is stated once here instead.
+            Text(
+              format.currencySymbol,
+              style: context.texts.labelMedium?.copyWith(
+                color: context.colors.onSurface.withValues(alpha: 0.45),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 22),
@@ -72,12 +89,12 @@ class GrowthChart extends StatelessWidget {
               minX: 0,
               maxX: years.toDouble(),
               minY: 0,
-              maxY: headroom,
+              maxY: axis.max,
               clipData: const FlClipData.all(),
               gridData: FlGridData(
                 show: true,
                 drawVerticalLine: false,
-                horizontalInterval: headroom / 4,
+                horizontalInterval: axis.step,
                 getDrawingHorizontalLine: (_) => FlLine(
                   color: context.colors.onSurface.withValues(alpha: 0.06),
                   strokeWidth: 1,
@@ -92,8 +109,8 @@ class GrowthChart extends StatelessWidget {
                 leftTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
-                    reservedSize: 52,
-                    interval: headroom / 4,
+                    reservedSize: _labelWidth(context, labels) + 10,
+                    interval: axis.step,
                     getTitlesWidget: (value, meta) {
                       if (value < meta.min || value > meta.max) {
                         return const SizedBox.shrink();
@@ -101,10 +118,9 @@ class GrowthChart extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsetsDirectional.only(end: 8),
                         child: Text(
-                          format.moneyCompact(
-                            currency.fromMajor(value),
-                          ),
+                          format.numberCompact(currency.fromMajor(value)),
                           textAlign: TextAlign.end,
+                          maxLines: 1,
                           style: context.texts.labelMedium?.copyWith(
                             fontSize: 11,
                             color: context.colors.onSurface
@@ -232,6 +248,27 @@ class GrowthChart extends StatelessWidget {
   /// Enough points that straight segments read as a smooth curve, few enough
   /// that a phone-sized chart is not asked to draw hundreds of them.
   static const int _chartPoints = 140;
+
+  /// Widest gridline label, measured rather than guessed.
+  ///
+  /// A fixed 52 points fitted `$1.2M` and nothing else: German writes six
+  /// digits unabbreviated below a million, Arabic spells out `125 ألف`, and
+  /// both were being truncated on the axis.
+  static double _labelWidth(BuildContext context, List<String> labels) {
+    final style = context.texts.labelMedium?.copyWith(fontSize: 11);
+    final scaler = MediaQuery.textScalerOf(context);
+    var widest = 0.0;
+    for (final label in labels) {
+      final painter = TextPainter(
+        text: TextSpan(text: label, style: style),
+        textDirection: Directionality.of(context),
+        textScaler: scaler,
+        maxLines: 1,
+      )..layout();
+      widest = math.max(widest, painter.width);
+    }
+    return widest;
+  }
 
   /// Keeps the axis to about five labels whatever the horizon.
   static double _yearInterval(int years) {

@@ -65,6 +65,28 @@ class MoneyFormat {
     return format.format(currency.toMajor(minor));
   }
 
+  /// `1.2M` — a chart gridline. No symbol: the axis repeats its labels four
+  /// or five times and the currency does not change between them, so naming
+  /// it once above the chart is both shorter and clearer. In an RTL locale
+  /// it also avoids intl flipping the symbol to the far side on the zero
+  /// label only, which made the axis look like it changed units halfway up.
+  String numberCompact(MinorUnits minor) {
+    final format = NumberFormat.compact(locale: localeName);
+    return format.format(currency.toMajor(minor));
+  }
+
+  /// The bare symbol — `₪`, `$`, `¥` — to label an axis once.
+  String get currencySymbol {
+    try {
+      return NumberFormat.simpleCurrency(
+        locale: localeName,
+        name: currency.code,
+      ).currencySymbol;
+    } on Object {
+      return currency.code;
+    }
+  }
+
   /// `1,234.56` — no symbol, for text fields the user types back into.
   String plainAmount(MinorUnits minor) {
     final format = NumberFormat.decimalPatternDigits(
