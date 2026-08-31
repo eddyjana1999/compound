@@ -289,3 +289,19 @@ at all for everyone who taps "Ask App Not to Track".
 
 Submission `4e464999-a94a-42b9-abdd-f30f4ed46c9f` · both items Waiting for Review.
 If Apple asks for domains explicitly, add them from the list Apple names.
+
+### 22:38 — build 5
+
+Build 4 was rejected with the identical ITMS-91064. The rule runs the other way from what its
+wording suggests: **NSPrivacyTracking true requires NSPrivacyTrackingDomains to be populated.**
+Removing the key was backwards.
+
+Build 5 lists `googleadservices.com`, `googlesyndication.com`, `doubleclick.net` — Google's ad
+stack, not Firebase's `app-measurement.com` or `google-analytics.com`, which this app does not use.
+
+The mistake worth remembering: the error text was interpreted rather than looked up, twice, with a
+search tool available throughout. The first search went after Google's domain list; the useful one
+was the error code itself. Wrong question, two builds.
+
+None of this touched the app. The 173 tests, the purchase, the ads and everything on the phone have
+been correct since morning — both rejections were a fifteen-line configuration file.
