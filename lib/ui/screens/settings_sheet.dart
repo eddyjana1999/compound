@@ -37,14 +37,31 @@ const Map<String, String> _languageNames = {
   'he': 'עברית',
 };
 
-class _SettingsSheet extends ConsumerWidget {
+class _SettingsSheet extends ConsumerStatefulWidget {
   const _SettingsSheet();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_SettingsSheet> createState() => _SettingsSheetState();
+}
+
+class _SettingsSheetState extends ConsumerState<_SettingsSheet> {
+  /// The language list opens inside this sheet rather than in one of its own.
+  ///
+  /// It used to be a second modal route stacked on this one, and changing the
+  /// language rebuilt the app underneath both of them — which left the picker
+  /// unable to close. A sheet that opens a sheet that rebuilds its own parent
+  /// is a knot; expanding in place has no route to lose.
+  bool _languageOpen = false;
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final settings = ref.watch(settingsProvider);
     final notifier = ref.read(settingsProvider.notifier);
+
+    final currentLanguage = settings.locale == null
+        ? l10n.systemDefault
+        : _languageNames[settings.locale!.languageCode] ?? l10n.systemDefault;
 
     return SafeArea(
       child: Padding(
@@ -54,109 +71,129 @@ class _SettingsSheet extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(l10n.settings, style: context.texts.headlineMedium),
-            const SizedBox(height: 24),
-            // Buying and restoring the same thing sit together: a reviewer
-            // looking for either finds both, and a user who has already paid
-            // sees the card disappear and only Restore remain.
-            const RemoveAdsCard(padded: false),
-            // Apple requires a restore path for a non-consumable; an app that
-            // can sell this but cannot restore it is rejected.
-            const SizedBox(height: 4),
-            _ActionGroup(
-              children: [
-                _RestoreRow(purchased: ref.watch(adsRemovedProvider)),
-                _ActionRow(
-                  icon: Icons.star_outline_rounded,
-                  label: l10n.rateApp,
-                  onTap: () => _openUrl(LegalLinks.writeReview),
-                ),
-                _ActionRow(
-                  icon: Icons.ios_share_rounded,
-                  label: l10n.shareApp,
-                  onTap: () => SharePlus.instance.share(
-                    ShareParams(
-                      text: '${l10n.shareAppMessage}\n${LegalLinks.appStore}',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            // Reachable from inside the app, not only from the store
-            // listing. Both stores expect it of anything that carries ads or
-            // sells something, and it is one of the things a reviewer taps.
-            const _LegalRow(),
-            Text(l10n.appearance, style: context.texts.labelMedium),
-            const SizedBox(height: 10),
-            SegmentedButton<ThemeMode>(
-              segments: [
-                ButtonSegment(
-                  value: ThemeMode.system,
-                  label: Text(l10n.systemDefault),
-                ),
-                ButtonSegment(value: ThemeMode.light, label: Text(l10n.light)),
-                ButtonSegment(value: ThemeMode.dark, label: Text(l10n.dark)),
-              ],
-              selected: {settings.themeMode},
-              showSelectedIcon: false,
-              onSelectionChanged: (selection) =>
-                  notifier.setThemeMode(selection.first),
-            ),
-            const SizedBox(height: 26),
-            // Only shown where consent law requires an ongoing way to change
-            // the answer. Elsewhere there is nothing to change, and an entry
-            // that opens an empty form is worse than no entry.
-            ref
-                .watch(privacyOptionsRequiredProvider)
-                .maybeWhen(
-                  data: (required) => required
-                      ? Padding(
-                          padding: const EdgeInsets.only(bottom: 26),
-                          child: OutlinedButton.icon(
-                            onPressed: () => ref
-                                .read(adServiceProvider)
-                                .showPrivacyOptions(),
-                            icon: const Icon(
-                              Icons.privacy_tip_outlined,
-                              size: 18,
-                            ),
-                            label: Text(l10n.adPrivacy),
-                            style: OutlinedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(46),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14),
-                              ),
+            const SizedBox(height: 20),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // What this screen is for, first.
+                    const RemoveAdsCard(padded: false),
+                    _ActionGroup(
+                      children: [
+                        _RestoreRow(purchased: ref.watch(adsRemovedProvider)),
+                        _ActionRow(
+                          icon: Icons.star_outline_rounded,
+                          label: l10n.rateApp,
+                          onTap: () => _openUrl(LegalLinks.writeReview),
+                        ),
+                        _ActionRow(
+                          icon: Icons.ios_share_rounded,
+                          label: l10n.shareApp,
+                          onTap: () => SharePlus.instance.share(
+                            ShareParams(
+                              text: '${l10n.shareAppMessage}\n'
+                                  '${LegalLinks.appStore}',
                             ),
                           ),
-                        )
-                      : const SizedBox.shrink(),
-                  orElse: () => const SizedBox.shrink(),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 22),
+
+                    // Then the two things a person actually comes here to
+                    // change, in the order they are most often changed.
+                    Text(l10n.appearance, style: context.texts.labelMedium),
+                    const SizedBox(height: 10),
+                    SegmentedButton<ThemeMode>(
+                      segments: [
+                        ButtonSegment(
+                          value: ThemeMode.system,
+                          label: Text(l10n.systemDefault),
+                        ),
+                        ButtonSegment(
+                          value: ThemeMode.light,
+                          label: Text(l10n.light),
+                        ),
+                        ButtonSegment(
+                          value: ThemeMode.dark,
+                          label: Text(l10n.dark),
+                        ),
+                      ],
+                      selected: {settings.themeMode},
+                      showSelectedIcon: false,
+                      onSelectionChanged: (selection) =>
+                          notifier.setThemeMode(selection.first),
+                    ),
+                    const SizedBox(height: 22),
+
+                    Text(l10n.language, style: context.texts.labelMedium),
+                    const SizedBox(height: 10),
+                    _ActionGroup(
+                      children: [
+                        _ActionRow(
+                          icon: Icons.translate_rounded,
+                          label: currentLanguage,
+                          expanded: _languageOpen,
+                          onTap: () => setState(
+                            () => _languageOpen = !_languageOpen,
+                          ),
+                        ),
+                        if (_languageOpen) ...[
+                          _LanguageTile(
+                            label: l10n.systemDefault,
+                            selected: settings.locale == null,
+                            onTap: () {
+                              notifier.setLocale(null);
+                              setState(() => _languageOpen = false);
+                            },
+                          ),
+                          for (final entry in _languageNames.entries)
+                            _LanguageTile(
+                              label: entry.value,
+                              selected:
+                                  settings.locale?.languageCode == entry.key,
+                              onTap: () {
+                                notifier.setLocale(Locale(entry.key));
+                                setState(() => _languageOpen = false);
+                              },
+                            ),
+                        ],
+                      ],
+                    ),
+
+                    // Only shown where consent law requires an ongoing way to
+                    // change the answer. Elsewhere there is nothing to change,
+                    // and an entry that opens an empty form is worse than
+                    // no entry.
+                    ref.watch(privacyOptionsRequiredProvider).maybeWhen(
+                          data: (required) => required
+                              ? Padding(
+                                  padding: const EdgeInsets.only(top: 22),
+                                  child: _ActionGroup(
+                                    children: [
+                                      _ActionRow(
+                                        icon: Icons.privacy_tip_outlined,
+                                        label: l10n.adPrivacy,
+                                        onTap: () => ref
+                                            .read(adServiceProvider)
+                                            .showPrivacyOptions(),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
+                          orElse: () => const SizedBox.shrink(),
+                        ),
+
+                    // Last, because nobody opens Settings to read them — but
+                    // both stores expect them to be reachable from inside the
+                    // app, and App Review taps them.
+                    const SizedBox(height: 22),
+                    const _LegalRow(),
+                  ],
                 ),
-            Text(l10n.language, style: context.texts.labelMedium),
-            const SizedBox(height: 10),
-            // One row, not nine. The inline list of every language took more
-            // vertical space than everything else on this sheet combined, on
-            // a screen whose other job is to sell something.
-            _ActionGroup(
-              children: [
-                _ActionRow(
-                  icon: Icons.translate_rounded,
-                  label: settings.locale == null
-                      ? l10n.systemDefault
-                      : _languageNames[settings.locale!.languageCode] ??
-                          l10n.systemDefault,
-                  onTap: () async {
-                    final picked = await showLanguagePicker(
-                      context,
-                      selected: settings.locale?.languageCode,
-                    );
-                    if (picked == null) return;
-                    notifier.setLocale(
-                      picked == _systemLocale ? null : Locale(picked),
-                    );
-                  },
-                ),
-              ],
+              ),
             ),
           ],
         ),
@@ -282,9 +319,6 @@ Future<void> _openUrl(String url) async {
   await launchUrl(uri, mode: LaunchMode.externalApplication);
 }
 
-/// The sentinel the language picker returns for "follow the device".
-const String _systemLocale = '__system__';
-
 /// A card that holds a run of [_ActionRow]s with hairlines between them.
 class _ActionGroup extends StatelessWidget {
   const _ActionGroup({required this.children});
@@ -327,6 +361,7 @@ class _ActionRow extends StatelessWidget {
     required this.onTap,
     this.tint,
     this.busy = false,
+    this.expanded,
   });
 
   final IconData icon;
@@ -334,6 +369,10 @@ class _ActionRow extends StatelessWidget {
   final VoidCallback? onTap;
   final Color? tint;
   final bool busy;
+
+  /// Non-null when this row opens something below it, and the chevron should
+  /// point down rather than forward.
+  final bool? expanded;
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +407,11 @@ class _ActionRow extends StatelessWidget {
             ),
             if (onTap != null)
               Icon(
-                Icons.chevron_right_rounded,
+                expanded == null
+                    ? Icons.chevron_right_rounded
+                    : expanded!
+                        ? Icons.expand_less_rounded
+                        : Icons.expand_more_rounded,
                 size: 20,
                 color: context.colors.onSurface.withValues(alpha: 0.3),
               ),
@@ -377,52 +420,4 @@ class _ActionRow extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Language as its own sheet, returning a code or [_systemLocale].
-Future<String?> showLanguagePicker(
-  BuildContext context, {
-  required String? selected,
-}) {
-  return showModalBottomSheet<String>(
-    context: context,
-    isScrollControlled: true,
-    showDragHandle: true,
-    builder: (sheetContext) {
-      final l10n = AppLocalizations.of(sheetContext);
-      return SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 4, 20, 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(l10n.language, style: sheetContext.texts.headlineMedium),
-              const SizedBox(height: 16),
-              Flexible(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      _LanguageTile(
-                        label: l10n.systemDefault,
-                        selected: selected == null,
-                        onTap: () =>
-                            Navigator.pop(sheetContext, _systemLocale),
-                      ),
-                      for (final entry in _languageNames.entries)
-                        _LanguageTile(
-                          label: entry.value,
-                          selected: selected == entry.key,
-                          onTap: () => Navigator.pop(sheetContext, entry.key),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
 }
