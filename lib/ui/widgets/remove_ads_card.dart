@@ -104,6 +104,9 @@ class _RemoveAdsCardState extends ConsumerState<RemoveAdsCard> {
               style: FilledButton.styleFrom(
                 minimumSize: const Size(0, 42),
                 padding: const EdgeInsets.symmetric(horizontal: 18),
+                // Long prices exist — "CHF 24.90", "₩29,000" — and the title
+                // must keep its room whatever the store sends back.
+                maximumSize: const Size(150, 60),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(999),
                 ),
@@ -122,7 +125,20 @@ class _RemoveAdsCardState extends ConsumerState<RemoveAdsCard> {
                       ),
                     )
                   : offer == null
-                      ? Text(l10n.tryAgain)
+                      // An icon, not the word. "Try again" is wider than any
+                      // price, and in German it is "Erneut versuchen" — long
+                      // enough to squeeze the title into three lines on a
+                      // narrow phone. The retry is the rare state; the price
+                      // is the normal one, and the button should be sized for
+                      // the price.
+                      ? Tooltip(
+                          message: l10n.tryAgain,
+                          child: Icon(
+                            Icons.refresh_rounded,
+                            size: 20,
+                            color: context.colors.onPrimary,
+                          ),
+                        )
                       // The store's own localised price string. Never
                       // formatted by this app and never a constant.
                       : Text(offer.price, textDirection: TextDirection.ltr),
