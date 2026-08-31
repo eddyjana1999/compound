@@ -73,5 +73,8 @@
   "sharedFrom": "由 Compound Lab 计算",
   "privacyPolicy": "隐私政策",
   "termsOfUse": "使用条款",
-  "tryAgain": "重试"
+  "tryAgain": "重试",
+  "assumptions": "计算假设",
+  "chartIsPreTax": "图表显示的是资本利得税前的投资组合价值，该税款在期末从总收益中一次性扣除。",
+  "errIncomplete": "请填写年化收益率和投资期限。"
 }

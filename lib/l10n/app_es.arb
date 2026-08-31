@@ -73,5 +73,8 @@
   "sharedFrom": "Calculado con Compound Lab",
   "privacyPolicy": "Política de privacidad",
   "termsOfUse": "Términos de uso",
-  "tryAgain": "Reintentar"
+  "tryAgain": "Reintentar",
+  "assumptions": "Supuestos",
+  "chartIsPreTax": "El gráfico sigue la cartera antes del impuesto sobre plusvalías, que se descuenta una sola vez de la ganancia total al final.",
+  "errIncomplete": "Completa la rentabilidad anual y el plazo."
 }

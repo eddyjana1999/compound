@@ -256,4 +256,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tryAgain => 'Réessayer';
+
+  @override
+  String get assumptions => 'Hypothèses';
+
+  @override
+  String get chartIsPreTax =>
+      'Le graphique suit le portefeuille avant l\'impôt sur les plus-values, prélevé une seule fois sur le gain total à la fin.';
+
+  @override
+  String get errIncomplete => 'Renseignez le rendement annuel et la durée.';
 }

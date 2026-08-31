@@ -125,6 +125,10 @@ class CalculationInput {
 
 /// The reasons an input is not calculable.
 enum InputProblem {
+  /// A required field is empty or cannot be read. Separate from
+  /// [nothingInvested]: clearing the time horizon used to be reported as
+  /// "enter a starting amount", which points the reader at the wrong field.
+  incomplete,
   negativeInitialAmount,
   negativeContribution,
   horizonTooShort,

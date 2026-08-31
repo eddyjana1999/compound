@@ -259,4 +259,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get tryAgain => 'إعادة المحاولة';
+
+  @override
+  String get assumptions => 'افتراضات الحساب';
+
+  @override
+  String get chartIsPreTax =>
+      'يتتبع الرسم البياني قيمة المحفظة قبل ضريبة أرباح رأس المال، التي تُخصم مرة واحدة من إجمالي الربح في النهاية.';
+
+  @override
+  String get errIncomplete => 'يرجى إدخال العائد السنوي ومدة الاستثمار.';
 }

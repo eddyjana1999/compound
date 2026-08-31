@@ -553,6 +553,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try again'**
   String get tryAgain;
+
+  /// No description provided for @assumptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Assumptions'**
+  String get assumptions;
+
+  /// No description provided for @chartIsPreTax.
+  ///
+  /// In en, this message translates to:
+  /// **'The chart tracks the portfolio before capital gains tax, which is deducted once from the total profit at the end.'**
+  String get chartIsPreTax;
+
+  /// No description provided for @errIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in the annual return and the time horizon.'**
+  String get errIncomplete;
 }
 
 class _AppLocalizationsDelegate

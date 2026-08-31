@@ -73,5 +73,8 @@
   "sharedFrom": "Calculé avec Compound Lab",
   "privacyPolicy": "Politique de confidentialité",
   "termsOfUse": "Conditions d'utilisation",
-  "tryAgain": "Réessayer"
+  "tryAgain": "Réessayer",
+  "assumptions": "Hypothèses",
+  "chartIsPreTax": "Le graphique suit le portefeuille avant l'impôt sur les plus-values, prélevé une seule fois sur le gain total à la fin.",
+  "errIncomplete": "Renseignez le rendement annuel et la durée."
 }

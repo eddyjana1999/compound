@@ -77,5 +77,8 @@
   "sharedFrom": "Calculated with Compound Lab",
   "privacyPolicy": "Privacy Policy",
   "termsOfUse": "Terms of Use",
-  "tryAgain": "Try again"
+  "tryAgain": "Try again",
+  "assumptions": "Assumptions",
+  "chartIsPreTax": "The chart tracks the portfolio before capital gains tax, which is deducted once from the total profit at the end.",
+  "errIncomplete": "Fill in the annual return and the time horizon."
 }

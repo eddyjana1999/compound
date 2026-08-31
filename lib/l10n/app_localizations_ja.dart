@@ -247,4 +247,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get tryAgain => '再試行';
+
+  @override
+  String get assumptions => '計算の前提';
+
+  @override
+  String get chartIsPreTax => 'グラフは譲渡益税を差し引く前の資産額です。税は期末に総利益から一度だけ差し引かれます。';
+
+  @override
+  String get errIncomplete => '年間リターンと投資期間を入力してください。';
 }

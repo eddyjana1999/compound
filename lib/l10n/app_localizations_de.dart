@@ -257,4 +257,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tryAgain => 'Erneut versuchen';
+
+  @override
+  String get assumptions => 'Annahmen';
+
+  @override
+  String get chartIsPreTax =>
+      'Das Diagramm zeigt das Depot vor Abgeltungsteuer, die am Ende einmalig vom Gesamtgewinn abgezogen wird.';
+
+  @override
+  String get errIncomplete =>
+      'Bitte jährliche Rendite und Anlagedauer ausfüllen.';
 }

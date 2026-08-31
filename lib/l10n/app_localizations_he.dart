@@ -254,4 +254,14 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get tryAgain => 'נסה שוב';
+
+  @override
+  String get assumptions => 'הנחות החישוב';
+
+  @override
+  String get chartIsPreTax =>
+      'הגרף עוקב אחר שווי התיק לפני מס רווחי הון, שנגבה פעם אחת מסך הרווח בסוף התקופה.';
+
+  @override
+  String get errIncomplete => 'יש למלא את התשואה השנתית ואת טווח ההשקעה.';
 }

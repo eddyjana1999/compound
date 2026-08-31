@@ -254,4 +254,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tryAgain => 'Try again';
+
+  @override
+  String get assumptions => 'Assumptions';
+
+  @override
+  String get chartIsPreTax =>
+      'The chart tracks the portfolio before capital gains tax, which is deducted once from the total profit at the end.';
+
+  @override
+  String get errIncomplete => 'Fill in the annual return and the time horizon.';
 }

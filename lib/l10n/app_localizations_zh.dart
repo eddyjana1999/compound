@@ -247,4 +247,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get tryAgain => '重试';
+
+  @override
+  String get assumptions => '计算假设';
+
+  @override
+  String get chartIsPreTax => '图表显示的是资本利得税前的投资组合价值，该税款在期末从总收益中一次性扣除。';
+
+  @override
+  String get errIncomplete => '请填写年化收益率和投资期限。';
 }

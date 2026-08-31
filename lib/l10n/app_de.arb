@@ -73,5 +73,8 @@
   "sharedFrom": "Berechnet mit Compound Lab",
   "privacyPolicy": "Datenschutz",
   "termsOfUse": "Nutzungsbedingungen",
-  "tryAgain": "Erneut versuchen"
+  "tryAgain": "Erneut versuchen",
+  "assumptions": "Annahmen",
+  "chartIsPreTax": "Das Diagramm zeigt das Depot vor Abgeltungsteuer, die am Ende einmalig vom Gesamtgewinn abgezogen wird.",
+  "errIncomplete": "Bitte jährliche Rendite und Anlagedauer ausfüllen."
 }

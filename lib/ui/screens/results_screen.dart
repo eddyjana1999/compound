@@ -160,6 +160,8 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
                         ),
                         const SizedBox(height: 16),
                         GrowthChart(result: result, format: format),
+                        const SizedBox(height: 20),
+                        _Assumptions(result: result, format: format),
                       ],
                     ),
                   ),
@@ -271,5 +273,87 @@ class _SaveBar extends ConsumerWidget {
               icon: const Icon(Icons.bookmark_add_outlined, size: 20),
               label: Text(l10n.save),
             );
+  }
+}
+
+/// What produced the curve, stated plainly underneath it.
+///
+/// The results screen showed four output figures and none of the inputs, so a
+/// reader coming back to a saved calculation could not tell what it assumed.
+/// It also closes a gap that read as an error: the chart plots the balance
+/// *before* capital gains tax while the headline is the net figure, and with
+/// nothing saying so the two look like they disagree.
+class _Assumptions extends StatelessWidget {
+  const _Assumptions({required this.result, required this.format});
+
+  final CalculationResult result;
+  final MoneyFormat format;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final input = result.input;
+    final muted = context.colors.onSurface.withValues(alpha: 0.55);
+
+    Widget row(String label, String value) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  label,
+                  style: context.texts.bodyMedium
+                      ?.copyWith(fontSize: 13.5, color: muted),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                value,
+                style: context.texts.bodyMedium?.copyWith(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w600,
+                  fontFeatures: const [FontFeature.tabularFigures()],
+                ),
+              ),
+            ],
+          ),
+        );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Divider(color: context.colors.onSurface.withValues(alpha: 0.08)),
+        const SizedBox(height: 12),
+        Text(
+          l10n.assumptions,
+          style: context.texts.labelMedium?.copyWith(color: muted),
+        ),
+        const SizedBox(height: 6),
+        row(l10n.startingAmount, format.money(input.initialAmount)),
+        if (input.monthlyContribution > 0)
+          row(l10n.monthlyContribution,
+              format.money(input.monthlyContribution)),
+        row(l10n.annualReturn, format.percent(input.annualReturn)),
+        row(l10n.timeHorizon, l10n.yearsValue(input.years)),
+        if (input.annualManagementFee > 0)
+          row(l10n.managementFee, format.percent(input.annualManagementFee)),
+        if (input.capitalGainsTaxRate > 0) ...[
+          row(l10n.capitalGainsTax, format.percent(input.capitalGainsTaxRate)),
+          const SizedBox(height: 10),
+          // Only worth saying when a tax was actually applied; otherwise the
+          // chart and the headline end on the same figure and the note would
+          // be explaining a difference that is not there.
+          Text(
+            l10n.chartIsPreTax,
+            style: context.texts.bodyMedium?.copyWith(
+              fontSize: 12,
+              height: 1.35,
+              color: context.colors.onSurface.withValues(alpha: 0.45),
+            ),
+          ),
+        ],
+      ],
+    );
   }
 }

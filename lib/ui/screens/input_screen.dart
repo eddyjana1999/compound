@@ -159,6 +159,8 @@ class _InputScreenState extends ConsumerState<InputScreen> {
     final adDue = await ref.read(calculationCounterProvider.notifier).record();
     if (!mounted) return;
 
+    if (mounted) setState(() => _submitted = false);
+
     await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => ResultsScreen(input: input)),
@@ -178,7 +180,9 @@ class _InputScreenState extends ConsumerState<InputScreen> {
     final l10n = AppLocalizations.of(context);
     final format = _format;
     final input = _buildInput();
-    final problem = _submitted ? (input?.problem ?? InputProblem.nothingInvested) : null;
+    // `_buildInput` gives null when the horizon or the return cannot be
+    // read, which is not the same thing as investing nothing.
+    final problem = _submitted ? (input?.problem ?? InputProblem.incomplete) : null;
 
     return Scaffold(
       appBar: AppBar(
@@ -424,6 +428,7 @@ class _ProblemBanner extends StatelessWidget {
         InputProblem.feeOutOfRange => l10n.errFeeRange,
         InputProblem.taxOutOfRange => l10n.errTaxRange,
         InputProblem.nothingInvested => l10n.errNothingInvested,
+        InputProblem.incomplete => l10n.errIncomplete,
       };
 
   @override

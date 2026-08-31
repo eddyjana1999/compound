@@ -257,4 +257,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get tryAgain => 'Reintentar';
+
+  @override
+  String get assumptions => 'Supuestos';
+
+  @override
+  String get chartIsPreTax =>
+      'El gráfico sigue la cartera antes del impuesto sobre plusvalías, que se descuenta una sola vez de la ganancia total al final.';
+
+  @override
+  String get errIncomplete => 'Completa la rentabilidad anual y el plazo.';
 }
