@@ -19,7 +19,10 @@ import 'app_card.dart';
 /// So: the card stays, and only the button changes. The price is still never
 /// invented — it is either the store's own string, a spinner, or a retry.
 class RemoveAdsCard extends ConsumerStatefulWidget {
-  const RemoveAdsCard({super.key});
+  const RemoveAdsCard({super.key, this.padded = true});
+
+  /// Whether to add the page margin. False inside a sheet, which pads itself.
+  final bool padded;
 
   @override
   ConsumerState<RemoveAdsCard> createState() => _RemoveAdsCardState();
@@ -48,12 +51,14 @@ class _RemoveAdsCardState extends ConsumerState<RemoveAdsCard> {
     final palette = context.palette;
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppTheme.pagePadding,
-        4,
-        AppTheme.pagePadding,
-        12,
-      ),
+      padding: widget.padded
+          ? const EdgeInsets.fromLTRB(
+              AppTheme.pagePadding,
+              4,
+              AppTheme.pagePadding,
+              12,
+            )
+          : const EdgeInsets.only(bottom: 12),
       child: AppCard(
         padding: const EdgeInsets.fromLTRB(18, 16, 14, 16),
         child: Row(

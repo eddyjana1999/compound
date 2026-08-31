@@ -9,7 +9,6 @@ import '../state/providers.dart';
 import '../theme/app_theme.dart';
 import '../widgets/ad_slot.dart';
 import '../widgets/app_card.dart';
-import '../widgets/remove_ads_card.dart';
 import 'input_screen.dart';
 import 'results_screen.dart';
 import 'settings_sheet.dart';
@@ -203,10 +202,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                 ),
               ),
-              // The way to buy. Lost when this screen was rewritten for
-              // favourites, which left the purchase reachable only through
-              // Restore — a button that can only ever say "nothing found".
-              const RemoveAdsCard(),
               _NewCalculationBar(),
             ],
           ),

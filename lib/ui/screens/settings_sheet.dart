@@ -54,6 +54,10 @@ class _SettingsSheet extends ConsumerWidget {
           children: [
             Text(l10n.settings, style: context.texts.headlineMedium),
             const SizedBox(height: 24),
+            // Buying and restoring the same thing sit together: a reviewer
+            // looking for either finds both, and a user who has already paid
+            // sees the card disappear and only Restore remain.
+            const RemoveAdsCard(padded: false),
             // Apple requires a restore path for a non-consumable; an app that
             // can sell this but cannot restore it is rejected.
             _RestoreRow(purchased: ref.watch(adsRemovedProvider)),
