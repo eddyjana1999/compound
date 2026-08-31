@@ -154,3 +154,40 @@ Two things that will bite whoever picks this up:
   dialogs sit on top of the app and swallow every tap.
 - A rebuilt app icon can look like it has a dark border on the simulator. That is the springboard's
   icon cache, not the file. Uninstall, stop SpringBoard, reinstall.
+
+## Session end, 2026-08-30 (evening)
+
+Branch `main`, working tree clean, 26 commits, **everything pushed**. `flutter analyze` clean,
+156 unit tests passing.
+
+What landed since the last note: real AdMob unit IDs (release-gated by `kReleaseMode`), the
+₪24.99 remove-ads non-consumable via `in_app_purchase`, favourites plus single and multi-select
+deletion on the home screen, share-as-image through the system share sheet, broker-accurate
+terminology across all 8 locales, Android release signing, and `docs/` published to GitHub Pages
+and linked from inside the app.
+
+Branch `pro-tier` holds the paywall, inflation, contribution growth and PDF/CSV export work.
+It exists **nowhere else** — do not delete that branch.
+
+### Where the remaining work lives
+
+The pre-launch checklist is an Artifact:
+https://claude.ai/code/artifact/b921b178-2494-46ba-b92d-4d7c19842832
+
+Nothing in the codebase is blocking. What is left is store paperwork, and the only item still
+missing from the project itself is the Xcode signing team (needs the Apple developer account,
+which is still pending approval).
+
+### Two ordering traps worth repeating
+
+- Apple's **Agreements, Tax and Banking** must be active before the store returns a price. Until
+  then `in_app_purchase` reports no product and the remove-ads card never renders — silently, with
+  no error. If that card looks missing, check the agreement before touching the code.
+- Register the phone as an **AdMob test device** before installing a release build on it.
+
+### The keystore
+
+`~/compound-upload.jks` with its password in `android/key.properties` (chmod 600, git-ignored).
+Never commit either. Google Play binds the listing to this certificate permanently — losing it
+means a new listing and a new package name, with no way to update the published app.
+Release signature: `CN=Edgar Janashvili, OU=Compound, O=Compound, L=Tel Aviv, C=IL`.
