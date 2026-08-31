@@ -391,13 +391,12 @@ class _HistoryCard extends ConsumerWidget {
                   // A term that is zero is left out rather than formatted:
                   // intl renders a compact zero as "$0.00", which sits oddly
                   // beside "$100K" and states nothing the reader needed.
-                  [
+                  '${[
                     if (entry.input.initialAmount > 0)
                       format.moneyCompact(entry.input.initialAmount),
                     if (entry.input.monthlyContribution > 0)
                       '${format.moneyCompact(entry.input.monthlyContribution)}/m',
-                  ].join(' + ') +
-                      ' · ${format.percent(entry.input.annualReturn)}',
+                  ].join(' + ')} · ${format.percent(entry.input.annualReturn)}',
                   textDirection: TextDirection.ltr,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

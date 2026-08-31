@@ -1,18 +1,22 @@
 import AppKit
 import Foundation
 
-// usage: frame <in.png> <out.png> <line1> <line2> <subhead>
+// usage: frame <in.png> <out.png> <line1> <line2> <subhead> [black|silver]
 let a = CommandLine.arguments
 guard a.count >= 6 else { print("bad args"); exit(1) }
 let (inPath, outPath, l1, l2, sub) = (a[1], a[2], a[3], a[4], a[5])
+let style = a.count >= 7 ? a[6] : "black"
 
 let W = 1320, H = 2868
-let devW: CGFloat = 900
+let devW: CGFloat = 940
 let devH = devW * CGFloat(H) / CGFloat(W)
 let devX = (CGFloat(W) - devW) / 2
 let devY: CGFloat = 133          // from the bottom, AppKit origin is bottom-left
 let bezel: CGFloat = 14
-let radius: CGFloat = 92
+// 14% of the width. The silhouette is what the eye reads first, and at 10%
+// the corners were square enough that the frame passed for an Android phone
+// no matter what detail was added inside it.
+let radius: CGFloat = 132
 
 guard let shot = NSImage(contentsOfFile: inPath) else { print("cannot read \(inPath)"); exit(1) }
 
@@ -55,15 +59,70 @@ rgb(0x0B0F14).setFill()
 NSBezierPath(roundedRect: body, xRadius: radius, yRadius: radius).fill()
 ctx.restoreGState()
 
+// A polished rail reads as metal only if the light moves across it, so the
+// gradient is banded rather than smooth: bright edges, a darker middle, and
+// a highlight either side of it.
+var screen = body.insetBy(dx: bezel, dy: bezel)
+if style == "silver" {
+  // Polished titanium: the light has to travel across the rail, so the ramp
+  // is banded rather than smooth. Brighter than a grey frame — a real one is
+  // nearly white where it catches the light.
+  let rail = NSGradient(colors: [rgb(0xC6C8CD), rgb(0xFFFFFF), rgb(0xE2E4E8),
+                                 rgb(0xFFFFFF), rgb(0xB4B6BC)],
+                        atLocations: [0, 0.14, 0.5, 0.86, 1], colorSpace: .sRGB)!
+  ctx.saveGState()
+  NSBezierPath(roundedRect: body, xRadius: radius, yRadius: radius).addClip()
+  rail.draw(in: body, angle: 0)
+  ctx.restoreGState()
+
+  // Left rail: action button, then volume up and down. Right rail: power.
+  rgb(0xD3D5DA).setFill()
+  for (yFrac, hFrac) in [(0.735, 0.026), (0.655, 0.050), (0.585, 0.050)] {
+    NSBezierPath(roundedRect: NSRect(x: devX - 5, y: devY + devH * yFrac,
+                                     width: 6, height: devH * hFrac),
+                 xRadius: 3, yRadius: 3).fill()
+  }
+  NSBezierPath(roundedRect: NSRect(x: devX + devW - 1, y: devY + devH * 0.615,
+                                   width: 6, height: devH * 0.082),
+               xRadius: 3, yRadius: 3).fill()
+
+  // A thin black rim between rail and glass. Thin is the point: wide bezels
+  // are what made the first attempt read as a generic handset.
+  let rim = body.insetBy(dx: 16, dy: 16)
+  rgb(0x05060A).setFill()
+  NSBezierPath(roundedRect: rim, xRadius: radius - 16, yRadius: radius - 16).fill()
+  screen = rim.insetBy(dx: 8, dy: 8)
+}
+
 // the capture, clipped inside the bezel
-let screen = body.insetBy(dx: bezel, dy: bezel)
 ctx.saveGState()
-NSBezierPath(roundedRect: screen, xRadius: radius - bezel, yRadius: radius - bezel).addClip()
+let screenR = radius - (body.width - screen.width) / 2
+NSBezierPath(roundedRect: screen, xRadius: screenR, yRadius: screenR).addClip()
 shot.draw(in: screen, from: .zero, operation: .sourceOver, fraction: 1.0)
 ctx.restoreGState()
 
+// The Dynamic Island, drawn over the capture. This is the single feature
+// that identifies the device; without it the frame is just a rectangle, and
+// the first version of this read as an Android phone for exactly that reason.
+if style == "silver" {
+  let islandW = screen.width * 0.30
+  let islandH = islandW * 37.0 / 125.0
+  let island = NSRect(x: screen.midX - islandW / 2,
+                      y: screen.maxY - islandH - screen.height * 0.011,
+                      width: islandW, height: islandH)
+  NSColor.black.setFill()
+  NSBezierPath(roundedRect: island, xRadius: islandH / 2, yRadius: islandH / 2).fill()
+
+  // The front camera sits inside the island, right of centre.
+  rgb(0x14161C).setFill()
+  let lens = islandH * 0.46
+  NSBezierPath(ovalIn: NSRect(x: island.maxX - lens - islandH * 0.30,
+                              y: island.midY - lens / 2,
+                              width: lens, height: lens)).fill()
+}
+
 // hairline edge
-NSColor(white: 1, alpha: 0.18).setStroke()
+NSColor(white: 1, alpha: style == "silver" ? 0.42 : 0.18).setStroke()
 let edge = NSBezierPath(roundedRect: body, xRadius: radius, yRadius: radius)
 edge.lineWidth = 3
 edge.stroke()
