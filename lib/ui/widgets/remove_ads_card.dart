@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -48,7 +50,6 @@ class _RemoveAdsCardState extends ConsumerState<RemoveAdsCard> {
     final resolving = offerState.isLoading;
 
     final l10n = AppLocalizations.of(context);
-    final palette = context.palette;
 
     return Padding(
       padding: widget.padded
@@ -63,15 +64,7 @@ class _RemoveAdsCardState extends ConsumerState<RemoveAdsCard> {
         padding: const EdgeInsets.fromLTRB(18, 16, 14, 16),
         child: Row(
           children: [
-            Container(
-              width: 42,
-              height: 42,
-              decoration: BoxDecoration(
-                color: palette.growthSoft,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(Icons.block_rounded, size: 21, color: palette.growth),
-            ),
+            const _NoAdsMark(),
             const SizedBox(width: 14),
             Expanded(
               child: Column(
@@ -168,4 +161,68 @@ void showPurchaseOutcome(BuildContext context, PurchaseOutcome outcome) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(content: Text(message)));
+}
+
+/// A prohibition sign reading "AD".
+///
+/// The generic block icon said "something is forbidden" without saying what.
+/// This says which thing, in the one place where the product's whole promise
+/// has to land in a glance.
+///
+/// Drawn rather than shipped as an image so it follows the text scale and
+/// both themes. The red is the palette's own cost colour, not a new one.
+class _NoAdsMark extends StatelessWidget {
+  const _NoAdsMark();
+
+  @override
+  Widget build(BuildContext context) {
+    final red = context.palette.tax;
+    const size = 26.0;
+
+    return ExcludeSemantics(
+      child: Container(
+        width: 42,
+        height: 42,
+        decoration: BoxDecoration(
+          color: red.withValues(alpha: 0.12),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Center(
+          child: SizedBox(
+            width: size,
+            height: size,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: red, width: 2),
+                  ),
+                  child: const SizedBox.expand(),
+                ),
+                Text(
+                  'AD',
+                  textDirection: TextDirection.ltr,
+                  style: TextStyle(
+                    fontSize: 10.5,
+                    height: 1,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.3,
+                    color: red,
+                  ),
+                ),
+                // The bar is the circle's diameter, so it meets the ring on
+                // both sides exactly rather than stopping short or spilling.
+                Transform.rotate(
+                  angle: -math.pi / 4,
+                  child: Container(width: size, height: 2.4, color: red),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
