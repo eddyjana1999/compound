@@ -214,7 +214,11 @@ class AppTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
-        centerTitle: false,
+        // Centred, because both screens that carry a title now have
+        // controls on the leading side — two on Results — and a title pushed
+        // up against them reads as part of the button group rather than as
+        // the name of the screen.
+        centerTitle: true,
         titleTextStyle: textTheme.titleMedium,
       ),
       // Declared here rather than passed to showModalBottomSheet, which
