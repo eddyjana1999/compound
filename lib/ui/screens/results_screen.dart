@@ -275,14 +275,9 @@ class _SaveBar extends ConsumerWidget {
                 MaterialPageRoute(builder: (_) => const InputScreen()),
               );
             },
-            icon: const Icon(Icons.add_rounded, size: 20),
-            label: Text(l10n.newCalculation),
-            style: OutlinedButton.styleFrom(
-              minimumSize: const Size.fromHeight(58),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
-              ),
-            ),
+            icon: const Icon(Icons.add_rounded, size: 19),
+            label: _fit(l10n.newCalculation),
+            style: _pairStyle(OutlinedButton.styleFrom()),
           ),
         ),
         const SizedBox(width: 10),
@@ -291,29 +286,43 @@ class _SaveBar extends ConsumerWidget {
     );
   }
 
+  /// Keeps a label on one line, shrinking it only when the label is too long
+  /// for its half of the row.
+  ///
+  /// Two buttons of equal width with labels of unequal length is the whole
+  /// problem: "Save" has room to spare while "New calculation" wraps, and in
+  /// German it is "Neue Berechnung". Wrapping made one button taller than the
+  /// other and left a single letter on its own line.
+  static Widget _fit(String label) => FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(label, maxLines: 1, softWrap: false),
+      );
+
+  /// One shape for both, so they sit as a pair rather than as two buttons
+  /// that happen to be adjacent.
+  static ButtonStyle _pairStyle(ButtonStyle base) => base.copyWith(
+        minimumSize: WidgetStateProperty.all(const Size.fromHeight(56)),
+        padding: WidgetStateProperty.all(
+          const EdgeInsets.symmetric(horizontal: 12),
+        ),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        ),
+      );
+
   Widget _saveButton(BuildContext context, AppLocalizations l10n) {
     return saved
           ? FilledButton.tonalIcon(
               onPressed: null,
-              icon: const Icon(Icons.check_rounded, size: 20),
-              label: Text(l10n.savedToHistory),
-              style: FilledButton.styleFrom(
-                minimumSize: const Size.fromHeight(58),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                ),
-              ),
+              icon: const Icon(Icons.check_rounded, size: 19),
+              label: _fit(l10n.savedToHistory),
+              style: _pairStyle(FilledButton.styleFrom()),
             )
           : FilledButton.icon(
               onPressed: onSave,
-              icon: const Icon(Icons.bookmark_add_outlined, size: 20),
-              label: Text(l10n.save),
-              style: FilledButton.styleFrom(
-                minimumSize: const Size.fromHeight(58),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                ),
-              ),
+              icon: const Icon(Icons.bookmark_add_outlined, size: 19),
+              label: _fit(l10n.save),
+              style: _pairStyle(FilledButton.styleFrom()),
             );
   }
 }
