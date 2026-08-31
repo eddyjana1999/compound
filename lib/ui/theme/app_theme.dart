@@ -217,6 +217,21 @@ class AppTheme {
         centerTitle: false,
         titleTextStyle: textTheme.titleMedium,
       ),
+      // Declared here rather than passed to showModalBottomSheet, which
+      // stores whatever colour it is handed as a field on the route. A sheet
+      // opened in one theme kept that colour when the theme flipped
+      // underneath it, so its contents repainted and its background did not.
+      // Read from the theme, it is resolved on every build instead.
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: scheme.surfaceContainerLowest,
+        modalBackgroundColor: scheme.surfaceContainerLowest,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        modalElevation: 0,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        ),
+      ),
       cardTheme: CardThemeData(
         color: scheme.surfaceContainerLowest,
         surfaceTintColor: Colors.transparent,

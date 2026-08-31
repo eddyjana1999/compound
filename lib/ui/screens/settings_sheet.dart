@@ -16,10 +16,8 @@ Future<void> showSettingsSheet(BuildContext context) {
     context: context,
     isScrollControlled: true,
     showDragHandle: true,
-    backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-    ),
+    // No colour or shape passed here on purpose. Both come from
+    // bottomSheetTheme so they follow a theme change while the sheet is open.
     builder: (_) => const _SettingsSheet(),
   );
 }

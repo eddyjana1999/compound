@@ -16,10 +16,8 @@ Future<String?> showCurrencyPicker(
     context: context,
     isScrollControlled: true,
     showDragHandle: true,
-    backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-    ),
+    // Colour and shape come from bottomSheetTheme, not from here — see the
+    // note in app_theme.dart.
     builder: (_) => _CurrencyPicker(
       selected: selected,
       deviceCurrency: deviceCurrency,
