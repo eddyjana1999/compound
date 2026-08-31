@@ -583,6 +583,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Yours after tax'**
   String get yoursAfterTax;
+
+  /// No description provided for @rateApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate the app'**
+  String get rateApp;
+
+  /// No description provided for @shareApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Share the app'**
+  String get shareApp;
+
+  /// No description provided for @shareAppMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Compound Lab — see what your money really becomes, after fees and tax.'**
+  String get shareAppMessage;
 }
 
 class _AppLocalizationsDelegate

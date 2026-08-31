@@ -78,5 +78,8 @@
   "chartIsPreTax": "グラフは譲渡益税を差し引く前の資産額です。税は期末に総利益から一度だけ差し引かれます。",
   "errIncomplete": "年間リターンと投資期間を入力してください。",
   "chartEndsAt": "グラフの終点",
-  "yoursAfterTax": "税引後の手取り"
+  "yoursAfterTax": "税引後の手取り",
+  "rateApp": "アプリを評価",
+  "shareApp": "アプリを共有",
+  "shareAppMessage": "Compound Lab — 手数料と税引後に、お金が実際にいくらになるか。"
 }

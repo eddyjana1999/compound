@@ -78,5 +78,8 @@
   "chartIsPreTax": "Das Diagramm zeigt das Depot vor Abgeltungsteuer, die am Ende einmalig vom Gesamtgewinn abgezogen wird.",
   "errIncomplete": "Bitte jährliche Rendite und Anlagedauer ausfüllen.",
   "chartEndsAt": "Ende des Diagramms",
-  "yoursAfterTax": "Nach Steuern für Sie"
+  "yoursAfterTax": "Nach Steuern für Sie",
+  "rateApp": "App bewerten",
+  "shareApp": "App teilen",
+  "shareAppMessage": "Compound Lab — was aus Ihrem Geld wirklich wird, nach Gebühren und Steuern."
 }

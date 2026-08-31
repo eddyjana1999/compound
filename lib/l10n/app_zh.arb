@@ -78,5 +78,8 @@
   "chartIsPreTax": "图表显示的是资本利得税前的投资组合价值，该税款在期末从总收益中一次性扣除。",
   "errIncomplete": "请填写年化收益率和投资期限。",
   "chartEndsAt": "图表终点",
-  "yoursAfterTax": "税后归你"
+  "yoursAfterTax": "税后归你",
+  "rateApp": "评价此应用",
+  "shareApp": "分享此应用",
+  "shareAppMessage": "Compound Lab — 看看扣除费用和税款后，你的钱真正会变成多少。"
 }

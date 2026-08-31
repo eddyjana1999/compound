@@ -78,5 +78,8 @@
   "chartIsPreTax": "Le graphique suit le portefeuille avant l'impôt sur les plus-values, prélevé une seule fois sur le gain total à la fin.",
   "errIncomplete": "Renseignez le rendement annuel et la durée.",
   "chartEndsAt": "Fin du graphique",
-  "yoursAfterTax": "Net après impôt"
+  "yoursAfterTax": "Net après impôt",
+  "rateApp": "Noter l'application",
+  "shareApp": "Partager l'application",
+  "shareAppMessage": "Compound Lab — ce que votre argent devient vraiment, après frais et impôt."
 }

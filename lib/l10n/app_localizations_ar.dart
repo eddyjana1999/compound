@@ -275,4 +275,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get yoursAfterTax => 'لك بعد الضريبة';
+
+  @override
+  String get rateApp => 'قيّم التطبيق';
+
+  @override
+  String get shareApp => 'شارك التطبيق';
+
+  @override
+  String get shareAppMessage =>
+      'Compound Lab — كم تصبح أموالك فعليًا، بعد الرسوم والضرائب.';
 }

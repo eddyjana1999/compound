@@ -78,5 +78,8 @@
   "chartIsPreTax": "El gráfico sigue la cartera antes del impuesto sobre plusvalías, que se descuenta una sola vez de la ganancia total al final.",
   "errIncomplete": "Completa la rentabilidad anual y el plazo.",
   "chartEndsAt": "Donde termina el gráfico",
-  "yoursAfterTax": "Tuyo después de impuestos"
+  "yoursAfterTax": "Tuyo después de impuestos",
+  "rateApp": "Valorar la app",
+  "shareApp": "Compartir la app",
+  "shareAppMessage": "Compound Lab: descubre en qué se convierte tu dinero, después de comisiones e impuestos."
 }

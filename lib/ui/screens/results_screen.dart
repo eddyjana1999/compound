@@ -12,6 +12,7 @@ import '../../l10n/app_localizations.dart';
 import '../formatting/money_format.dart';
 import '../state/providers.dart';
 import '../theme/app_theme.dart';
+import 'input_screen.dart';
 import '../widgets/ad_slot.dart';
 import '../widgets/app_card.dart';
 import '../widgets/breakdown_card.dart';
@@ -260,6 +261,37 @@ class _SaveBar extends ConsumerWidget {
   }
 
   Widget _button(BuildContext context, AppLocalizations l10n) {
+    // Save is the primary action, but the common next move after reading a
+    // result is to try a different one — and the only route to that was two
+    // taps back through the input screen that produced this.
+    return Row(
+      children: [
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: () {
+              Navigator.popUntil(context, (route) => route.isFirst);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const InputScreen()),
+              );
+            },
+            icon: const Icon(Icons.add_rounded, size: 20),
+            label: Text(l10n.newCalculation),
+            style: OutlinedButton.styleFrom(
+              minimumSize: const Size.fromHeight(58),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(child: _saveButton(context, l10n)),
+      ],
+    );
+  }
+
+  Widget _saveButton(BuildContext context, AppLocalizations l10n) {
     return saved
           ? FilledButton.tonalIcon(
               onPressed: null,
@@ -276,6 +308,12 @@ class _SaveBar extends ConsumerWidget {
               onPressed: onSave,
               icon: const Icon(Icons.bookmark_add_outlined, size: 20),
               label: Text(l10n.save),
+              style: FilledButton.styleFrom(
+                minimumSize: const Size.fromHeight(58),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
+                ),
+              ),
             );
   }
 }

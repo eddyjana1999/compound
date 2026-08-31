@@ -262,4 +262,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get yoursAfterTax => '税后归你';
+
+  @override
+  String get rateApp => '评价此应用';
+
+  @override
+  String get shareApp => '分享此应用';
+
+  @override
+  String get shareAppMessage => 'Compound Lab — 看看扣除费用和税款后，你的钱真正会变成多少。';
 }

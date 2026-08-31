@@ -270,4 +270,14 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get yoursAfterTax => 'נשאר לך אחרי מס';
+
+  @override
+  String get rateApp => 'דרגו את האפליקציה';
+
+  @override
+  String get shareApp => 'שתפו את האפליקציה';
+
+  @override
+  String get shareAppMessage =>
+      'Compound Lab — כמה הכסף שלכם באמת שווה, אחרי דמי ניהול ומס.';
 }

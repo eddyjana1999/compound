@@ -262,4 +262,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get yoursAfterTax => '税引後の手取り';
+
+  @override
+  String get rateApp => 'アプリを評価';
+
+  @override
+  String get shareApp => 'アプリを共有';
+
+  @override
+  String get shareAppMessage => 'Compound Lab — 手数料と税引後に、お金が実際にいくらになるか。';
 }

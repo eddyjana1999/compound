@@ -272,4 +272,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get yoursAfterTax => 'Net après impôt';
+
+  @override
+  String get rateApp => 'Noter l\'application';
+
+  @override
+  String get shareApp => 'Partager l\'application';
+
+  @override
+  String get shareAppMessage =>
+      'Compound Lab — ce que votre argent devient vraiment, après frais et impôt.';
 }

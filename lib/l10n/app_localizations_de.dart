@@ -274,4 +274,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get yoursAfterTax => 'Nach Steuern für Sie';
+
+  @override
+  String get rateApp => 'App bewerten';
+
+  @override
+  String get shareApp => 'App teilen';
+
+  @override
+  String get shareAppMessage =>
+      'Compound Lab — was aus Ihrem Geld wirklich wird, nach Gebühren und Steuern.';
 }

@@ -82,5 +82,8 @@
   "chartIsPreTax": "The chart tracks the portfolio before capital gains tax, which is deducted once from the total profit at the end.",
   "errIncomplete": "Fill in the annual return and the time horizon.",
   "chartEndsAt": "Where the chart ends",
-  "yoursAfterTax": "Yours after tax"
+  "yoursAfterTax": "Yours after tax",
+  "rateApp": "Rate the app",
+  "shareApp": "Share the app",
+  "shareAppMessage": "Compound Lab — see what your money really becomes, after fees and tax."
 }
