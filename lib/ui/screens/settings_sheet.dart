@@ -58,6 +58,17 @@ class _SettingsSheetState extends ConsumerState<_SettingsSheet> {
   /// is a knot; expanding in place has no route to lose.
   bool _languageOpen = false;
 
+  /// Owned here so the scrollbar and the view are driven by the same object;
+  /// a Scrollbar with no controller attaches to whatever PrimaryScrollController
+  /// happens to be in scope, which inside a sheet is not this list.
+  final ScrollController _scroll = ScrollController();
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -70,16 +81,25 @@ class _SettingsSheetState extends ConsumerState<_SettingsSheet> {
 
     return SafeArea(
       top: false,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 4, 20, 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l10n.settings, style: context.texts.headlineMedium),
-            const SizedBox(height: 20),
-            Flexible(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
+            child: Text(l10n.settings, style: context.texts.headlineMedium),
+          ),
+          const SizedBox(height: 20),
+          Flexible(
+            // The scroll view runs the full width of the sheet so the thumb
+            // sits in the margin rather than on top of the rows' chevrons;
+            // the 20pt gutter moves onto the content instead.
+            child: Scrollbar(
+              controller: _scroll,
+              thumbVisibility: true,
               child: SingleChildScrollView(
+                controller: _scroll,
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -201,8 +221,8 @@ class _SettingsSheetState extends ConsumerState<_SettingsSheet> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
