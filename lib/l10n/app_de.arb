@@ -70,7 +70,7 @@
   "errNothingInvested": "Gib einen Startbetrag oder eine monatliche Sparrate ein.",
   "share": "Teilen",
   "shareFailed": "Das Bild konnte nicht erstellt werden.",
-  "sharedFrom": "Berechnet mit Compound",
+  "sharedFrom": "Berechnet mit Compound Lab",
   "privacyPolicy": "Datenschutz",
   "termsOfUse": "Nutzungsbedingungen"
 }

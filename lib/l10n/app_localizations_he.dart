@@ -244,7 +244,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get shareFailed => 'לא ניתן היה ליצור את התמונה.';
 
   @override
-  String get sharedFrom => 'חושב באמצעות Compound';
+  String get sharedFrom => 'חושב באמצעות Compound Lab';
 
   @override
   String get privacyPolicy => 'מדיניות פרטיות';

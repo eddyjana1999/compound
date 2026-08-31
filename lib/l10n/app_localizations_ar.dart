@@ -249,7 +249,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get shareFailed => 'تعذّر إنشاء الصورة.';
 
   @override
-  String get sharedFrom => 'حُسِب باستخدام Compound';
+  String get sharedFrom => 'حُسِب باستخدام Compound Lab';
 
   @override
   String get privacyPolicy => 'سياسة الخصوصية';

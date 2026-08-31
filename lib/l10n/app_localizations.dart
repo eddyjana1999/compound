@@ -533,7 +533,7 @@ abstract class AppLocalizations {
   /// No description provided for @sharedFrom.
   ///
   /// In en, this message translates to:
-  /// **'Calculated with Compound'**
+  /// **'Calculated with Compound Lab'**
   String get sharedFrom;
 
   /// No description provided for @privacyPolicy.

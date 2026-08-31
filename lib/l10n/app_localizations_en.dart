@@ -244,7 +244,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shareFailed => 'The image could not be created.';
 
   @override
-  String get sharedFrom => 'Calculated with Compound';
+  String get sharedFrom => 'Calculated with Compound Lab';
 
   @override
   String get privacyPolicy => 'Privacy Policy';

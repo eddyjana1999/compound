@@ -237,7 +237,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get shareFailed => '画像を作成できませんでした。';
 
   @override
-  String get sharedFrom => 'Compound で計算';
+  String get sharedFrom => 'Compound Lab で計算';
 
   @override
   String get privacyPolicy => 'プライバシーポリシー';

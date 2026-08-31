@@ -237,7 +237,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get shareFailed => '无法生成图片。';
 
   @override
-  String get sharedFrom => '由 Compound 计算';
+  String get sharedFrom => '由 Compound Lab 计算';
 
   @override
   String get privacyPolicy => '隐私政策';
