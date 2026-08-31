@@ -21,7 +21,16 @@ class GoogleAdService implements AdService {
   /// False until consent has been gathered and the SDK started. Every ad
   /// surface checks it, so a user who declines simply never sees an ad
   /// request go out — not one that goes out non-personalised.
-  bool _adsAllowed = false;
+  ///
+  /// A notifier rather than a bool. This is set asynchronously, seconds after
+  /// the first frame, once consent and the tracking prompt have been answered
+  /// — and the screens reach it through a plain Riverpod Provider that hands
+  /// back one instance and never notifies. As a bare field it flipped to true
+  /// with nothing listening, so `banner()` was called once during startup,
+  /// answered `SizedBox.shrink()`, and was never asked again. No banner could
+  /// ever appear, in any build.
+  @visibleForTesting
+  final ValueNotifier<bool> adsAllowed = ValueNotifier(false);
 
   @override
   Future<void> initialize() async {
@@ -38,7 +47,7 @@ class GoogleAdService implements AdService {
     if (!await _canRequestAds()) return;
 
     await MobileAds.instance.initialize();
-    _adsAllowed = true;
+    adsAllowed.value = true;
     preloadInterstitial();
   }
 
@@ -127,12 +136,15 @@ class GoogleAdService implements AdService {
   }
 
   @override
-  Widget banner() =>
-      _adsAllowed ? const _AnchoredBanner() : const SizedBox.shrink();
+  Widget banner() => ValueListenableBuilder<bool>(
+        valueListenable: adsAllowed,
+        builder: (_, allowed, _) =>
+            allowed ? const AnchoredBanner() : const SizedBox.shrink(),
+      );
 
   @override
   void preloadInterstitial() {
-    if (!_adsAllowed) return;
+    if (!adsAllowed.value) return;
     if (_interstitial != null || _loadingInterstitial) return;
 
     // No real unit for this placement on this platform yet. Showing nothing
@@ -192,6 +204,7 @@ class GoogleAdService implements AdService {
   void dispose() {
     _interstitial?.dispose();
     _interstitial = null;
+    adsAllowed.dispose();
   }
 }
 
@@ -200,14 +213,14 @@ class GoogleAdService implements AdService {
 ///
 /// Reserves nothing until the ad is ready, so a slow or absent fill leaves
 /// the screen exactly as it would look with ads switched off.
-class _AnchoredBanner extends StatefulWidget {
-  const _AnchoredBanner();
+class AnchoredBanner extends StatefulWidget {
+  const AnchoredBanner({super.key});
 
   @override
-  State<_AnchoredBanner> createState() => _AnchoredBannerState();
+  State<AnchoredBanner> createState() => _AnchoredBannerState();
 }
 
-class _AnchoredBannerState extends State<_AnchoredBanner> {
+class _AnchoredBannerState extends State<AnchoredBanner> {
   BannerAd? _ad;
   bool _loaded = false;
   int _loadedForWidth = 0;
