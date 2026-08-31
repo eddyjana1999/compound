@@ -9,7 +9,7 @@ class AppLocalizationsHe extends AppLocalizations {
   AppLocalizationsHe([String locale = 'he']) : super(locale);
 
   @override
-  String get appTitle => 'Compound';
+  String get appTitle => 'Compound Lab';
 
   @override
   String get historyTitle => 'החישובים שלך';

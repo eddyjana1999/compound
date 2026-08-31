@@ -21,7 +21,7 @@ Everything else — 8 languages, 49 currencies, saved history — is support for
 
 **Name** (30 max) — 26
 ```
-Compound — Investment Calc
+Compound Lab — Investment Calc
 ```
 
 **Subtitle** (30 max) — 26
@@ -44,7 +44,7 @@ compound,interest,investment,savings,retirement,portfolio,etf,index,fund,growth,
 ```
 Most compound interest calculators answer the wrong question. They show you the gross figure — the number before your fund takes its fee and before the tax authority takes its share.
 
-Compound shows you what is actually left.
+Compound Lab shows you what is actually left.
 
 WHAT IT DOES
 Enter a starting amount, a monthly contribution, an expected annual return and a time horizon. Add your management fee and capital gains rate if you want them — they are optional, and off by default.
@@ -64,7 +64,7 @@ Monthly compounding. The fee comes out of the balance every month, the way a rea
 PRIVATE BY DEFAULT
 No account, no sign-in, no server. Your calculations are stored on your phone and never leave it. There is no analytics and no crash reporting. You can remove the advertising with a single purchase.
 
-Compound is an estimation tool. It assumes a constant rate of return, which no real market provides, and it is not investment advice.
+Compound Lab is an estimation tool. It assumes a constant rate of return, which no real market provides, and it is not investment advice.
 ```
 
 ---
@@ -73,7 +73,7 @@ Compound is an estimation tool. It assumes a constant rate of return, which no r
 
 **Title** (30 max) — 26
 ```
-Compound — Investment Calc
+Compound Lab — Investment Calc
 ```
 
 **Short description** (80 max) — 77
@@ -88,12 +88,12 @@ keep the ALL-CAPS section headers; they are the only structure it will show.
 
 ## Hebrew
 
-Worth doing: the Israeli market is small but Compound's angle — net after `דמי ניהול` and 25% tax —
+Worth doing: the Israeli market is small but Compound Lab's angle — net after `דמי ניהול` and 25% tax —
 is exactly the conversation Israeli retail investors are already having.
 
 **Name / Title** (30 max) — 24
 ```
-Compound — מחשבון השקעות
+Compound Lab — מחשבון השקעות
 ```
 
 **Subtitle** (30 max) — 21
@@ -115,7 +115,7 @@ Compound — מחשבון השקעות
 ```
 רוב מחשבוני הריבית דריבית עונים על השאלה הלא נכונה. הם מציגים את המספר ברוטו — לפני שקרן ההשקעות לקחה דמי ניהול ולפני שרשות המסים לקחה את חלקה.
 
-Compound מראה לך מה באמת נשאר.
+Compound Lab מראה לך מה באמת נשאר.
 
 מה הוא עושה
 מזינים סכום התחלתי, הפקדה חודשית, תשואה שנתית צפויה וטווח השקעה. אפשר להוסיף דמי ניהול ושיעור מס רווחי הון — שניהם אופציונליים וכבויים כברירת מחדל.
@@ -135,7 +135,7 @@ Compound מראה לך מה באמת נשאר.
 פרטי כברירת מחדל
 בלי חשבון, בלי הרשמה, בלי שרת. החישובים נשמרים בטלפון שלך ולא עוזבים אותו. אין אנליטיקס ואין דיווח קריסות. אפשר להסיר את הפרסומות ברכישה חד-פעמית.
 
-Compound הוא כלי הערכה. הוא מניח תשואה קבועה, שאף שוק אמיתי לא מספק, ואין באמור ייעוץ השקעות.
+Compound Lab הוא כלי הערכה. הוא מניח תשואה קבועה, שאף שוק אמיתי לא מספק, ואין באמור ייעוץ השקעות.
 ```
 
 ---
@@ -147,14 +147,14 @@ Compound הוא כלי הערכה. הוא מניח תשואה קבועה, שאף
 Both stores localise the listing name. In App Store Connect every localisation you add carries its
 own **Name**, **Subtitle**, keywords, description and screenshots; Play does the same under Store
 listing → translations. The 30-character limit applies **per localisation**, which is why the full
-"Compound Interest Calculator" fits after all — the earlier "Calc" abbreviation is no longer needed.
+"Compound Lab Interest Calculator" fits after all — the earlier "Calc" abbreviation is no longer needed.
 
 What decides which one a person sees is the **language of their device**, not the country they are
 in. An Israeli with an English phone gets the English listing.
 
 | Locale | Name | | Subtitle | |
 |---|---|---:|---|---:|
-| en | Compound Interest Calculator | 28 | See what you actually keep | 26 |
+| en | Compound Lab Interest Calculator | 28 | See what you actually keep | 26 |
 | es | Calculadora Interés Compuesto | 29 | Lo que de verdad te queda | 25 |
 | fr | Calcul Intérêts Composés | 24 | Ce qu'il vous reste vraiment | 28 |
 | de | Zinseszinsrechner | 17 | Was am Ende wirklich bleibt | 27 |
@@ -165,7 +165,7 @@ in. An Israeli with an English phone gets the English listing.
 
 Every one was counted in code, not by eye.
 
-**The name under the icon on the phone is separate** and stays "Compound" everywhere. That one is
+**The name under the icon on the phone is separate** and stays "Compound Lab" everywhere. That one is
 `CFBundleDisplayName`, and iOS truncates a long one to about twelve characters — a translated
 descriptive name would be cut off. Localise the listing, not the launcher.
 

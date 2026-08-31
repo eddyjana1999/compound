@@ -9,7 +9,7 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get appTitle => 'Compound';
+  String get appTitle => 'Compound Lab';
 
   @override
   String get historyTitle => '我的计算';

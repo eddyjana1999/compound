@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Compound</string>
+	<string>Compound Lab</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -29,7 +29,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>Compound uses this to keep the ads you see relevant. You can decline and the app works exactly the same.</string>
+	<string>Compound Lab uses this to keep the ads you see relevant. You can decline and the app works exactly the same.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
