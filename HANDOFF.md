@@ -238,3 +238,38 @@ The phone must be **unlocked** or the launch is denied with `FBSOpenApplicationS
 registered to the team, which was the missing piece, so retry it; fall back to Xcode's
 `Product > Archive` if it still fails. Store record, price tier and Sandbox tester are all
 undecided, and the keystore backup folder is still on the Desktop.
+
+## 2026-08-31, 22:02 — submitted to App Review
+
+`Compound Lab` 1.0, build `1.0.0 (3)`, submitted together with the `Remove Ads` in-app purchase as
+one submission. Status: **Waiting for Review**. Apple says up to 48 hours.
+
+Apple ID `6807040692` · IAP Apple ID `6807054381` · Team `8AJ6FLRP28`
+
+### What the submission contains
+
+Five 6.5" screenshots (framed with Apple's official iPhone 17 Pro Max bezel), description,
+keywords, promotional text, App Privacy published (Device ID · not linked · tracking yes ·
+third-party advertising only, matching `PrivacyInfo.xcprivacy` exactly), reviewer notes covering
+the purchase location and the consent flow, age rating 4+, Finance, free with one non-consumable
+at ₪24.90.
+
+### Three builds exist on Apple's servers
+
+`(1)` and `(2)` carry faults found after they were uploaded and are not attached to anything.
+`(3)` is the submission: it fixes them and is **iPhone only** — `TARGETED_DEVICE_FAMILY = "1"`.
+That last change was made to submit honestly: nothing here was ever run on an iPad.
+
+### The day's real lesson
+
+Three separate times the plausible explanation was wrong — the banner that never appeared, the
+tracking prompt that did not fire, the consent form that would not load. Each time a log settled in
+seconds what guessing would have cost hours. And regenerating the store screenshots, a five-minute
+chore, exercised the app on a real screen in a debug build and surfaced three faults that were
+already uploaded.
+
+### Waiting on nothing technical
+
+Everything left is account work, and both items are recorded in memory: linking the app to its
+store listing in AdMob (without it revenue is zero regardless of installs), and AdMob payment
+details, whose postal PIN takes two to four weeks and can be started immediately.
