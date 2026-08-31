@@ -247,4 +247,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get sharedFrom => 'Calculé avec Compound';
+
+  @override
+  String get privacyPolicy => 'Politique de confidentialité';
+
+  @override
+  String get termsOfUse => 'Conditions d\'utilisation';
 }

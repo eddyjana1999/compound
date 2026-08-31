@@ -245,4 +245,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sharedFrom => 'Calculated with Compound';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get termsOfUse => 'Terms of Use';
 }

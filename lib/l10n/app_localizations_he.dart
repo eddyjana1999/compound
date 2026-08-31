@@ -245,4 +245,10 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get sharedFrom => 'חושב באמצעות Compound';
+
+  @override
+  String get privacyPolicy => 'מדיניות פרטיות';
+
+  @override
+  String get termsOfUse => 'תנאי שימוש';
 }

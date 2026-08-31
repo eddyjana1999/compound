@@ -70,5 +70,7 @@
   "errNothingInvested": "הזן סכום התחלתי או הפקדה חודשית.",
   "share": "שיתוף",
   "shareFailed": "לא ניתן היה ליצור את התמונה.",
-  "sharedFrom": "חושב באמצעות Compound"
+  "sharedFrom": "חושב באמצעות Compound",
+  "privacyPolicy": "מדיניות פרטיות",
+  "termsOfUse": "תנאי שימוש"
 }

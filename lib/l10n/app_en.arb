@@ -74,5 +74,7 @@
   "errNothingInvested": "Enter a starting amount or a monthly contribution.",
   "share": "Share",
   "shareFailed": "The image could not be created.",
-  "sharedFrom": "Calculated with Compound"
+  "sharedFrom": "Calculated with Compound",
+  "privacyPolicy": "Privacy Policy",
+  "termsOfUse": "Terms of Use"
 }

@@ -70,5 +70,7 @@
   "errNothingInvested": "请输入初始金额或每月投入。",
   "share": "分享",
   "shareFailed": "无法生成图片。",
-  "sharedFrom": "由 Compound 计算"
+  "sharedFrom": "由 Compound 计算",
+  "privacyPolicy": "隐私政策",
+  "termsOfUse": "使用条款"
 }

@@ -238,4 +238,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get sharedFrom => 'Compound で計算';
+
+  @override
+  String get privacyPolicy => 'プライバシーポリシー';
+
+  @override
+  String get termsOfUse => '利用規約';
 }

@@ -248,4 +248,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get sharedFrom => 'Berechnet mit Compound';
+
+  @override
+  String get privacyPolicy => 'Datenschutz';
+
+  @override
+  String get termsOfUse => 'Nutzungsbedingungen';
 }

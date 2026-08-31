@@ -250,4 +250,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sharedFrom => 'حُسِب باستخدام Compound';
+
+  @override
+  String get privacyPolicy => 'سياسة الخصوصية';
+
+  @override
+  String get termsOfUse => 'شروط الاستخدام';
 }

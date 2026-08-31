@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 import '../../l10n/app_localizations.dart';
+import '../../legal_links.dart';
 import '../state/providers.dart';
 import '../theme/app_theme.dart';
 import '../widgets/remove_ads_card.dart';
@@ -55,9 +58,11 @@ class _SettingsSheet extends ConsumerWidget {
             const SizedBox(height: 24),
             // Apple requires a restore path for a non-consumable; an app that
             // can sell this but cannot restore it is rejected.
-            _RestoreRow(
-              purchased: ref.watch(adsRemovedProvider),
-            ),
+            _RestoreRow(purchased: ref.watch(adsRemovedProvider)),
+            // Reachable from inside the app, not only from the store
+            // listing. Both stores expect it of anything that carries ads or
+            // sells something, and it is one of the things a reviewer taps.
+            const _LegalRow(),
             Text(l10n.appearance, style: context.texts.labelMedium),
             const SizedBox(height: 10),
             SegmentedButton<ThemeMode>(
@@ -78,14 +83,20 @@ class _SettingsSheet extends ConsumerWidget {
             // Only shown where consent law requires an ongoing way to change
             // the answer. Elsewhere there is nothing to change, and an entry
             // that opens an empty form is worse than no entry.
-            ref.watch(privacyOptionsRequiredProvider).maybeWhen(
+            ref
+                .watch(privacyOptionsRequiredProvider)
+                .maybeWhen(
                   data: (required) => required
                       ? Padding(
                           padding: const EdgeInsets.only(bottom: 26),
                           child: OutlinedButton.icon(
-                            onPressed: () =>
-                                ref.read(adServiceProvider).showPrivacyOptions(),
-                            icon: const Icon(Icons.privacy_tip_outlined, size: 18),
+                            onPressed: () => ref
+                                .read(adServiceProvider)
+                                .showPrivacyOptions(),
+                            icon: const Icon(
+                              Icons.privacy_tip_outlined,
+                              size: 18,
+                            ),
                             label: Text(l10n.adPrivacy),
                             style: OutlinedButton.styleFrom(
                               minimumSize: const Size.fromHeight(46),
@@ -186,13 +197,17 @@ class _RestoreRowState extends ConsumerState<_RestoreRow> {
         padding: const EdgeInsets.only(bottom: 26),
         child: Row(
           children: [
-            Icon(Icons.check_circle_rounded,
-                size: 20, color: context.palette.growth),
+            Icon(
+              Icons.check_circle_rounded,
+              size: 20,
+              color: context.palette.growth,
+            ),
             const SizedBox(width: 10),
             Text(
               l10n.adsRemovedTitle,
-              style: context.texts.titleMedium
-                  ?.copyWith(color: context.palette.growth),
+              style: context.texts.titleMedium?.copyWith(
+                color: context.palette.growth,
+              ),
             ),
           ],
         ),
@@ -207,7 +222,8 @@ class _RestoreRowState extends ConsumerState<_RestoreRow> {
             ? const SizedBox(
                 width: 16,
                 height: 16,
-                child: CircularProgressIndicator(strokeWidth: 2))
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
             : const Icon(Icons.restore_rounded, size: 18),
         label: Text(l10n.restorePurchases),
         style: OutlinedButton.styleFrom(
@@ -216,6 +232,44 @@ class _RestoreRowState extends ConsumerState<_RestoreRow> {
             borderRadius: BorderRadius.circular(14),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _LegalRow extends StatelessWidget {
+  const _LegalRow();
+
+  Future<void> _open(String url) async {
+    final uri = Uri.tryParse(url);
+    if (uri == null) return;
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final style = context.texts.bodyMedium?.copyWith(
+      fontSize: 13,
+      color: context.colors.onSurface.withValues(alpha: 0.6),
+      decoration: TextDecoration.underline,
+    );
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 26),
+      child: Wrap(
+        spacing: 20,
+        runSpacing: 4,
+        children: [
+          TextButton(
+            onPressed: () => _open(LegalLinks.privacy),
+            child: Text(l10n.privacyPolicy, style: style),
+          ),
+          TextButton(
+            onPressed: () => _open(LegalLinks.terms),
+            child: Text(l10n.termsOfUse, style: style),
+          ),
+        ],
       ),
     );
   }
