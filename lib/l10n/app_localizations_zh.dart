@@ -271,4 +271,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get shareAppMessage => 'Compound Lab — 看看扣除费用和税款后，你的钱真正会变成多少。';
+
+  @override
+  String get home => '主页';
 }

@@ -280,4 +280,7 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get shareAppMessage =>
       'Compound Lab — כמה הכסף שלכם באמת שווה, אחרי דמי ניהול ומס.';
+
+  @override
+  String get home => 'מסך הבית';
 }

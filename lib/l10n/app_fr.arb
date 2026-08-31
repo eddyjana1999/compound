@@ -81,5 +81,6 @@
   "yoursAfterTax": "Net après impôt",
   "rateApp": "Noter l'application",
   "shareApp": "Partager l'application",
-  "shareAppMessage": "Compound Lab — ce que votre argent devient vraiment, après frais et impôt."
+  "shareAppMessage": "Compound Lab — ce que votre argent devient vraiment, après frais et impôt.",
+  "home": "Accueil"
 }

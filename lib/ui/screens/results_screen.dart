@@ -103,6 +103,22 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        // Back steps to the input screen, which is one of several ways in.
+        // Home is the way out of all of them, and without it a reader who
+        // arrived from a saved calculation has to guess how many taps back.
+        leadingWidth: 92,
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const BackButton(),
+            IconButton(
+              tooltip: l10n.home,
+              icon: const Icon(Icons.home_outlined),
+              onPressed: () =>
+                  Navigator.popUntil(context, (route) => route.isFirst),
+            ),
+          ],
+        ),
         title: Text(l10n.results),
         actions: [
           IconButton(

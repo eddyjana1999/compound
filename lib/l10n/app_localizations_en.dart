@@ -280,4 +280,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get shareAppMessage =>
       'Compound Lab — see what your money really becomes, after fees and tax.';
+
+  @override
+  String get home => 'Home';
 }

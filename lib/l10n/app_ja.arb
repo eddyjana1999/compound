@@ -81,5 +81,6 @@
   "yoursAfterTax": "税引後の手取り",
   "rateApp": "アプリを評価",
   "shareApp": "アプリを共有",
-  "shareAppMessage": "Compound Lab — 手数料と税引後に、お金が実際にいくらになるか。"
+  "shareAppMessage": "Compound Lab — 手数料と税引後に、お金が実際にいくらになるか。",
+  "home": "ホーム"
 }

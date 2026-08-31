@@ -283,4 +283,7 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get shareAppMessage =>
       'Compound Lab: descubre en qué se convierte tu dinero, después de comisiones e impuestos.';
+
+  @override
+  String get home => 'Inicio';
 }

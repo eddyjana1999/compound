@@ -271,4 +271,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get shareAppMessage => 'Compound Lab — 手数料と税引後に、お金が実際にいくらになるか。';
+
+  @override
+  String get home => 'ホーム';
 }
