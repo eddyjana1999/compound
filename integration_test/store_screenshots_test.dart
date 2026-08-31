@@ -132,7 +132,15 @@ void main() {
 
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+        overrides: [
+          sharedPreferencesProvider.overrideWithValue(prefs),
+          // Store screenshots must not carry a banner. A test ad reading
+          // "Test mode" is not something to put on a product page, and a
+          // real one would be someone else's artwork on Apple's servers.
+          // Overriding the entitlement is the same switch a paying user
+          // flips, so every ad surface goes quiet at once.
+          adsRemovedProvider.overrideWith(() => _AdsOff()),
+        ],
         child: const CompoundApp(),
       ),
     );
@@ -181,4 +189,10 @@ void main() {
     await shoot(tester, 'store-4-chart');
 
   });
+}
+
+/// Reports the app as already paid for, so no ad surface renders.
+class _AdsOff extends AdsRemoved {
+  @override
+  bool build() => true;
 }

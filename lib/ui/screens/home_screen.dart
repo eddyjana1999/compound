@@ -364,18 +364,40 @@ class _HistoryCard extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  format.moneyRounded(result.netFinalValue),
-                  style: context.texts.headlineMedium?.copyWith(
-                    fontSize: 24,
-                    color: palette.growth,
+                // One line, shrinking rather than wrapping. A seven-figure
+                // result broke across two lines mid-number — "$30,276,9"
+                // above "31" — which is the one figure on this card the eye
+                // goes to first. Alignment keeps short and long amounts on
+                // the same baseline instead of centring the small ones.
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    format.moneyRounded(result.netFinalValue),
+                    maxLines: 1,
+                    softWrap: false,
+                    style: context.texts.headlineMedium?.copyWith(
+                      fontSize: 24,
+                      color: palette.growth,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  '${format.moneyRounded(entry.input.initialAmount)}'
-                  ' + ${format.moneyRounded(entry.input.monthlyContribution)}/m'
-                  ' · ${format.percent(entry.input.annualReturn)}',
+                  // Compact here, full above. The summary line is read at a
+                  // glance while scanning, and "$56,888 + $58…" cut mid-number
+                  // says less than "$56.9K + $580/m" does.
+                  //
+                  // A term that is zero is left out rather than formatted:
+                  // intl renders a compact zero as "$0.00", which sits oddly
+                  // beside "$100K" and states nothing the reader needed.
+                  [
+                    if (entry.input.initialAmount > 0)
+                      format.moneyCompact(entry.input.initialAmount),
+                    if (entry.input.monthlyContribution > 0)
+                      '${format.moneyCompact(entry.input.monthlyContribution)}/m',
+                  ].join(' + ') +
+                      ' · ${format.percent(entry.input.annualReturn)}',
                   textDirection: TextDirection.ltr,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

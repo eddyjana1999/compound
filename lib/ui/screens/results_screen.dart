@@ -106,13 +106,18 @@ class _ResultsScreenState extends ConsumerState<ResultsScreen> {
         // Back steps to the input screen, which is one of several ways in.
         // Home is the way out of all of them, and without it a reader who
         // arrived from a saved calculation has to guess how many taps back.
-        leadingWidth: 92,
+        // Two 48pt tap targets plus their padding. 92 was a guess and the
+        // row overflowed it — invisibly in release, and caught by the
+        // screenshot run rather than by anything that reads the source.
+        leadingWidth: 104,
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             const BackButton(),
             IconButton(
               tooltip: l10n.home,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints.tightFor(width: 48, height: 48),
               icon: const Icon(Icons.home_outlined),
               onPressed: () =>
                   Navigator.popUntil(context, (route) => route.isFirst),
