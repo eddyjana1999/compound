@@ -273,3 +273,19 @@ already uploaded.
 Everything left is account work, and both items are recorded in memory: linking the app to its
 store listing in AdMob (without it revenue is zero regardless of installs), and AdMob payment
 details, whose postal PIN takes two to four weeks and can be started immediately.
+
+### 22:28 — resubmitted as build 4
+
+Build 3 was rejected by Apple's automated check within minutes, before any human saw it:
+**ITMS-91064**, an empty `NSPrivacyTrackingDomains` array sitting beside `NSPrivacyTracking = true`.
+An empty array is not an absent key. The manifest had been syntactically valid since it was
+written and passed every check made here, including the pre-review audit, because the fault was
+semantic and only Apple's validator looks for it.
+
+Build 4 removes the key rather than inventing domains for it: Google publishes no canonical list
+for AdMob, its own SDK manifest declares neither tracking nor domains, and iOS *blocks* connections
+to whatever is listed there when a user denies tracking — so a guessed list would have meant no ads
+at all for everyone who taps "Ask App Not to Track".
+
+Submission `4e464999-a94a-42b9-abdd-f30f4ed46c9f` · both items Waiting for Review.
+If Apple asks for domains explicitly, add them from the list Apple names.
